@@ -6,7 +6,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class PokemonTCGApiUseCase {
-    public String apiKey;
+    private final String apiKey;
     public OkHttpClient httpClient;
 
     public PokemonTCGApiUseCase() throws IOException {
