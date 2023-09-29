@@ -3,8 +3,14 @@ package app;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 
+import entity.PokemonCard;
+import usecase.PokemonTCGApiUseCase;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class GUIManager {
     public JFrame frame = new JFrame();
@@ -17,7 +23,7 @@ public class GUIManager {
         frame.setSize(960, 540);
         frame.add(views);
 
-        views.add(new JPanel());
+        views.add(getMainJPanel());
 
         frame.getContentPane().add(views);
         frame.setVisible(true);
@@ -27,5 +33,25 @@ public class GUIManager {
 
     private void setLaf(FlatLaf laf) {
         FlatLaf.setup(laf);
+    }
+
+    private JPanel getMainJPanel() {
+        PokemonTCGApiUseCase uc = new PokemonTCGApiUseCase();
+        JPanel panel = new JPanel();
+        TextField tf = new TextField();
+        panel.add(tf);
+
+        Button btn = new Button("Search");
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<PokemonCard> cards = uc.apiInteractor.searchCards(tf.getText());
+                for (PokemonCard card : cards) {
+                    System.out.println(card.name);
+                }
+            }});
+        panel.add(btn);
+
+        return panel;
     }
  }
