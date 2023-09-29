@@ -1,5 +1,7 @@
 # CSC207-Project
-The repo for our CSC207 project.
+This project will be a simplified pokemon tcg based card game, using the pokemon card api. It'll feature deck building and battling locally, maybe even online.
 
-# Temporary
-I'm going to make a few test idea in different branches and merge them to main later
+# API documentation
+https://docs.pokemontcg.io/
+
+# Usage
