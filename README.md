@@ -8,7 +8,9 @@ how much is available for us to buy). We also plan to introduce an ordering func
 of inventory, we can recommend items which need to be restocked. Going on a more complex route on our ordering, we can 
 implement a cost-price algorithm which recommends a product to buy more of based on the analyses the trends of sales of 
 a product (the amount sold and at what price), comparing it to the current seller's price and whether there is 
-great profit to be gained.
+great profit to be gained. Some more basic uses of our inventory management system would be to use it to measure and 
+record the amount of transactions (helps with audit trailing), calculating profits and losses, and lastly, forecasting 
+(predicting the future inventory needs), 
 
 # Temporary
 There are ideas and tests in the branches which will be later merged to main
