@@ -1,9 +1,11 @@
+package api;
+
 import okhttp3.*;
 import java.io.IOException;
 
 // Calling the Code in Java to Run the API and Get the Response for the Product Detail.
 
-public class JavaAPICode {
+public class DigikeyApiInteractor {
     public static void main(String[] args) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
