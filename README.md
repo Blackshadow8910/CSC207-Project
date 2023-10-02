@@ -1,5 +1,5 @@
 # CSC207-Project-Description
-This is a repository for our CSC207 project. For this project we would like to work on a project domain based on an 
+This is a repository for our CSC207 project. For this project, we would like to work on a project domain based on an 
 inventory management system for an electronics company. 
 
 In developing this application, we would love to add features that include product descriptions such as the costs,
