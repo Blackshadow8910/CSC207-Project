@@ -6,3 +6,6 @@ https://docs.pokemontcg.io/
 
 # Usage example
 ![Example](resources/img/example1.png)
+
+# UML Diagram
+https://docs.google.com/drawings/d/17H3lf1jQ2WkPr8LSaVP1RicslJ-A33M8ZlaVulrb_PI/edit?usp=sharing
