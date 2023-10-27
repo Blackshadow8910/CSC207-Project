@@ -15,16 +15,17 @@ Furthermore, by incorporating a marketplace for TCG cards, we aim to attract Pok
 # Entities
 
 Class Card
-Class CardInstance
-Class CardStack
-Class PlayerState
-Class GameState
-Class ActiveAbility
-Class Deck
-Class User
-Class SellListing
-Class DatabaseAccessObject
-Class PokemonGuruApiObject
+
+- Class CardInstance
+- Class CardStack
+- Class PlayerState
+- Class GameState
+- Class ActiveAbility
+- Class Deck
+- Class User
+- Class SellListing
+- Class DatabaseAccessObject
+- Class PokemonGuruApiObject
 
 
 # API documentation
