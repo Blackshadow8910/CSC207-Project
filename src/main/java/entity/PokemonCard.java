@@ -1,54 +1,33 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class PokemonCard extends Card {
-    public String id;
-    
-    public PokemonCard() {
-        
+    public List<String> types;
+
+    public PokemonCard(
+        String name,
+        String id,
+        String imageURL,
+        List<String> types
+    ) {
+        super(name, id, imageURL);
+        this.types = types;
     }
 
-    public PokemonCard(Builder builder) {
-        this.name = builder.name;
-        this.description = builder.description;
-        this.element = builder.element;
-        this.id = builder.id;
-    }
+    // public PokemonCard(JSONObject data) {
+    //     super(data.getString("name"), data.getString("id"), );
+    //     try {
+    //         types = JSONArrayToStringList(data.getJSONArray("types"));
 
-    public static class Builder {
-        public String name;
-        public String description;
-        public Element element = Element.NORMAL;
-        public String id = "0-0";
-
-        public Builder name(String name) {
-            this.name = name;
-            return this;
-        }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
 
-        public Builder description(String desc) {
-            this.description = desc;
-            return this;
-        }
-
-        public Builder element(String element) {
-            //this.element = Element.fromString(element);
-            return this;
-        }
-
-        public Builder element(Element element) {
-            this.element = element;
-            return this;
-        }
-
-        public Builder id(String id) {
-            this.id = id;
-            return this;
-        }
-
-
-        public PokemonCard build() {
-            return new PokemonCard(this);
-        }
-    }
 }

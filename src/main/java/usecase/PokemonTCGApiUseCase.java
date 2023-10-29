@@ -1,7 +1,7 @@
 package usecase;
 
-import api.PokemonTCGApiInteractor;
+import api.PokemonGuruDataAccessObject;
 
 public class PokemonTCGApiUseCase {
-    public PokemonTCGApiInteractor apiInteractor = new PokemonTCGApiInteractor();
+    public PokemonGuruDataAccessObject apiInteractor = new PokemonGuruDataAccessObject();
 }

@@ -3,7 +3,7 @@ package app;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 
-import entity.PokemonCard;
+import entity.Card;
 import usecase.PokemonTCGApiUseCase;
 
 import javax.swing.*;
@@ -45,8 +45,8 @@ public class GUIManager {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<PokemonCard> cards = uc.apiInteractor.searchCards(tf.getText());
-                for (PokemonCard card : cards) {
+                ArrayList<Card> cards = uc.apiInteractor.searchCards(tf.getText());
+                for (Card card : cards) {
                     System.out.println(card.name);
                 }
             }});
