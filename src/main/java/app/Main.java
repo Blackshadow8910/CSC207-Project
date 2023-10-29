@@ -1,5 +1,6 @@
 package app;
 
+import data_access.DatabaseAccessObject;
 import entity.Card;
 
 import usecase.PokemonTCGApiUseCase;
@@ -7,6 +8,7 @@ import usecase.PokemonTCGApiUseCase;
 public class Main {
     public static void main(String[] args) {
         PokemonTCGApiUseCase pokemonTCGApiUseCase = new PokemonTCGApiUseCase();
+        DatabaseAccessObject db = new DatabaseAccessObject();
 
         //GUIManager guiManager = new GUIManager();
         Card c = pokemonTCGApiUseCase.apiInteractor.searchCards("mega lopunny").get(0);
