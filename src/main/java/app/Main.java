@@ -34,9 +34,9 @@ public class Main {
         Card c = pokemonTCGApiUseCase.apiAccessObject.searchCards("Horse").get(0);
         System.out.println(c.name);
 
-        JLabel jLabel = new JLabel(new ImageIcon(imageDAO.getImage(c.imageURL)));
-        jLabel.setSize(245, 342);
-        ((JPanel)(guiManager.views.getComponent(0))).add(jLabel);
-        guiManager.views.repaint();
+        // JLabel jLabel = new JLabel(new ImageIcon(imageDAO.getImage(c.imageURL)));
+        // jLabel.setSize(245, 342);
+        // ((JPanel)(guiManager.views.getComponent(0))).add(jLabel);
+        // guiManager.views.repaint();
     }
 }
