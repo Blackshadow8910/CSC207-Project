@@ -21,7 +21,7 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
 
     public PostGreSQLAccessObject() {
         try {
-            File f = new File("resources/pokemon-tcg-api-key.txt");
+            File f = new File("resources/postgresql-api-key.txt");
             BufferedReader reader = new BufferedReader(new FileReader(f));
             
             dbURL = reader.readLine();
