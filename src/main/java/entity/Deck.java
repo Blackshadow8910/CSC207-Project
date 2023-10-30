@@ -20,12 +20,12 @@ public class Deck {
     {
         return deck;
     }
-    public Card removeCard(String card_name)
+    public Card removeCard(String id)
     {
         Card dummy_card = null;
         for (int i = 0; i < deck.size(); i++)
         {
-            if (Objects.equals(deck.get(i).name, card_name))
+            if (Objects.equals(deck.get(i).id, id))
             {
                 dummy_card = deck.get(i);
                 deck.remove(i);
