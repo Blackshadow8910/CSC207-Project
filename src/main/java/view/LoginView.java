@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.JTextField;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -23,11 +23,14 @@ public class LoginView extends JPanel {
     private JButton signupButton = new JButton("Sign up");
     private JPanel buttonPanel = new JPanel();
 
-    private JPanel mainPanel = new JPanel();
+    private JPanel mainPanel = new JPanel(new BorderLayout());
+
 
     private BoxLayout boxLayout = new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS);
 
+
     public LoginView() {
+
         usernameInputPanel.add(usernameLabel);
         usernameInputPanel.add(usernameField);
         usernameInputPanel.setSize(520, 342);
@@ -38,14 +41,15 @@ public class LoginView extends JPanel {
 
         buttonPanel.add(submitButton);
         buttonPanel.add(signupButton);
-        
         mainPanel.setLayout(boxLayout);
+
         mainPanel.add(usernameInputPanel);
         mainPanel.add(passwordInputPanel);
         mainPanel.add(buttonPanel);
         mainPanel.setSize(520, 342);
+        setLayout(new GridBagLayout());
 
-        add(mainPanel, BorderLayout.CENTER);
+        add(mainPanel);
 
         setSize(520, 2304);
 
