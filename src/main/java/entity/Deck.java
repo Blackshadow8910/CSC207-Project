@@ -13,14 +13,14 @@ public class Deck {
         this.deck = new ArrayList<Card>();
 
     }
-    public void add_card(Card card){
+    public void addCard(Card card){
         this.deck.add(card);
     }
-    public ArrayList<Card> card_list()
+    public ArrayList<Card> cardList()
     {
         return deck;
     }
-    public Card remove_card(String card_name)
+    public Card removeCard(String card_name)
     {
         Card dummy_card = null;
         for (int i = 0; i < deck.size(); i++)
@@ -35,19 +35,19 @@ public class Deck {
         return dummy_card;
     }
 
-    private int deck_length()
+    private int deckLength()
     {
         return deck.size();
     }
 
-    public boolean deck_valid()
+    public boolean deckValid()
     {
         HashMap<String, Integer> cardCounting = new HashMap<>();
-        if(deck_length() != 60)
+        if(deckLength() != 60)
         {
             return false;
         }
-        for (int i = 0; i < deck_length(); i++)
+        for (int i = 0; i < deckLength(); i++)
         {
             if (cardCounting.get(deck.get(i).name) == 4)
             {
