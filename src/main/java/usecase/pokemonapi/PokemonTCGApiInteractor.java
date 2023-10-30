@@ -1,7 +1,7 @@
 package usecase.pokemonapi;
 
-import data_access.PokemonCardDataAccessInterface;
-import data_access.PokemonGuruDataAccessObject;
+import data_access.pokemon.PokemonCardDataAccessInterface;
+import data_access.pokemon.PokemonGuruDataAccessObject;
 
 public class PokemonTCGApiInteractor {
     public PokemonCardDataAccessInterface apiAccessObject;

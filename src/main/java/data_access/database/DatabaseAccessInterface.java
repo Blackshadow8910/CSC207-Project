@@ -1,5 +1,8 @@
 package data_access.database;
 
-public interface DatabaseAccessInterface {
+import usecase.login.LoginDataAccessInterface;
+import usecase.signup.SignupDataAccessInterface;
+
+public interface DatabaseAccessInterface extends LoginDataAccessInterface, SignupDataAccessInterface {
     
 }

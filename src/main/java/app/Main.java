@@ -1,6 +1,6 @@
 package app;
 
-import data_access.DatabaseAccessObject;
+import data_access.database.DatabaseAccessObject;
 import entity.Card;
 
 import usecase.PokemonTCGApiUseCase;
