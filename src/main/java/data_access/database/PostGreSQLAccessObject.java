@@ -37,7 +37,7 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
         }
     }
     
-    public ResultSet executeQuery(String query) {
+    protected ResultSet executeQuery(String query) {
         try {
             Statement s = connection.createStatement();
 
@@ -53,7 +53,7 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
         ResultSet results = executeQuery("SELECT * FROM users WHERE username='%s'".formatted(username));
         try {
             if (results.next()) {
-                User user = new User(username);
+                User user = new User(username, results.getString("password"));
                 
                 return user;
             } else {
@@ -76,7 +76,7 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
         ResultSet results = executeQuery("SELECT * FROM users WHERE username='%s' AND password='%s'".formatted(username, password));
         try {
             if (results.next()) {
-                User user = new User(username);
+                User user = new User(username, results.getString("password"));
                 
                 return user;
             } else {

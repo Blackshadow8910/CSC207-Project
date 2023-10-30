@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 import java.awt.Color;
 import java.awt.Image;
@@ -12,11 +13,30 @@ import javax.imageio.ImageIO;
 
 import data_access.image.ImageCacheAccessInterface;
 import entity.Card;
+import entity.PokemonCard;
 
 public class TestCardDataAccessObject implements PokemonCardDataAccessInterface, ImageCacheAccessInterface {
 
     public ArrayList<Card> cards = new ArrayList<>();
     public BufferedImage placeHolderImage = readPlaceholderImage();
+
+    public TestCardDataAccessObject() {
+        cards.add(new PokemonCard(
+            "Salamander", 
+            "salamander",
+            "doesn't matter",
+            List.of("normal")));
+        cards.add(new PokemonCard(
+            "Horse", 
+            "horse",
+            "doesn't matter",
+            List.of("normal")));
+        cards.add(new PokemonCard(
+            "Pookichu", 
+            "pikamon",
+            "pica",
+            List.of("electric")));
+    }
 
     @Override
     public BufferedImage getImage(String url) {

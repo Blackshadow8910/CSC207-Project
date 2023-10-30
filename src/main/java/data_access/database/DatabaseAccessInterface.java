@@ -6,5 +6,5 @@ import usecase.login.LoginDataAccessInterface;
 import usecase.signup.SignupDataAccessInterface;
 
 public interface DatabaseAccessInterface extends LoginDataAccessInterface, SignupDataAccessInterface {
-    public ResultSet executeQuery(String query);
+    //public ResultSet executeQuery(String query);
 }

@@ -13,6 +13,6 @@ public class LoginInteractor implements LoginInputBoundary {
 
     @Override
     public void login(LoginInputData inputData) {
-        ResultSet results = databaseAccessObject.executeQuery("");
+        
     }
 }
