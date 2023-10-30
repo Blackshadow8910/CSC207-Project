@@ -18,13 +18,16 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
+import static java.awt.Color.red;
+
 public class GUIManager {
     public JFrame frame = new JFrame();
     private CardLayout cardLayout = new CardLayout(); 
     public JPanel views = new JPanel(cardLayout);
 
     public GUIManager() {
-        // Sets the look and feel (theme) of swing
+        // Sets the look and feel (theme) of swing\
+
         setLaf(new FlatDarculaLaf());
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -32,6 +35,7 @@ public class GUIManager {
         frame.add(views);
 
         frame.getContentPane().add(views);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         views.setSize(frame.getSize());
 
