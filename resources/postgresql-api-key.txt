@@ -1,0 +1,3 @@
+jdbc:postgresql://testy-walker-6038.g8z.cockroachlabs.cloud:26257/defaultdb
+Corknut
+HxHFA35PsK69vR0XQtADag
