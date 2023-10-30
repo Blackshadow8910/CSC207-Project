@@ -36,20 +36,11 @@ public class GUIManager {
     }
 
     private JPanel getMainJPanel() {
-        PokemonTCGApiUseCase uc = new PokemonTCGApiUseCase();
         JPanel panel = new JPanel();
         TextField tf = new TextField();
         panel.add(tf);
 
         Button btn = new Button("Search");
-        btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ArrayList<Card> cards = uc.apiInteractor.searchCards(tf.getText());
-                for (Card card : cards) {
-                    System.out.println(card.name);
-                }
-            }});
         panel.add(btn);
 
         return panel;

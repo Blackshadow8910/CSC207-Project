@@ -1,6 +1,7 @@
-package data_access;
+package data_access.pokemon;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.function.Consumer;
 import java.net.URL;
 import java.net.URI;
 
@@ -16,6 +18,8 @@ import javax.imageio.ImageIO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import data_access.image.HttpImageFetchWorker;
+import data_access.image.ImageCacheAccessInterface;
 import entity.Card;
 import entity.Card;
 import okhttp3.OkHttpClient;
@@ -23,12 +27,12 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class PokemonGuruDataAccessObject implements PokemonGuruDataAccessInterface {
+public class PokemonGuruDataAccessObject implements PokemonGuruDataAccessInterface, ImageCacheAccessInterface {
     private String apiKey;
     private OkHttpClient httpClient;
 
     private HashMap<String, Card> cardCache = new HashMap<>();
-    private HashMap<String, Image> imageCache = new HashMap<>();
+    private HashMap<String, HttpImageFetchWorker> imageCache = new HashMap<>();
 
     public PokemonGuruDataAccessObject() {
         try {
@@ -112,24 +116,37 @@ public class PokemonGuruDataAccessObject implements PokemonGuruDataAccessInterfa
     }
     
     @Override
-    public Image getImage(String url) {
-        if (imageCache.containsKey(url)) {
-            return imageCache.get(url);
-        } else {
-            Image image = requestImage(url);
-            imageCache.put(url, image);
-            return image;
-        }
-    }
-
-    private Image requestImage(String url) {
+    public BufferedImage getImage(String url) {
         try {
-            Image image = ImageIO.read(URI.create(url).toURL());
-            return image;
-        } catch (IOException e) {
+            if (imageCache.containsKey(url)) {
+                return imageCache.get(url).get();
+            } else {
+                requestImage(url);
+                return imageCache.get(url).get();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private void requestImage(String url) {
+        HttpImageFetchWorker fetcher = new HttpImageFetchWorker(this, url);
+        fetcher.execute();
+
+        imageCache.put(url, fetcher);
+    }
+
+    @Override
+    public void cacheImage(String key, BufferedImage image) {
+    }
+
+    @Override
+    public void addImageCacheListener(Consumer<String> listener) {
+    }
+
+    @Override
+    public void fireImageCacheUpdated(String key) {
     }
 
     /**
