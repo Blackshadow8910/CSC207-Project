@@ -1,6 +1,6 @@
 package app;
 
-import data_access.database.DatabaseAccessObject;
+import data_access.database.PostGreSQLAccessObject;
 import entity.Card;
 
 import usecase.PokemonTCGApiUseCase;
@@ -8,7 +8,7 @@ import usecase.PokemonTCGApiUseCase;
 public class Main {
     public static void main(String[] args) {
         PokemonTCGApiUseCase pokemonTCGApiUseCase = new PokemonTCGApiUseCase();
-        DatabaseAccessObject db = new DatabaseAccessObject();
+        PostGreSQLAccessObject db = new PostGreSQLAccessObject();
 
         //GUIManager guiManager = new GUIManager();
         Card c = pokemonTCGApiUseCase.apiInteractor.searchCards("mega lopunny").get(0);
