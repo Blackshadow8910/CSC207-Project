@@ -5,16 +5,23 @@ import com.formdev.flatlaf.FlatLaf;
 
 import entity.Card;
 import usecase.PokemonTCGApiUseCase;
+import view.LoginView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 public class GUIManager {
     public JFrame frame = new JFrame();
-    public JPanel views = new JPanel(new CardLayout());
+    private CardLayout cardLayout = new CardLayout(); 
+    public JPanel views = new JPanel(cardLayout);
+
     public GUIManager() {
         // Sets the look and feel (theme) of swing
         setLaf(new FlatDarculaLaf());
@@ -23,10 +30,17 @@ public class GUIManager {
         frame.setSize(960, 540);
         frame.add(views);
 
-        views.add(getMainJPanel());
+        addView("login", new LoginView());
 
         frame.getContentPane().add(views);
         frame.setVisible(true);
+        views.setSize(frame.getSize());
+
+        frame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                views.setSize(frame.getSize());
+            }
+        });
     }
 
 
@@ -44,5 +58,13 @@ public class GUIManager {
         panel.add(btn);
 
         return panel;
+    }
+
+    public void addView(String tag, Component c) {
+        views.add(c, tag);
+    }
+
+    public void showView(String tag) {
+        cardLayout.show(views, tag);
     }
  }
