@@ -1,4 +1,4 @@
-package data_access;
+package data_access.pokemon;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
