@@ -1,6 +1,7 @@
 package view;
 
-import javax.swing.JTextField;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 import interface_adapters.login.LoginController;
 import interface_adapters.login.LoginViewModel;
@@ -9,12 +10,9 @@ import usecase.login.LoginInputBoundary;
 import usecase.login.LoginInteractor;
 
 import java.awt.*;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class LoginView extends JPanel {
     private LoginViewModel viewModel;
@@ -24,6 +22,7 @@ public class LoginView extends JPanel {
     private JTextField usernameField = new JTextField();
     private JPanel usernameInputPanel = new JPanel();
 
+    private JPanel iconPanel = new JPanel();
     private JLabel passwordLabel = new JLabel("Password: ");
     private JPasswordField passwordField = new JPasswordField();
     private JPanel passwordInputPanel = new JPanel();
@@ -40,6 +39,16 @@ public class LoginView extends JPanel {
     public LoginView(LoginViewModel viewModel, LoginController loginController) {
         this.viewModel = viewModel;
         this.loginController = loginController;
+
+        try {
+            BufferedImage myPicture = ImageIO.read(new File("src/main/java/view/PokeTraderLogo.png"));
+            JLabel picIcon = new JLabel(new ImageIcon(myPicture));
+            iconPanel.add(picIcon);
+            mainPanel.add(iconPanel);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         usernameInputPanel.add(usernameLabel);
         usernameInputPanel.add(usernameField);
