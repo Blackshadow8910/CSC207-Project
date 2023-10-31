@@ -1,13 +1,9 @@
 package usecase.login;
 
-import java.sql.ResultSet;
-
-import data_access.database.DatabaseAccessInterface;
-
 public class LoginInteractor implements LoginInputBoundary {
-    public DatabaseAccessInterface databaseAccessObject;
+    public LoginDataAccessInterface databaseAccessObject;
 
-    public LoginInteractor(DatabaseAccessInterface databaseAccessObject) {
+    public LoginInteractor(LoginDataAccessInterface databaseAccessObject) {
         this.databaseAccessObject = databaseAccessObject;
     }
 
