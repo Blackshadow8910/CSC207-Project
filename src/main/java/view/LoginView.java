@@ -48,7 +48,7 @@ public class LoginView extends JPanel {
         }
 
         try {
-            BufferedImage myPicture = ImageIO.read(new File("src/main/java/view/PokeTraderBackground1.png"));
+            BufferedImage myPicture = ImageIO.read(new File("src/main/java/view/PokeTraderBackground.png"));
             JLabel picIcon = new JLabel(new ImageIcon(myPicture));
             backgroundPanel.add(picIcon);
             overlayPanel.add(backgroundPanel);

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import static java.awt.Color.red;
 
 public class GUIManager {
-    public JFrame frame = new JFrame();
+    public JFrame frame = new JFrame("PokeTrader");
     private CardLayout cardLayout = new CardLayout(); 
     public JPanel views = new JPanel(cardLayout);
 
