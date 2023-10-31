@@ -1,5 +1,7 @@
 package view;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -14,6 +16,8 @@ public class LoginView extends JPanel {
     private JPanel usernameInputPanel = new JPanel();
 
     private JPanel iconPanel = new JPanel();
+
+    private JPanel backgroundPanel = new JPanel();
     private JLabel passwordLabel = new JLabel("Password: ");
     private JPasswordField passwordField = new JPasswordField();
     private JPanel passwordInputPanel = new JPanel();
@@ -22,10 +26,14 @@ public class LoginView extends JPanel {
     private JButton signupButton = new JButton("Sign up");
     private JPanel buttonPanel = new JPanel();
 
-    private JPanel mainPanel = new JPanel(new BorderLayout());
+    private JPanel loginPanel = new JPanel(new BorderLayout());
+
+    private JPanel overlayPanel = new JPanel();
+
+    private JLayeredPane layeredPane = new JLayeredPane();
 
 
-    private BoxLayout boxLayout = new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS);
+    private BoxLayout boxLayout = new BoxLayout(loginPanel, BoxLayout.PAGE_AXIS);
 
     public LoginView() {
 
@@ -33,7 +41,17 @@ public class LoginView extends JPanel {
             BufferedImage myPicture = ImageIO.read(new File("src/main/java/view/PokeTraderLogo.png"));
             JLabel picIcon = new JLabel(new ImageIcon(myPicture));
             iconPanel.add(picIcon);
-            mainPanel.add(iconPanel);
+            loginPanel.add(iconPanel);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            BufferedImage myPicture = ImageIO.read(new File("src/main/java/view/PokeTraderBackground1.png"));
+            JLabel picIcon = new JLabel(new ImageIcon(myPicture));
+            backgroundPanel.add(picIcon);
+            overlayPanel.add(backgroundPanel);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -49,17 +67,24 @@ public class LoginView extends JPanel {
 
         buttonPanel.add(submitButton);
         buttonPanel.add(signupButton);
-        mainPanel.setLayout(boxLayout);
+        loginPanel.setLayout(boxLayout);
 
-        mainPanel.add(usernameInputPanel);
-        mainPanel.add(passwordInputPanel);
-        mainPanel.add(buttonPanel);
-        mainPanel.setSize(520, 342);
-        setLayout(new GridBagLayout());
+        loginPanel.add(usernameInputPanel);
+        loginPanel.add(passwordInputPanel);
+        loginPanel.add(buttonPanel);
+        loginPanel.setSize(340, 240);
+        loginPanel.setLocation(310, 100);
+        overlayPanel.setSize(960, 600);
+        overlayPanel.setLocation(10, -50);
 
-        add(mainPanel);
+        layeredPane.setPreferredSize(new Dimension(980, 600));
+        layeredPane.setLocation(100, 200);
+        layeredPane.add(loginPanel, 1);
+        layeredPane.add(overlayPanel, 2);
 
-        setSize(520, 2304);
+
+        add(layeredPane);
+
 
     }
 }
