@@ -1,20 +1,19 @@
 package view;
 
-import javax.swing.JTextField;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 import java.awt.*;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class LoginView extends JPanel {
     private JLabel usernameLabel = new JLabel("Username: ");
     private JTextField usernameField = new JTextField();
     private JPanel usernameInputPanel = new JPanel();
 
+    private JPanel iconPanel = new JPanel();
     private JLabel passwordLabel = new JLabel("Password: ");
     private JPasswordField passwordField = new JPasswordField();
     private JPanel passwordInputPanel = new JPanel();
@@ -28,8 +27,17 @@ public class LoginView extends JPanel {
 
     private BoxLayout boxLayout = new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS);
 
-
     public LoginView() {
+
+        try {
+            BufferedImage myPicture = ImageIO.read(new File("src/main/java/view/PokeTraderLogo.png"));
+            JLabel picIcon = new JLabel(new ImageIcon(myPicture));
+            iconPanel.add(picIcon);
+            mainPanel.add(iconPanel);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         usernameInputPanel.add(usernameLabel);
         usernameInputPanel.add(usernameField);
