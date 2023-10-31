@@ -11,8 +11,11 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
     public ArrayList<User> users = new ArrayList<>();
 
     public TestDatabaseAccessObject() {
-        users.add(new User("bob", "123456"));
-        users.add(new User("steven", "654321"));
+        try {
+            registerUser("bob", "123456");
+            registerUser("steven", "654321");
+        } catch (UserAlreadyExistsException e) {
+        }
     }
 
     @Override
@@ -35,5 +38,13 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
             }
         }
         return null;
-    } 
+    }
+
+    public void registerUser(String username, String password) throws UserAlreadyExistsException {
+        if (getUser(username) != null) {
+            throw new UserAlreadyExistsException(username);
+        }
+
+        users.add(new User(username, password));
+    }
 }
