@@ -28,6 +28,9 @@ public class GUIManager {
     public GUIManager() {
         // Sets the look and feel (theme) of swing\
 
+        ImageIcon img = new ImageIcon("src/main/java/view/PikaLogo.png");
+        frame.setIconImage(img.getImage());
+
         setLaf(new FlatDarculaLaf());
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -37,6 +40,7 @@ public class GUIManager {
         frame.getContentPane().add(views);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.setResizable(false);
         views.setSize(frame.getSize());
 
         frame.addComponentListener(new ComponentAdapter() {
