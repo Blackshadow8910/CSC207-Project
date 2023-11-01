@@ -62,4 +62,32 @@ public class Deck {
         }
         return true;
     }
+
+    /**
+     * Returns a string representing the content of the deck. 
+     * The string is formatted to be a list of card ids seperated by a semicolon.
+     */
+    public String getContentString() {
+        StringBuilder result = new StringBuilder("");
+        for (Card card : deck) {
+            if (result.length() > 0) {
+                result.append(";");
+            }
+            result.append(card.id);
+        }
+
+        return result.toString();
+    }
+
+    /*
+     * Constructs a deck from metadata and a string describing its contents.
+     */
+    // public static Deck fromContentString(String name, String id, String contentString) {
+    //     Deck deck = new Deck(name, id);
+
+    //     String[] cardIds = contentString.split(";");
+    //     for (String cardId : cardIds) {
+    //         deck.addCard(null);
+    //     }
+    // } can't implement from here, need data access object
 }
