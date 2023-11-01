@@ -27,6 +27,8 @@ public class SignupView extends JPanel {
     private SignupViewModel viewModel;
     private SignupController controller;
 
+    private LoginViewModel loginViewModel;
+
     private JLabel usernameLabel = new JLabel("Username: ");
     private JTextField usernameField = new JTextField();
     private JPanel usernameInputPanel = new JPanel();
@@ -100,8 +102,22 @@ public class SignupView extends JPanel {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewModel.setUsername(usernameField.getText());
-                viewModel.setPassword(String.valueOf(passwordField.getPassword()));
+                String username = usernameField.getText();
+                String password = String.valueOf(passwordField.getPassword());
+                String repeatPassword = String.valueOf(repeatPasswordField.getPassword());
+
+                if (!password.equals(repeatPassword)) {
+                    JOptionPane.showMessageDialog(
+                        SignupView.this, 
+                        "Passwords must match.", 
+                        "", 
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
+                    return;
+                }
+
+                viewModel.setUsername(username);
+                viewModel.setPassword(password);
 
                 controller.signup(viewModel.getUsername(), viewModel.getPassword());
             }
@@ -110,12 +126,16 @@ public class SignupView extends JPanel {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(
-                    SignupView.this, 
-                    "Signup has not been implemented", 
-                    "Unimplemented feature", 
-                    JOptionPane.ERROR_MESSAGE
-                );
+                if (loginViewModel == null) {
+                    JOptionPane.showMessageDialog(
+                        SignupView.this, 
+                        "Navigation has not been implemented", 
+                        "Unimplemented feature", 
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                } else {
+                    //loginViewModel.viewName
+                }
             }
         });
 
@@ -127,7 +147,7 @@ public class SignupView extends JPanel {
         signupPanel.add(passwordInputPanel);
         signupPanel.add(repeatPasswordInputPanel);
         signupPanel.add(buttonPanel);
-        signupPanel.setSize(340, 240);
+        signupPanel.setSize(new Dimension(340, 240));
         signupPanel.setLocation(310, 100);
         overlayPanel.setSize(960, 600);
         overlayPanel.setLocation(10, -50);
@@ -138,6 +158,10 @@ public class SignupView extends JPanel {
         layeredPane.add(overlayPanel, 2);
 
         add(layeredPane);
+    }
+
+    public void setLoginViewModel(LoginViewModel loginViewModel) {
+        this.loginViewModel = loginViewModel;
     }
 
     public static SignupView create(SignupViewModel signupViewModel) {
