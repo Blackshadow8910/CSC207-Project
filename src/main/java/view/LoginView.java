@@ -60,18 +60,13 @@ public class LoginView extends JPanel {
         this.loginController = loginController;
 
         try {
-            BufferedImage myPicture = ImageIO.read(new File("src/main/java/view/PokeTraderLogo.png"));
+            BufferedImage myPicture = ImageIO.read(new File("resources/img/PokeTraderLogo.png"));
             JLabel picIcon = new JLabel(new ImageIcon(myPicture));
             iconPanel.add(picIcon);
             loginPanel.add(iconPanel);
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            BufferedImage myPicture = ImageIO.read(new File("src/main/java/view/PokeTraderBackground.png"));
-            JLabel picIcon = new JLabel(new ImageIcon(myPicture));
+            myPicture = ImageIO.read(new File("resources/img/PokeTraderBackground.png"));
+            picIcon = new JLabel(new ImageIcon(myPicture));
             backgroundPanel.add(picIcon);
             overlayPanel.add(backgroundPanel);
 
