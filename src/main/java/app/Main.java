@@ -45,8 +45,5 @@ public class Main {
         guiManager.addView("app", appView);
 
         // Misc testing whatever
-
-        Card c = pokemonTCGApiUseCase.apiAccessObject.searchCards("Horse").get(0);
-        System.out.println(c.name);
     }
 }
