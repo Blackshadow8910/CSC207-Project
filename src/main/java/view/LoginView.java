@@ -82,26 +82,24 @@ public class LoginView extends JPanel {
         usernameInputPanel.add(usernameLabel);
         usernameInputPanel.add(usernameField);
 
-        usernameField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                viewModel.setUsername(usernameField.getText() + e.getKeyChar());
-            }
-        });
-        
         passwordInputPanel.add(passwordLabel);
         passwordInputPanel.add(passwordField);
-
+        
         passwordField.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyTyped(KeyEvent e) {
-                viewModel.setPassword(String.valueOf(passwordField.getPassword()) + e.getKeyChar());
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    submitButton.doClick();
+                }
             }
         });
 
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                viewModel.setUsername(usernameField.getText());
+                viewModel.setPassword(String.valueOf(passwordField.getPassword()));
+
                 loginController.login(viewModel.getUsername(), viewModel.getPassword());
             }
         });
