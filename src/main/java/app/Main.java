@@ -38,12 +38,11 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         AppViewModel appViewModel = new AppViewModel();
 
-        LoginView loginView = LoginView.create(loginViewModel, db);
         AppView appView = AppView.create(appViewModel);
+        LoginView loginView = LoginView.create(loginViewModel, appViewModel, db, guiManager);
         
-        guiManager.addView("app", appView);
         guiManager.addView("login", loginView);
-
+        guiManager.addView("app", appView);
 
         // Misc testing whatever
 
