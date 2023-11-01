@@ -61,5 +61,6 @@ public class GUIManager {
 
     public void showView(String tag) {
         cardLayout.show(views, tag);
+        frame.pack();
     }
  }
