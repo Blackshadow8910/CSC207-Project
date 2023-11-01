@@ -18,7 +18,7 @@ public class Deck {
     }
     public ArrayList<Card> cardList()
     {
-        return deck;
+        return new ArrayList<>(deck);
     }
     public Card removeCard(String id)
     {
