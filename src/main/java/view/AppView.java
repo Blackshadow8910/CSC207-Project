@@ -99,8 +99,11 @@ public class AppView extends JPanel {
         appViewModel.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName() == "currentTab") {
+                if (evt.getPropertyName().equals("currentTab")) {
                     tabs.show(contentPanel, appViewModel.currentTab);
+                    tabLabel.setText(appViewModel.currentTab);
+                } else if (evt.getPropertyName().equals("currentUser")) {
+                    userLabel.setText(appViewModel.currentUser.username);
                 }
             }
         });
