@@ -78,7 +78,7 @@ public class AppView extends JPanel {
         headerRight.add(userLabel);
         headerRight.add(userIconLabel);
         headerLeft.add(tabLabel);
-        headerPanel.setBorder(new MatteBorder(0, 0, 2, 0, Color.gray));
+        headerPanel.setBorder(new MatteBorder(0, 0, 1, 0, Color.gray));
         tabLabel.setFont(headerFont);
         userLabel.setFont(headerFont);
         try {
