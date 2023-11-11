@@ -3,6 +3,7 @@ package data_access.database;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.security.spec.ECField;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -85,6 +86,20 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void registerUser(String username, String password) throws UserAlreadyExistsException {
+        if (getUser(username) != null) {
+            throw new UserAlreadyExistsException("User");
+        }
+
+        //User user = new User(username, password);
+
+        try {
+            executeQuery("INSERT INTO users (username, password) VALUES ('%s', '%s');");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
