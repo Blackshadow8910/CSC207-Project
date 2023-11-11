@@ -6,6 +6,7 @@ import com.formdev.flatlaf.FlatLaf;
 import entity.Card;
 import usecase.PokemonTCGApiUseCase;
 import view.LoginView;
+import interface_adapters.ViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +22,7 @@ import static java.awt.Color.red;
 
 public class GUIManager {
     public JFrame frame = new JFrame("PokeTrader");
-    private CardLayout cardLayout = new CardLayout(); 
+    private CardLayout cardLayout = new CardLayout();
     public JPanel views = new JPanel(cardLayout);
 
     public GUIManager() {
@@ -36,7 +37,6 @@ public class GUIManager {
         frame.setSize(960, 540);
         frame.add(views);
 
-        addView("login", new LoginView());
         frame.getContentPane().add(views);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -74,4 +74,4 @@ public class GUIManager {
     public void showView(String tag) {
         cardLayout.show(views, tag);
     }
- }
+}
