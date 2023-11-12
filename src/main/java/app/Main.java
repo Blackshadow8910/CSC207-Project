@@ -11,12 +11,15 @@ import data_access.pokemon.TestCardDataAccessObject;
 import data_access.database.TestDatabaseAccessObject;
 import data_access.image.ImageCacheAccessInterface;
 import entity.Card;
+import interface_adapters.ViewManagerModel;
 import interface_adapters.app.AppController;
 import interface_adapters.app.AppViewModel;
 import interface_adapters.login.LoginViewModel;
+import interface_adapters.signup.SignupViewModel;
 import usecase.PokemonTCGApiUseCase;
 import view.AppView;
 import view.LoginView;
+import view.SignupView;
 
 public class Main {
     public static void main(String[] args) {
@@ -37,12 +40,15 @@ public class Main {
 
         LoginViewModel loginViewModel = new LoginViewModel();
         AppViewModel appViewModel = new AppViewModel();
+        SignupViewModel signupViewModel = new SignupViewModel();
 
         AppView appView = AppView.create(appViewModel);
-        LoginView loginView = LoginView.create(loginViewModel, appViewModel, db, guiManager);
-        
+        LoginView loginView = LoginUseCaseFactory.create(loginViewModel, appViewModel, db, guiManager);
+        SignupView signupView = SignupUseCaseFactory.create(signupViewModel, appViewModel, db, guiManager);
+
         guiManager.addView("login", loginView);
         guiManager.addView("app", appView);
+        guiManager.addView("signup", signupView);
 
         // Misc testing whatever
     }
