@@ -28,7 +28,7 @@ public class GUIManager {
     public GUIManager() {
         // Sets the look and feel (theme) of swing\
 
-        ImageIcon img = new ImageIcon("src/main/java/view/PikaLogo.png");
+        ImageIcon img = new ImageIcon("resources/img/PikaLogo.png");
         frame.setIconImage(img.getImage());
 
         setLaf(new FlatDarculaLaf());
