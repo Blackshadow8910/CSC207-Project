@@ -1,6 +1,5 @@
 package interface_adapters.signup;
 
-import interface_adapters.login.LoginState;
 import interface_adapters.login.LoginViewModel;
 import usecase.signup.SignupOutputBoundary;
 import usecase.signup.SignupOutputData;
@@ -26,17 +25,11 @@ public class SignupPresenter implements SignupOutputBoundary {
         // LocalDateTime responseTime = LocalDateTime.parse(data.getCreationTime());
         // data.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
 
-        LoginState loginState = loginViewModel.getState();
-        loginState.setUsername(data.getUsername());
-        this.loginViewModel.setState(loginState);
-        loginViewModel.firePropertyChanged();
+        this.loginViewModel.setUsername(data.getUsername());
     }
 
     @Override
     public void presentFailure(String message) {
-        SignupState signupState = signupViewModel.getState();
-        signupState.setUsernameError(message);
-        signupViewModel.firePropertyChanged();
-
+        signupViewModel.setFeedbackMessage(message);
     }
 }

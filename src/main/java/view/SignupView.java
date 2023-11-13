@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -188,6 +190,20 @@ public class SignupView extends JPanel {
         layeredPane.setLocation(100, 200);
         layeredPane.add(signupPanel, 1);
         layeredPane.add(overlayPanel, 2);
+
+        viewModel.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("feedbackMessage")) {
+                    JOptionPane.showMessageDialog(
+                            SignupView.this,
+                            viewModel.getFeedbackMessage(),
+                            "",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+            }
+        });
 
         add(layeredPane);
     }
