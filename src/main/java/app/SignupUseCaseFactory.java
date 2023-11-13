@@ -28,12 +28,11 @@ public class SignupUseCaseFactory {
                                     LoginDataAccessInterface dataAccessObject, GUIManager guiManager) {
 
         LoginViewModel loginViewModel = new LoginViewModel();
-        ViewManagerModel viewManagerModel = null;
-        SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
+        SignupOutputBoundary signupOutputBoundary = new SignupPresenter(signupViewModel, loginViewModel);
         SignupInputBoundary signupInputBoundary = new SignupInteractor(signupOutputBoundary);
         SignupController signupController = new SignupController(signupInputBoundary);
 
-        return new SignupView(signupViewModel, signupController);
+        return new SignupView(signupViewModel, signupController, guiManager);
 
     }
 }
