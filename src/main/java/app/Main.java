@@ -11,7 +11,6 @@ import data_access.pokemon.TestCardDataAccessObject;
 import data_access.database.TestDatabaseAccessObject;
 import data_access.image.ImageCacheAccessInterface;
 import entity.Card;
-import interface_adapters.ViewManagerModel;
 import interface_adapters.app.AppController;
 import interface_adapters.app.AppViewModel;
 import interface_adapters.login.LoginViewModel;

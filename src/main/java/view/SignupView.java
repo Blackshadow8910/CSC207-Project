@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import app.GUIManager;
-import interface_adapters.ViewManagerModel;
 import interface_adapters.login.LoginViewModel;
 import interface_adapters.signup.SignupController;
 import interface_adapters.signup.SignupPresenter;

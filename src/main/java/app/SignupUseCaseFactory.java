@@ -4,7 +4,6 @@ import interface_adapters.login.LoginViewModel;
 import interface_adapters.signup.SignupController;
 import interface_adapters.signup.SignupPresenter;
 import interface_adapters.signup.SignupViewModel;
-import interface_adapters.ViewManagerModel;
 import interface_adapters.app.AppViewModel;
 
 import usecase.signup.SignupInputBoundary;
