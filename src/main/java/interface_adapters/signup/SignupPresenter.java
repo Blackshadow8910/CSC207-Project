@@ -17,12 +17,7 @@ public class SignupPresenter implements SignupOutputBoundary {
     }
 
     @Override
-    public void present(SignupOutputData outputData) {
-
-    }
-
-    @Override
-    public void presentSuccess(SignupOutputData data) {
+    public void presentSuccess() {
         // LocalDateTime responseTime = LocalDateTime.parse(data.getCreationTime());
         // data.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
 
