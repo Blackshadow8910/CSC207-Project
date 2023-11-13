@@ -1,6 +1,5 @@
 package interface_adapters.signup;
 
-import interface_adapters.ViewManagerModel;
 import interface_adapters.login.LoginState;
 import interface_adapters.login.LoginViewModel;
 import usecase.signup.SignupOutputBoundary;
@@ -11,12 +10,9 @@ public class SignupPresenter implements SignupOutputBoundary {
 
     private final LoginViewModel loginViewModel;
 
-    private ViewManagerModel viewManagerModel;
-
     public SignupPresenter(SignupViewModel signupViewModel,
                            LoginViewModel loginViewModel) {
         this.signupViewModel = signupViewModel;
-        this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
     }
 
@@ -35,8 +31,6 @@ public class SignupPresenter implements SignupOutputBoundary {
         this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView(loginViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
 
     }
 
