@@ -7,7 +7,7 @@ public class SignupInteractor implements SignupInputBoundary {
         this.presenter = presenter;
     }
 
-    public void execute(SignupInputData inputData) {
-
+    public void register(SignupInputData inputData) {
+        
     } 
 }
