@@ -11,8 +11,12 @@ import data_access.pokemon.TestCardDataAccessObject;
 import data_access.database.TestDatabaseAccessObject;
 import data_access.image.ImageCacheAccessInterface;
 import entity.Card;
-
+import interface_adapters.app.AppController;
+import interface_adapters.app.AppViewModel;
+import interface_adapters.login.LoginViewModel;
 import usecase.PokemonTCGApiUseCase;
+import view.AppView;
+import view.LoginView;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,20 +27,27 @@ public class Main {
         DatabaseAccessInterface db = new TestDatabaseAccessObject();//new PostGreSQLAccessObject();
 
 
-        // Usercase
+        // Use case
 
         PokemonTCGApiUseCase pokemonTCGApiUseCase = new PokemonTCGApiUseCase(pokemonCardDAO);
 
         // Other
 
         GUIManager guiManager = new GUIManager();
-        //Card c = pokemonTCGApiUseCase.apiInteractor.searchCards("mega lopunny").get(0);
+
+        LoginViewModel loginViewModel = new LoginViewModel();
+        AppViewModel appViewModel = new AppViewModel();
+
+        LoginView loginView = LoginView.create(loginViewModel, db);
+        AppView appView = AppView.create(appViewModel);
+        
+        guiManager.addView("app", appView);
+        guiManager.addView("login", loginView);
+
+
+        // Misc testing whatever
+
         Card c = pokemonTCGApiUseCase.apiAccessObject.searchCards("Horse").get(0);
         System.out.println(c.name);
-
-        // JLabel jLabel = new JLabel(new ImageIcon(imageDAO.getImage(c.imageURL)));
-        // jLabel.setSize(245, 342);
-        // ((JPanel)(guiManager.views.getComponent(0))).add(jLabel);
-        // guiManager.views.repaint();
     }
 }

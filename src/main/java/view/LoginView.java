@@ -2,6 +2,12 @@ package view;
 
 import javax.swing.JTextField;
 
+import interface_adapters.login.LoginController;
+import interface_adapters.login.LoginViewModel;
+import usecase.login.LoginDataAccessInterface;
+import usecase.login.LoginInputBoundary;
+import usecase.login.LoginInteractor;
+
 import java.awt.BorderLayout;
 
 import javax.swing.BoxLayout;
@@ -11,6 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
 public class LoginView extends JPanel {
+    private LoginViewModel viewModel;
+    private LoginController loginController;
+
     private JLabel usernameLabel = new JLabel("Username: ");
     private JTextField usernameField = new JTextField();
     private JPanel usernameInputPanel = new JPanel();
@@ -27,7 +36,10 @@ public class LoginView extends JPanel {
 
     private BoxLayout boxLayout = new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS);
 
-    public LoginView() {
+    public LoginView(LoginViewModel viewModel, LoginController loginController) {
+        this.viewModel = viewModel;
+        this.loginController = loginController;
+
         usernameInputPanel.add(usernameLabel);
         usernameInputPanel.add(usernameField);
         usernameInputPanel.setSize(520, 342);
@@ -49,5 +61,13 @@ public class LoginView extends JPanel {
 
         setSize(520, 2304);
 
+    }
+
+    public static LoginView create(LoginViewModel loginViewModel, LoginDataAccessInterface dataAccessObject) {
+        LoginInputBoundary loginInputBoundary = new LoginInteractor(dataAccessObject);
+        LoginController loginController = new LoginController(loginInputBoundary);
+        LoginView loginView = new LoginView(loginViewModel, loginController);
+        
+        return loginView;
     }
 }

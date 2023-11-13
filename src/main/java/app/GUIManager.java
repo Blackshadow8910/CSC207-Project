@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 
 import view.LoginView;
+import interface_adapters.ViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,8 +23,6 @@ public class GUIManager {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(960, 540);
         frame.add(views);
-
-        addView("login", new LoginView());
 
         frame.getContentPane().add(views);
         frame.setVisible(true);
