@@ -1,4 +1,4 @@
-package app;
+package app.usecase_factories;
 
 
 import interface_adapters.login.LoginController;
@@ -12,6 +12,9 @@ import usecase.login.LoginDataAccessInterface;
 import view.LoginView;
 
 import javax.swing.*;
+
+import app.GUIManager;
+
 import java.io.IOException;
 
 public class LoginUseCaseFactory {
