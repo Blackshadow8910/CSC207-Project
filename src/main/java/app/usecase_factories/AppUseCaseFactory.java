@@ -20,7 +20,6 @@ public class AppUseCaseFactory {
     private AppUseCaseFactory() {}
 
     public static AppView create(AppViewModel appViewModel) {
-
         AppOutputBoundary appOutputBoundary = new AppPresenter(appViewModel);
         AppInputBoundary appInputBoundary = new AppInteractor(appOutputBoundary);
         AppController appController = new AppController(appInputBoundary);
