@@ -43,7 +43,7 @@ public class Main {
 
         AppView appView = AppView.create(appViewModel);
         LoginView loginView = LoginUseCaseFactory.create(loginViewModel, appViewModel, db, guiManager);
-        SignupView signupView = SignupUseCaseFactory.create(signupViewModel, appViewModel, db, guiManager);
+        SignupView signupView = SignupUseCaseFactory.create(signupViewModel, loginViewModel, db, guiManager);
 
         guiManager.addView("login", loginView);
         guiManager.addView("app", appView);

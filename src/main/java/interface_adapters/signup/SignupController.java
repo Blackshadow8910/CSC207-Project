@@ -2,6 +2,7 @@ package interface_adapters.signup;
 
 import kotlin.NotImplementedError;
 import usecase.signup.SignupInputBoundary;
+import usecase.signup.SignupInputData;
 
 public class SignupController {
     public SignupInputBoundary inputBoundary;
@@ -11,6 +12,6 @@ public class SignupController {
     }
 
     public void signup(String username, String password) {
-        throw new NotImplementedError();
+        inputBoundary.register(new SignupInputData(username, password));
     }
 }

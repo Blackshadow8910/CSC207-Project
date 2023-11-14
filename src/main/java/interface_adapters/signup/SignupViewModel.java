@@ -11,8 +11,6 @@ public class SignupViewModel extends ViewModel{
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    private SignupState state = new SignupState();
-
     public SignupViewModel() {
         super("login");
     }
@@ -24,7 +22,7 @@ public class SignupViewModel extends ViewModel{
     public void setFeedbackMessage(String message) {
         feedbackMessage = message;
 
-        //firePropertyChanged("feedbackMessage", null, feedbackMessage);
+        firePropertyChanged("feedbackMessage", null, feedbackMessage);
     }
 
     public String getPassword() {
@@ -35,7 +33,7 @@ public class SignupViewModel extends ViewModel{
         String oldValue = this.password;
         this.password = password;
 
-        //firePropertyChanged("password", oldValue, password);
+        firePropertyChanged("password", oldValue, password);
     }
 
     public String getUsername() {
@@ -46,18 +44,10 @@ public class SignupViewModel extends ViewModel{
         String oldValue = this.username;
         this.username = username;
 
-        //firePropertyChanged("username", oldValue, username);
+        firePropertyChanged("username", oldValue, username);
     }
 
-    public SignupState getState() {
-        return state;
-    }
-
-    public void setState(SignupState state) {
-        this.state = state;
-    }
-
-    public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
+    public void setView(String view) {
+        firePropertyChanged("view", null, view);
     }
 }

@@ -1,11 +1,12 @@
 package usecase.signup;
 
 public class SignupOutputData {
-    public SignupOutputData() {
-        
+    private String username;
+    public SignupOutputData(String username) {
+        this.username = username;
     }
 
     public String getUsername() {
-        return null;
+        return username;
     }
 }
