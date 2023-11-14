@@ -12,12 +12,16 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 public class GUIManager {
-    public JFrame frame = new JFrame();
+    public JFrame frame = new JFrame("PokeTrader");
     private CardLayout cardLayout = new CardLayout(); 
     public JPanel views = new JPanel(cardLayout);
 
     public GUIManager() {
-        // Sets the look and feel (theme) of swing
+        // Sets the look and feel (theme) of swing\
+
+        ImageIcon img = new ImageIcon("src/main/java/view/PikaLogo.png");
+        frame.setIconImage(img.getImage());
+
         setLaf(new FlatDarculaLaf());
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -25,7 +29,9 @@ public class GUIManager {
         frame.add(views);
 
         frame.getContentPane().add(views);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.setResizable(false);
         views.setSize(frame.getSize());
 
 
