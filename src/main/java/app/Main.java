@@ -34,11 +34,6 @@ public class Main {
         ImageCacheAccessInterface imageDAO = (ImageCacheAccessInterface) pokemonCardDAO;
         DatabaseAccessInterface db = new TestDatabaseAccessObject();//new PostGreSQLAccessObject();
 
-
-        // Use case
-
-        PokemonTCGApiUseCase pokemonTCGApiUseCase = new PokemonTCGApiUseCase(pokemonCardDAO);
-
         // Other
 
         GUIManager guiManager = new GUIManager();
