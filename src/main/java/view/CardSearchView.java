@@ -147,6 +147,7 @@ public class CardSearchView extends JPanel {
         }
 
         resultContainer.revalidate();
+        resultContainer.repaint();
     }
 
     public JPanel createResultEntry(CardSearchResult data) {
