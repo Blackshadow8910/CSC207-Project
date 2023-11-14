@@ -16,7 +16,6 @@ public abstract class ViewModel {
 
     public void firePropertyChanged(String propertyName, Object oldValue, Object newValue) {
         propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
-
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

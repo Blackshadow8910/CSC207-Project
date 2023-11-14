@@ -45,8 +45,4 @@ public class LoginViewModel extends ViewModel{
 
         firePropertyChanged("username", oldValue, username);
     }
-
-    public String getViewName() {
-        return null;
-    }
 }

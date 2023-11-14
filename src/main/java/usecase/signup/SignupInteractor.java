@@ -14,10 +14,10 @@ public class SignupInteractor implements SignupInputBoundary {
     public void register(SignupInputData inputData) {
         try {
             dataAccessObject.registerUser(inputData.getUsername(), inputData.getPassword());
+            presenter.presentSuccess(new SignupOutputData(inputData.getUsername()));
         } catch (UserAlreadyExistsException e) {
             presenter.presentFailure("User %s already exists!".formatted(inputData.getUsername()));
         }
 
-        presenter.presentSuccess(new SignupOutputData(inputData.getUsername()));
-    } 
+    }
 }

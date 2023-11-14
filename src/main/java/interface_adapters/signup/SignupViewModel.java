@@ -46,4 +46,8 @@ public class SignupViewModel extends ViewModel{
 
         firePropertyChanged("username", oldValue, username);
     }
+
+    public void setView(String view) {
+        firePropertyChanged("view", null, view);
+    }
 }

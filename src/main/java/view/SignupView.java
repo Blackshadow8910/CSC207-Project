@@ -201,6 +201,8 @@ public class SignupView extends JPanel {
                             "",
                             JOptionPane.INFORMATION_MESSAGE
                     );
+                } else if (evt.getPropertyName().equals("view")) {
+                    guiManager.showView((String)evt.getNewValue());
                 }
             }
         });

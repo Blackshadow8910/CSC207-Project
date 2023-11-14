@@ -21,10 +21,8 @@ public class SignupUseCaseFactory {
     /** Prevent instantiation. */
     private SignupUseCaseFactory() {}
 
-    public static SignupView create(SignupViewModel signupViewModel, AppViewModel appViewModel,
+    public static SignupView create(SignupViewModel signupViewModel, LoginViewModel loginViewModel,
                                     SignupDataAccessInterface dataAccessObject, GUIManager guiManager) {
-
-        LoginViewModel loginViewModel = new LoginViewModel();
         SignupOutputBoundary signupOutputBoundary = new SignupPresenter(signupViewModel, loginViewModel);
         SignupInputBoundary signupInputBoundary = new SignupInteractor(signupOutputBoundary, dataAccessObject);
         SignupController signupController = new SignupController(signupInputBoundary);
