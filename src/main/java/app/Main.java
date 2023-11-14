@@ -4,6 +4,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import app.usecase_factories.AppUseCaseFactory;
+import app.usecase_factories.LoginUseCaseFactory;
+import app.usecase_factories.SignupUseCaseFactory;
 import data_access.database.DatabaseAccessInterface;
 import data_access.database.PostGreSQLAccessObject;
 import data_access.pokemon.PokemonCardDataAccessInterface;
@@ -41,7 +44,7 @@ public class Main {
         AppViewModel appViewModel = new AppViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
 
-        AppView appView = AppView.create(appViewModel);
+        AppView appView = AppUseCaseFactory.create(appViewModel);
         LoginView loginView = LoginUseCaseFactory.create(loginViewModel, appViewModel, db, guiManager);
         SignupView signupView = SignupUseCaseFactory.create(signupViewModel, loginViewModel, db, guiManager);
 
