@@ -1,9 +1,6 @@
 package data_access.pokemon;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.net.URLEncoder;
-import java.security.URIParameter;
 
 public class PokemonGuruCardSearchFilter {
     public String name = "";

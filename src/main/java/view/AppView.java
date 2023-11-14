@@ -114,6 +114,7 @@ public class AppView extends JPanel {
         });
 
         for (JButton button : tabButtons) {
+            button.setFocusable(false);
             button.addActionListener(evt -> {
                 showTab(button.getText());
             });
@@ -128,9 +129,19 @@ public class AppView extends JPanel {
         add(headerPanel, BorderLayout.BEFORE_FIRST_LINE);
 
         contentPanel.add(cardSearchView, "Card Viewer");
+        contentPanel.add(new JPanel(), "Deck Builder");
+
+        showTab("Card Viewer");
     }
 
     public void showTab(String tab) {
         tabs.show(contentPanel, tab);
+        tabLabel.setText(tab);
+
+        // Disable the button for the new tab
+
+        for (JButton button : tabButtons) {
+            button.setEnabled(!button.getText().equals(tab));
+        }
     }
 }

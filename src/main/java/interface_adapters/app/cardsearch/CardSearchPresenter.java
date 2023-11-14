@@ -11,6 +11,6 @@ public class CardSearchPresenter implements CardSearchOutputBoundary {
     }
 
     public void present(CardSearchOutputData outputData) {
-
+        viewModel.setDisplayedCards(outputData.getResults());
     }
 }
