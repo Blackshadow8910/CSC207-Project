@@ -11,8 +11,6 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-import static java.awt.Color.red;
-
 public class GUIManager {
     public JFrame frame = new JFrame("PokeTrader");
     private CardLayout cardLayout = new CardLayout(); 
