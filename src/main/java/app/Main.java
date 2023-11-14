@@ -20,7 +20,6 @@ import interface_adapters.app.AppViewModel;
 import interface_adapters.app.cardsearch.CardSearchViewModel;
 import interface_adapters.login.LoginViewModel;
 import interface_adapters.signup.SignupViewModel;
-import usecase.PokemonTCGApiUseCase;
 import view.AppView;
 import view.CardSearchView;
 import view.LoginView;
