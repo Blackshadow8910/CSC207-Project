@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import interface_adapters.app.cardsearch.CardSearchController;
@@ -12,5 +13,7 @@ public class CardSearchView extends JPanel {
     public CardSearchView(CardSearchViewModel viewModel, CardSearchController controller) {
         this.viewModel = viewModel;
         this.controller = controller;
+
+        add(new JLabel("Card Search Placeholder"));
     }
 }

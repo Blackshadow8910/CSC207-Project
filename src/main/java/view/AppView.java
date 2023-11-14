@@ -11,6 +11,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -64,14 +66,18 @@ public class AppView extends JPanel {
     private JLabel userLabel = new JLabel("User");
     private JLabel userIconLabel = new JLabel(new ImageIcon());
 
-    public AppView(AppViewModel appViewModel, AppController appController) {
+    public AppView(AppViewModel appViewModel, AppController appController, CardSearchView cardSearchView) {
         this.appViewModel = appViewModel;
         this.appController = appController;
         
+        // Setup buttons
+
         buttonPanel.setLayout(buttonPanelLayout);
         for (JButton button : tabButtons) {
             buttonPanel.add(button);
         }
+
+        // Setup base UI
 
         headerPanel.add(headerLeft);
         headerPanel.add(headerRight);
@@ -81,6 +87,9 @@ public class AppView extends JPanel {
         headerPanel.setBorder(new MatteBorder(0, 0, 1, 0, Color.gray));
         tabLabel.setFont(headerFont);
         userLabel.setFont(headerFont);
+
+        // Load Image
+
         try {
             Dimension d = new Dimension(40, 40);
             Image i = ImageIO.read(new File("resources/img/user-icon.png")).getScaledInstance(d.width, d.height, Image.SCALE_SMOOTH);
@@ -89,13 +98,9 @@ public class AppView extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        setLayout(borderLayout);
-        buttonPanel.setPreferredSize(new Dimension(0, 80));
-        add(contentPanel, BorderLayout.CENTER);
-        add(buttonPanel, BorderLayout.AFTER_LAST_LINE);
-        add(headerPanel, BorderLayout.BEFORE_FIRST_LINE);
-
+        
+        // Bind behaviours
+        
         appViewModel.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -107,13 +112,25 @@ public class AppView extends JPanel {
                 }
             }
         });
+
+        for (JButton button : tabButtons) {
+            button.addActionListener(evt -> {
+                showTab(button.getText());
+            });
+        }
+
+        // Finish setting UI
+
+        setLayout(borderLayout);
+        buttonPanel.setPreferredSize(new Dimension(0, 80));
+        add(contentPanel, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.AFTER_LAST_LINE);
+        add(headerPanel, BorderLayout.BEFORE_FIRST_LINE);
+
+        contentPanel.add(cardSearchView, "Card Viewer");
     }
 
-    public static AppView create(AppViewModel viewModel) {
-        AppOutputBoundary presenter = new AppPresenter(viewModel);
-        AppInputBoundary interactor = new AppInteractor(presenter);
-        AppController controller = new AppController(interactor);
-
-        return new AppView(viewModel, controller);
+    public void showTab(String tab) {
+        tabs.show(contentPanel, tab);
     }
 }

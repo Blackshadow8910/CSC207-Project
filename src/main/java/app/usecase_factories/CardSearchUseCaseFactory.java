@@ -7,10 +7,10 @@ import view.CardSearchView;
 import javax.swing.*;
 
 import app.GUIManager;
+import data_access.pokemon.PokemonCardDataAccessInterface;
 import interface_adapters.app.cardsearch.CardSearchController;
 import interface_adapters.app.cardsearch.CardSearchPresenter;
 import interface_adapters.app.cardsearch.CardSearchViewModel;
-import usecase.app.cardsearch.CardSearchDataAccessInterface;
 import usecase.app.cardsearch.CardSearchInputBoundary;
 import usecase.app.cardsearch.CardSearchInteractor;
 import usecase.app.cardsearch.CardSearchOutputBoundary;
@@ -23,10 +23,10 @@ public class CardSearchUseCaseFactory {
     private CardSearchUseCaseFactory() {}
 
     public static CardSearchView create(CardSearchViewModel cardSearchViewModel,
-                                   CardSearchDataAccessInterface dataAccessObject) {
+                                   PokemonCardDataAccessInterface dataAccessObject) {
 
         CardSearchOutputBoundary cardSearchOutputBoundary = new CardSearchPresenter(cardSearchViewModel);
-        CardSearchInputBoundary cardSearchInputBoundary = new CardSearchInteractor(cardSearchOutputBoundary);
+        CardSearchInputBoundary cardSearchInputBoundary = new CardSearchInteractor(cardSearchOutputBoundary, dataAccessObject);
         CardSearchController cardSearchController = new CardSearchController(cardSearchInputBoundary);
 
         return new CardSearchView(cardSearchViewModel, cardSearchController);

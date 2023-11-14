@@ -7,6 +7,7 @@ import usecase.app.AppInputBoundary;
 import usecase.app.AppInteractor;
 import usecase.app.AppOutputBoundary;
 import view.AppView;
+import view.CardSearchView;
 
 import javax.swing.*;
 
@@ -19,12 +20,11 @@ public class AppUseCaseFactory {
     /** Prevent instantiation. */
     private AppUseCaseFactory() {}
 
-    public static AppView create(AppViewModel appViewModel) {
+    public static AppView create(AppViewModel appViewModel, CardSearchView cardSearchView) {
         AppOutputBoundary appOutputBoundary = new AppPresenter(appViewModel);
         AppInputBoundary appInputBoundary = new AppInteractor(appOutputBoundary);
         AppController appController = new AppController(appInputBoundary);
 
-        return new AppView(appViewModel, appController);
-
+        return new AppView(appViewModel, appController, cardSearchView);
     }
 }
