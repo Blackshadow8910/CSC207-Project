@@ -27,7 +27,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class PokemonGuruDataAccessObject implements PokemonGuruDataAccessInterface, ImageCacheAccessInterface {
+public class PokemonGuruDataAccessObject implements PokemonCardDataAccessInterface, ImageCacheAccessInterface {
     private String apiKey;
     private OkHttpClient httpClient;
 
