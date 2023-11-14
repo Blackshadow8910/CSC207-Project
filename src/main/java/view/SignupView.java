@@ -41,7 +41,7 @@ public class SignupView extends JPanel {
     private JLabel passwordLabel = new JLabel("Password: ");
     private JPasswordField passwordField = new JPasswordField();
 
-    private JLabel repeatPasswordLabel = new JLabel("Confirm Password: ");
+    private JLabel repeatPasswordLabel = new JLabel("Confirm Password:     ");
     private JPasswordField repeatPasswordField = new JPasswordField();
 
     private JPanel backgroundPanel = new JPanel();
