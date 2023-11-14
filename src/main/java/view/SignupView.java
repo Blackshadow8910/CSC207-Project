@@ -93,20 +93,41 @@ public class SignupView extends JPanel {
         gbc.weighty = 1;
         signupPanel.add(usernameLabel, gbc);
         gbc.gridy = 2;
+        gbc.gridx = 0;
+        gbc.weighty = 5;
+        signupPanel.add(new JPanel(), gbc);
+        gbc.gridy = 3;
         gbc.weighty = 1;
         signupPanel.add(passwordLabel, gbc);
-        gbc.gridy = 3;
+        gbc.gridy = 4;
+        gbc.weighty = 5;
+        signupPanel.add(new JPanel(), gbc);
+        gbc.gridy = 5;
         gbc.weighty = 1;
         signupPanel.add(repeatPasswordLabel, gbc);
 
+        gbc.gridy = 0;
+        gbc.gridx = 1;
+        gbc.weighty = 5;
+        signupPanel.add(new JPanel(), gbc);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
         gbc.gridy = 1;
         gbc.weighty = 1;
-        gbc.gridx = 2;
+        gbc.gridx = 1;
         signupPanel.add(usernameField, gbc);
         gbc.gridy = 2;
+        gbc.gridx = 1;
+        gbc.weighty = 5;
+        signupPanel.add(new JPanel(), gbc);
+        gbc.gridy = 3;
         gbc.weighty = 1;
         signupPanel.add(passwordField, gbc);
-        gbc.gridy = 3;
+        gbc.gridy = 4;
+        gbc.gridx = 1;
+        gbc.weighty = 5;
+        signupPanel.add(new JPanel(), gbc);
+        gbc.gridy = 5;
         gbc.weighty = 1;
         signupPanel.add(repeatPasswordField, gbc);
 
@@ -182,7 +203,7 @@ public class SignupView extends JPanel {
         gbc.weighty = 5;
         mainPanel.add(new JPanel(), gbc);
 
-        mainPanel.setSize(new Dimension(245, 200));
+        mainPanel.setSize(new Dimension(245, 218));
         mainPanel.setLocation(360, 100);
 
 
