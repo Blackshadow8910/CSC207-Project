@@ -6,8 +6,8 @@ import interface_adapters.app.AppViewModel;
 import usecase.app.AppInputBoundary;
 import usecase.app.AppInteractor;
 import usecase.app.AppOutputBoundary;
-import view.AppView;
-import view.CardSearchView;
+import view.app.AppView;
+import view.app.CardSearchView;
 
 import javax.swing.*;
 

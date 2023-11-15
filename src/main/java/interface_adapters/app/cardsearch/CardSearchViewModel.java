@@ -7,17 +7,17 @@ import java.util.Map;
 
 import entity.Card;
 import interface_adapters.ViewModel;
-import usecase.app.cardsearch.CardSearchResult;
+import usecase.app.cardsearch.CardDisplayData;
 
 public class CardSearchViewModel extends ViewModel{
 
-    private ArrayList<CardSearchResult> displayedResults = new ArrayList<>();
+    private ArrayList<CardDisplayData> displayedResults = new ArrayList<>();
 
     public CardSearchViewModel() {
         super("cardsearch");
     }
 
-    public void setDisplayedCards(ArrayList<CardSearchResult> results) {
+    public void setDisplayedCards(ArrayList<CardDisplayData> results) {
         Object oldValue = displayedResults;
         displayedResults = results;
 

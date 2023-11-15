@@ -20,10 +20,10 @@ import interface_adapters.app.AppViewModel;
 import interface_adapters.app.cardsearch.CardSearchViewModel;
 import interface_adapters.login.LoginViewModel;
 import interface_adapters.signup.SignupViewModel;
-import view.AppView;
-import view.CardSearchView;
 import view.LoginView;
 import view.SignupView;
+import view.app.AppView;
+import view.app.CardSearchView;
 
 public class Main {
     public static void main(String[] args) {

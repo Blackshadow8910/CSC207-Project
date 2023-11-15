@@ -4,7 +4,7 @@ import app.GUIManager;
 import interface_adapters.app.AppViewModel;
 import usecase.login.LoginOutputBoundary;
 import usecase.login.LoginOutputData;
-import view.AppView;
+import view.app.AppView;
 
 public class LoginPresenter implements LoginOutputBoundary {
     private LoginViewModel viewModel;

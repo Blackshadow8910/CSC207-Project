@@ -2,8 +2,6 @@ package app.usecase_factories;
 
 
 
-import view.CardSearchView;
-
 import javax.swing.*;
 
 import app.GUIManager;
@@ -15,6 +13,7 @@ import interface_adapters.app.cardsearch.CardSearchViewModel;
 import usecase.app.cardsearch.CardSearchInputBoundary;
 import usecase.app.cardsearch.CardSearchInteractor;
 import usecase.app.cardsearch.CardSearchOutputBoundary;
+import view.app.CardSearchView;
 
 import java.io.IOException;
 

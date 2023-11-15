@@ -4,11 +4,11 @@ import java.awt.Image;
 
 import entity.Card;
 
-public class CardSearchResult {
+public class CardDisplayData {
     public final Card card;
     public final Image image;
 
-    public CardSearchResult(Card card, Image image) {
+    public CardDisplayData(Card card, Image image) {
         this.card = card;
         this.image = image;
     }

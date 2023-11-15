@@ -10,17 +10,17 @@ import java.util.Map;
 import entity.Card;
 
 public class CardSearchOutputData {
-    private final ArrayList<CardSearchResult> results = new ArrayList<>();
+    private final ArrayList<CardDisplayData> results = new ArrayList<>();
 
     public CardSearchOutputData() {
         
     }
 
     public void add(Card card, Image image) {
-        results.add(new CardSearchResult(card, image));
+        results.add(new CardDisplayData(card, image));
     }
 
-    public ArrayList<CardSearchResult> getResults() {
+    public ArrayList<CardDisplayData> getResults() {
         return results;
     }
 }

@@ -1,4 +1,4 @@
-package view;
+package view.app;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,14 +26,13 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-import data_access.pokemon.PokemonGuruCardSearchFilter;
-import data_access.pokemon.PokemonGuruCardSearchFilter;
 import interface_adapters.app.cardsearch.CardSearchController;
 import interface_adapters.app.cardsearch.CardSearchViewModel;
 import usecase.app.cardsearch.CardSearchInputData;
-import usecase.app.cardsearch.CardSearchResult;
+import usecase.app.cardsearch.CardDisplayData;
 import util.GridBagConstraintBuilder;
 import util.ImagePanel;
+import view.app.CardView.SelectEvent;
 
 public class CardSearchView extends JPanel {
     private CardSearchViewModel viewModel;
@@ -43,6 +42,7 @@ public class CardSearchView extends JPanel {
     private final JPanel mainContainer = new JPanel(mainGridBagLayout);
 
     private final JPanel infoPanel = new JPanel();
+    private final JLabel infoLabel = new JLabel();
     private final MatteBorder infoPanelBorder = new MatteBorder(0, 1, 0, 0, Color.GRAY);
     private final GridBagConstraints infoPanelGBC = new GridBagConstraintBuilder()
         .fill(GridBagConstraints.BOTH)
@@ -72,11 +72,7 @@ public class CardSearchView extends JPanel {
     private final JButton searchButton = new JButton("Search");
     private final JButton advancedSearchButton = new JButton("Advanced");
     
-    private final FlowLayout resultContainerLayout = new FlowLayout(FlowLayout.LEFT, 12, 12);
-    private final JPanel resultContainer = new JPanel(resultContainerLayout);
-    private final JScrollPane resultScrollPane = new JScrollPane(resultContainer);
-
-    private final Dimension resultEntrySize = new Dimension(114, 160 + 20);
+    private final CardView resultContainer = new CardView();
 
     public CardSearchView(CardSearchViewModel viewModel, CardSearchController controller) {
         this.viewModel = viewModel;
@@ -85,14 +81,13 @@ public class CardSearchView extends JPanel {
         // Setup UI
 
         infoPanel.setBorder(infoPanelBorder);
+        infoPanel.add(infoLabel);
         searchPanel.setBorder(searchPanelBorder);
         searchPanel.setLayout(searchPanelLayout);
-        mainPanel.add(resultScrollPane, BorderLayout.CENTER);
+        mainPanel.add(resultContainer, BorderLayout.CENTER);
 
         searchButton.setFocusable(false);
         advancedSearchButton.setFocusable(false);
-
-        resultScrollPane.setAutoscrolls(true);
 
         searchPanel.add(new JLabel("Search keywords: "));
         searchPanel.add(searchField, new GridBagConstraintBuilder().gridx(1).weightx(1).weighty(1).build());
@@ -105,14 +100,18 @@ public class CardSearchView extends JPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("displayedResults")) {
-                    ArrayList<CardSearchResult> results = (ArrayList<CardSearchResult>) evt.getNewValue();
+                    ArrayList<CardDisplayData> results = (ArrayList<CardDisplayData>) evt.getNewValue();
 
                     System.out.println("Displaying %s results from search.".formatted(results.size()));
-                    displayResults(results);
+                    resultContainer.displayResults(results);
                 }
             }
         });
 
+        resultContainer.addSelectListener(evt -> {
+            infoLabel.setText(evt.selectedCard.name);
+        });
+        
         searchField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -137,31 +136,5 @@ public class CardSearchView extends JPanel {
 
         setLayout(new BorderLayout());
         add(mainContainer, BorderLayout.CENTER);
-    }
-
-    public void displayResults(ArrayList<CardSearchResult> results) {
-        resultContainer.removeAll();
-
-        for (CardSearchResult result : results) {
-            resultContainer.add(createResultEntry(result));
-        }
-
-        resultContainer.revalidate();
-        resultContainer.repaint();
-    }
-
-    public JPanel createResultEntry(CardSearchResult data) {
-        JPanel panel = new JPanel(new BorderLayout());
-
-        ImagePanel imagePanel = new ImagePanel(data.image);
-        JLabel textLabel = new JLabel(data.card.name);
-
-        panel.add(imagePanel, BorderLayout.CENTER);
-        panel.add(textLabel, BorderLayout.SOUTH);
-
-        textLabel.setBackground(Color.BLUE);
-        panel.setPreferredSize(resultEntrySize);
-        
-        return panel;
     }
 }

@@ -4,7 +4,7 @@ import javax.swing.JComponent;
 
 import entity.User;
 import interface_adapters.ViewModel;
-import view.AppView;
+import view.app.AppView;
 
 public class AppViewModel extends ViewModel {
     public String currentTab;
