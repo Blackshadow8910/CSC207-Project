@@ -1,20 +1,12 @@
 package view;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
-
 import app.GUIManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import interface_adapters.app.AppViewModel;
 import interface_adapters.login.LoginController;
-import interface_adapters.login.LoginPresenter;
 import interface_adapters.login.LoginViewModel;
-import usecase.login.LoginDataAccessInterface;
-import usecase.login.LoginInputBoundary;
-import usecase.login.LoginInteractor;
-import usecase.login.LoginOutputBoundary;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,7 +20,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class LoginView extends JPanel {
-    private LoginViewModel viewModel;
+
+    public final String viewName = "log in";
+    private final GUIManager guiManager;
+    private LoginViewModel loginviewModel;
+
     private LoginController loginController;
 
     private JLabel usernameLabel = new JLabel("Username: ");
@@ -55,9 +51,10 @@ public class LoginView extends JPanel {
 
     private BoxLayout boxLayout = new BoxLayout(loginPanel, BoxLayout.PAGE_AXIS);
 
-    public LoginView(LoginViewModel viewModel, LoginController loginController) {
-        this.viewModel = viewModel;
+    public LoginView(LoginViewModel viewModel, LoginController loginController, GUIManager guiManager) {
+        this.loginviewModel = viewModel;
         this.loginController = loginController;
+        this.guiManager = guiManager;
 
         try {
             BufferedImage myPicture = ImageIO.read(new File("resources/img/PokeTraderLogo.png"));
@@ -79,7 +76,7 @@ public class LoginView extends JPanel {
 
         passwordInputPanel.add(passwordLabel);
         passwordInputPanel.add(passwordField);
-        
+
         passwordField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -102,12 +99,7 @@ public class LoginView extends JPanel {
         signupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(
-                    LoginView.this, 
-                    "Signup has not been implemented", 
-                    "Unimplemented feature", 
-                    JOptionPane.ERROR_MESSAGE
-                );
+                guiManager.showView("signup");
             }
         });
 
@@ -133,24 +125,20 @@ public class LoginView extends JPanel {
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("feedbackMessage")) {
                     JOptionPane.showMessageDialog(
-                        LoginView.this, 
-                        viewModel.getFeedbackMessage(), 
-                        "", 
-                        JOptionPane.INFORMATION_MESSAGE
+                            LoginView.this,
+                            viewModel.getFeedbackMessage(),
+                            "",
+                            JOptionPane.INFORMATION_MESSAGE
                     );
+                } else if (evt.getPropertyName().equals("username")) {
+                    System.out.println("ASDSA");
+                    usernameField.setText((String)evt.getNewValue());
+                } else if (evt.getPropertyName().equals("password")) {
+                    passwordField.setText((String)evt.getNewValue());
                 }
             }
         });
 
         add(layeredPane);
-    }
-
-    public static LoginView create(LoginViewModel loginViewModel, AppViewModel appViewModel, LoginDataAccessInterface dataAccessObject, GUIManager guiManager) {
-        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewModel, appViewModel, guiManager);
-        LoginInputBoundary loginInputBoundary = new LoginInteractor(dataAccessObject, loginOutputBoundary);
-        LoginController loginController = new LoginController(loginInputBoundary);
-        LoginView loginView = new LoginView(loginViewModel, loginController);
-        
-        return loginView;
     }
 }
