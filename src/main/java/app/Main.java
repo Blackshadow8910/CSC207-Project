@@ -4,6 +4,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import app.usecase_factories.AppUseCaseFactory;
+import app.usecase_factories.CardSearchUseCaseFactory;
+import app.usecase_factories.LoginUseCaseFactory;
+import app.usecase_factories.SignupUseCaseFactory;
 import data_access.database.DatabaseAccessInterface;
 import data_access.database.PostGreSQLAccessObject;
 import data_access.pokemon.PokemonCardDataAccessInterface;
@@ -13,12 +17,13 @@ import data_access.image.ImageCacheAccessInterface;
 import entity.Card;
 import interface_adapters.app.AppController;
 import interface_adapters.app.AppViewModel;
+import interface_adapters.app.cardsearch.CardSearchViewModel;
 import interface_adapters.login.LoginViewModel;
 import interface_adapters.signup.SignupViewModel;
-import usecase.PokemonTCGApiUseCase;
-import view.AppView;
 import view.LoginView;
 import view.SignupView;
+import view.app.AppView;
+import view.app.CardSearchView;
 
 public class Main {
     public static void main(String[] args) {
@@ -28,20 +33,17 @@ public class Main {
         ImageCacheAccessInterface imageDAO = (ImageCacheAccessInterface) pokemonCardDAO;
         DatabaseAccessInterface db = new TestDatabaseAccessObject();//new PostGreSQLAccessObject();
 
-
-        // Use case
-
-        PokemonTCGApiUseCase pokemonTCGApiUseCase = new PokemonTCGApiUseCase(pokemonCardDAO);
-
         // Other
 
         GUIManager guiManager = new GUIManager();
 
+        CardSearchViewModel cardSearchViewModel = new CardSearchViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
         AppViewModel appViewModel = new AppViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
 
-        AppView appView = AppView.create(appViewModel);
+        CardSearchView cardSearchView = CardSearchUseCaseFactory.create(cardSearchViewModel, pokemonCardDAO, imageDAO);
+        AppView appView = AppUseCaseFactory.create(appViewModel, cardSearchView);
         LoginView loginView = LoginUseCaseFactory.create(loginViewModel, appViewModel, db, guiManager);
         SignupView signupView = SignupUseCaseFactory.create(signupViewModel, loginViewModel, db, guiManager);
 

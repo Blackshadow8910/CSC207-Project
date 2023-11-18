@@ -36,6 +36,21 @@ public class TestCardDataAccessObject implements PokemonCardDataAccessInterface,
             "pikamon",
             "pica",
             List.of("electric")));
+        cards.add(new PokemonCard(
+            "Goober", 
+            "gober",
+            "stu",
+            List.of("what")));
+        cards.add(new PokemonCard(
+            "Frep", 
+            "freb",
+            "ferb",
+            List.of("derf")));
+        cards.add(new PokemonCard(
+            "junston", 
+            "ppoo",
+            "h",
+            List.of("torp")));
     }
 
     @Override

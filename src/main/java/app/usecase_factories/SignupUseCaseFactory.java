@@ -1,4 +1,4 @@
-package app;
+package app.usecase_factories;
 
 import interface_adapters.login.LoginViewModel;
 import interface_adapters.signup.SignupController;
@@ -14,6 +14,9 @@ import usecase.signup.SignupOutputBoundary;
 import view.SignupView;
 
 import javax.swing.*;
+
+import app.GUIManager;
+
 import java.io.IOException;
 
 public class SignupUseCaseFactory {
