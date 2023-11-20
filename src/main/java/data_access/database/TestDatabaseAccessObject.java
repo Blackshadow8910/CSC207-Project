@@ -9,7 +9,6 @@ import entity.Deck;
 import entity.User;
 
 public class TestDatabaseAccessObject implements DatabaseAccessInterface {
-
     public ArrayList<User> users = new ArrayList<>();
     private final HashMap<String, Deck> decks = new HashMap<>();
 
@@ -17,6 +16,11 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
         try {
             registerUser("bob", "123456");
             registerUser("steven", "654321");
+
+            Deck testDeck = new Deck("TestDeck", "testdeck");
+            testDeck.addCard(new Card("henry", "s", "s"));
+            uploadDeck(testDeck);
+
         } catch (UserAlreadyExistsException e) {
         }
     }
