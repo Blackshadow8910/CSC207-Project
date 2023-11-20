@@ -7,6 +7,7 @@ public class User {
     public String username;
     public String password;
     private final ArrayList<Deck> decks = new ArrayList<>();
+    private final ArrayList<Card> ownedCards = new ArrayList<>();
 
     public User(String username, String password) {
         this.username = username;
@@ -19,5 +20,23 @@ public class User {
 
     public List<Deck> getDecks() {
         return decks;
+    }
+
+    public List<Card> getOwnedCards() {
+        return ownedCards;
+    }
+
+    public void addOwnedCard(Card card) {
+        ownedCards.add(card);
+    }
+
+    public void removeOwnedCard(String id) {
+        int n = 0;
+        for (Card ownedCard : ownedCards) {
+            if (ownedCard.id.equals(id)) {
+                ownedCards.remove(n);
+            }
+            n++;
+        }
     }
 }

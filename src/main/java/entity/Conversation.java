@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.json.JSONWriter;
-
 public class Conversation {
     /**
      * A list of the users in the conversation. Must be non empty.
@@ -33,17 +31,5 @@ public class Conversation {
 
     public void sendMessage(Message msg) {
         messages.add(msg);
-    }
-
-    public static class Message {
-        public final String sender;
-        public final String content;
-        public final Date date;
-
-        public Message(String sender, String content, Date date) {
-            this.sender = sender;
-            this.content = content;
-            this.date = date;
-        }
     }
 }

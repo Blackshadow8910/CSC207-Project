@@ -6,6 +6,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import entity.Message;
+import org.json.JSONObject;
 import org.json.JSONWriter;
 
 import app.usecase_factories.AppUseCaseFactory;
@@ -58,11 +60,5 @@ public class Main {
         guiManager.addView("signup", signupView);
 
         // Misc testing whatever
-
-        SellListing s = new SellListing(pokemonCardDAO.getCard("horse"), db.getUser("bob"), 0);
-        s.openConversation("steven");
-        s.getConversations().get(0).sendMessage(new Conversation.Message("steven", "Howdy!", new Date()));
-
-        System.out.println(JSONWriter.valueToString(s));
     }
 }
