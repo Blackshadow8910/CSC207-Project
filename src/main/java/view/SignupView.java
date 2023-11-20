@@ -158,11 +158,10 @@ public class SignupView extends JPanel {
                     );
                     return;
                 }
-
-                viewModel.setUsername(username);
-                viewModel.setPassword(password);
-
-                controller.signup(viewModel.getUsername(), viewModel.getPassword());
+                controller.signup(username, password);
+                usernameField.setText("");
+                passwordField.setText("");
+                repeatPasswordField.setText("");
             }
         });
 

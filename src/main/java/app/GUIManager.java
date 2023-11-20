@@ -3,9 +3,6 @@ package app;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 
-import view.LoginView;
-import interface_adapters.ViewModel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
