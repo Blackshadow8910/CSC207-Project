@@ -14,14 +14,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
@@ -59,18 +52,13 @@ public class CardSearchView extends JPanel {
         .weighty(11)
         .build();
     
-    private final JPanel searchPanel = new JPanel();
-    private final LayoutManager searchPanelLayout = new GridBagLayout();
-    private final Border searchPanelBorder = new EmptyBorder(0, 8, 0, 0);
+    private final CardSearchBarView searchPanel = new CardSearchBarView();;
     private final GridBagConstraints searchPanelGBC = new GridBagConstraintBuilder()
         .fill(GridBagConstraints.BOTH)
         .gridy(0)
         .weightx(2)
         .weighty(1)
         .build();
-    private final JTextField searchField = new JTextField();
-    private final JButton searchButton = new JButton("Search");
-    private final JButton advancedSearchButton = new JButton("Advanced");
     
     private final CardView resultContainer = new CardView();
 
@@ -82,17 +70,7 @@ public class CardSearchView extends JPanel {
 
         infoPanel.setBorder(infoPanelBorder);
         infoPanel.add(infoLabel);
-        searchPanel.setBorder(searchPanelBorder);
-        searchPanel.setLayout(searchPanelLayout);
         mainPanel.add(resultContainer, BorderLayout.CENTER);
-
-        searchButton.setFocusable(false);
-        advancedSearchButton.setFocusable(false);
-
-        searchPanel.add(new JLabel("Search keywords: "));
-        searchPanel.add(searchField, new GridBagConstraintBuilder().gridx(1).weightx(1).weighty(1).build());
-        searchPanel.add(advancedSearchButton, new GridBagConstraintBuilder().gridx(2).build());
-        searchPanel.add(searchButton, new GridBagConstraintBuilder().gridx(3).build());
 
         // Bind Behaviours
 
@@ -111,21 +89,9 @@ public class CardSearchView extends JPanel {
         resultContainer.addSelectListener(evt -> {
             infoLabel.setText(evt.selectedCard.name);
         });
-        
-        searchField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    searchField.setFocusable(false);
-                    searchField.setFocusable(true);
 
-                    searchButton.doClick();
-                }
-            }
-        });
-
-        searchButton.addActionListener(evt -> {
-            controller.performSearch(searchField.getText());
+        searchPanel.addSearchListener(evt -> {
+            controller.performSearch(evt.data);
         });
         
         // Finish setting UI
