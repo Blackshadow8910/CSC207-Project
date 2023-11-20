@@ -2,15 +2,15 @@ package data_access.database;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
-import entity.Card;
-import entity.Deck;
-import entity.User;
+import entity.*;
 
 public class TestDatabaseAccessObject implements DatabaseAccessInterface {
     public ArrayList<User> users = new ArrayList<>();
     private final HashMap<String, Deck> decks = new HashMap<>();
+    private final HashMap<String, SellListing> sellListings = new HashMap<>();
 
     public TestDatabaseAccessObject() {
         try {
@@ -69,5 +69,37 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
      */
     public void uploadDeck(Deck deck) {
         decks.put(deck.id, deck);
+    }
+
+    @Override
+    public SellListing getSellListing(String id) {
+        if (sellListings.containsKey(id)) {
+            return sellListings.get(id);
+        }
+        return null;
+    }
+
+    @Override
+    public void uploadSellListing(SellListing sellListing) {
+        sellListings.put(sellListing.getId(), sellListing);
+    }
+
+    @Override
+    public void closeSellListing(String id) {
+        if (sellListings.containsKey(id)) {
+            sellListings.remove(id);
+        }
+    }
+
+    @Override
+    public void replyToSellListing(String sellListingId, String userID, String content) {
+        SellListing sellListing =  getSellListing(sellListingId);
+
+        if (sellListing == null) {
+            throw new RuntimeException("No such sell listing.");
+        }
+
+        Conversation c = sellListing.openConversation(userID);
+        c.sendMessage(new Message(userID, content, new Date()));
     }
 }
