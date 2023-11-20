@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import entity.Deck;
 import entity.User;
 
 
@@ -101,5 +102,17 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Deck getDeck(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDeck'");
+    }
+
+    @Override
+    public void uploadDeck(Deck deck) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'uploadDeck'");
     }
 }

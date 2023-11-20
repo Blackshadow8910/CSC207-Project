@@ -2,13 +2,16 @@ package data_access.database;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import entity.Card;
+import entity.Deck;
 import entity.User;
 
 public class TestDatabaseAccessObject implements DatabaseAccessInterface {
 
     public ArrayList<User> users = new ArrayList<>();
+    private final HashMap<String, Deck> decks = new HashMap<>();
 
     public TestDatabaseAccessObject() {
         try {
@@ -46,5 +49,21 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
         }
 
         users.add(new User(username, password));
+    }
+
+    @Override
+    public Deck getDeck(String id) {
+        if (decks.containsKey(id)) {
+            return decks.get(id);
+        }
+        return null;
+    }
+
+    @Override
+    /**
+     * Will upload a deck with the id as specified by deck; if there is already a deck with the same id, it will be overwritten
+     */
+    public void uploadDeck(Deck deck) {
+        decks.put(deck.id, deck);
     }
 }

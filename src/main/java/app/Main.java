@@ -1,8 +1,12 @@
 package app;
 
+import java.util.Date;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import org.json.JSONWriter;
 
 import app.usecase_factories.AppUseCaseFactory;
 import app.usecase_factories.CardSearchUseCaseFactory;
@@ -15,6 +19,8 @@ import data_access.pokemon.TestCardDataAccessObject;
 import data_access.database.TestDatabaseAccessObject;
 import data_access.image.ImageCacheAccessInterface;
 import entity.Card;
+import entity.Conversation;
+import entity.SellListing;
 import interface_adapters.app.AppController;
 import interface_adapters.app.AppViewModel;
 import interface_adapters.app.cardsearch.CardSearchViewModel;
@@ -52,5 +58,11 @@ public class Main {
         guiManager.addView("signup", signupView);
 
         // Misc testing whatever
+
+        SellListing s = new SellListing(pokemonCardDAO.getCard("horse"), db.getUser("bob"), 0);
+        s.openConversation("steven");
+        s.getConversations().get(0).sendMessage(new Conversation.Message("steven", "Howdy!", new Date()));
+
+        System.out.println(JSONWriter.valueToString(s));
     }
 }
