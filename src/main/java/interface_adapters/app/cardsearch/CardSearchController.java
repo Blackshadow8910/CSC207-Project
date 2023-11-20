@@ -14,4 +14,8 @@ public class CardSearchController {
         System.out.println("Searching for: %s".formatted(query));
         inputBoundary.performSearch(new CardSearchInputData(query));
     }
+
+    public void performSearch(CardSearchInputData data) {
+        inputBoundary.performSearch(data);
+    }
 }
