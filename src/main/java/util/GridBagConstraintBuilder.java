@@ -8,7 +8,7 @@ public class GridBagConstraintBuilder {
     private int gridy = 0;
     private int gridwidth = 1;
     private int gridheight = 1;
-    private int weightx = 0;
+    private double weightx = 0;
     private int weighty = 0;
     private int anchor = GridBagConstraints.CENTER;
     private Insets insets = new Insets(0, 0, 0, 0);
@@ -30,7 +30,7 @@ public class GridBagConstraintBuilder {
         return this;
     }
 
-    public GridBagConstraintBuilder weightx(int value) {
+    public GridBagConstraintBuilder weightx(double value) {
         weightx = value;
         return this;
     }
