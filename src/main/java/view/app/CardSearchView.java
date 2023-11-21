@@ -107,6 +107,7 @@ public class CardSearchView extends JPanel {
         });
 
         resultContainer.addSelectListener(evt -> {
+            infoPanel.setVisible(true);
             infoLabel.setText(evt.selectedCard.name);
             Dimension panelSize2 = new Dimension(50, 100);
             infoPanel.setPreferredSize(panelSize2);
@@ -134,6 +135,7 @@ public class CardSearchView extends JPanel {
         mainContainer.add(mainPanel, mainPanelGBC);
         mainContainer.add(searchPanel, searchPanelGBC);
         mainContainer.add(infoPanel, infoPanelGBC);
+        infoPanel.setVisible(false);
 
         setLayout(new BorderLayout());
         add(mainContainer, BorderLayout.CENTER);
