@@ -111,7 +111,7 @@ public class CardSearchView extends JPanel {
             infoLabel.setText(evt.selectedCard.name);
             Dimension panelSize2 = new Dimension(50, 100);
             infoPanel.setPreferredSize(panelSize2);
-            resultContainer.setPreferredSize(new Dimension(100, 100));
+            resultContainer.setPreferredSize(new Dimension(100, 0));
         });
         
         searchField.addKeyListener(new KeyAdapter() {
