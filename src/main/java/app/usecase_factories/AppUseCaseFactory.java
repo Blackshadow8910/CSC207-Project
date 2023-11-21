@@ -12,6 +12,7 @@ import view.app.CardSearchView;
 import javax.swing.*;
 
 import app.GUIManager;
+import view.app.InventoryView;
 
 import java.io.IOException;
 
@@ -20,11 +21,11 @@ public class AppUseCaseFactory {
     /** Prevent instantiation. */
     private AppUseCaseFactory() {}
 
-    public static AppView create(AppViewModel appViewModel, CardSearchView cardSearchView) {
+    public static AppView create(AppViewModel appViewModel, CardSearchView cardSearchView, InventoryView inventoryView) {
         AppOutputBoundary appOutputBoundary = new AppPresenter(appViewModel);
         AppInputBoundary appInputBoundary = new AppInteractor(appOutputBoundary);
         AppController appController = new AppController(appInputBoundary);
 
-        return new AppView(appViewModel, appController, cardSearchView);
+        return new AppView(appViewModel, appController, cardSearchView, inventoryView);
     }
 }

@@ -66,7 +66,7 @@ public class AppView extends JPanel {
     private JLabel userLabel = new JLabel("User");
     private JLabel userIconLabel = new JLabel(new ImageIcon());
 
-    public AppView(AppViewModel appViewModel, AppController appController, CardSearchView cardSearchView) {
+    public AppView(AppViewModel appViewModel, AppController appController, CardSearchView cardSearchView, InventoryView inventoryView) {
         this.appViewModel = appViewModel;
         this.appController = appController;
         
@@ -130,6 +130,7 @@ public class AppView extends JPanel {
 
         contentPanel.add(cardSearchView, "Card Viewer");
         contentPanel.add(new JPanel(), "Deck Builder");
+        contentPanel.add(inventoryView, "My cards");
 
         showTab("Card Viewer");
     }

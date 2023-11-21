@@ -51,7 +51,7 @@ public class Main {
         SignupViewModel signupViewModel = new SignupViewModel();
 
         CardSearchView cardSearchView = CardSearchUseCaseFactory.create(cardSearchViewModel, pokemonCardDAO, imageDAO);
-        AppView appView = AppUseCaseFactory.create(appViewModel, cardSearchView);
+        AppView appView = AppUseCaseFactory.create(appViewModel, cardSearchView, );
         LoginView loginView = LoginUseCaseFactory.create(loginViewModel, appViewModel, db, guiManager);
         SignupView signupView = SignupUseCaseFactory.create(signupViewModel, loginViewModel, db, guiManager);
 

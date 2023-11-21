@@ -1,5 +1,7 @@
 package view.app;
 
+import interface_adapters.app.inventory.InventoryController;
+import interface_adapters.app.inventory.InventoryViewModel;
 import javax.swing.*;
 
 public class InventoryView extends JPanel {

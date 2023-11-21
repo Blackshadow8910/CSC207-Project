@@ -1,13 +1,16 @@
 package interface_adapters.app.inventory;
 
-public class InventoryPresenter implements _OutputBoundary {
+import usecase.app.inventory.InventoryOutputBoundary;
+import usecase.app.inventory.InventoryOutputData;
+
+public class InventoryPresenter implements InventoryOutputBoundary {
     private InventoryViewModel viewModel;
     
     public InventoryPresenter(InventoryViewModel viewModel) {
         this.viewModel = viewModel;
     }
 
-    public void present(_OutputData outputData) {
+    public void present(InventoryOutputData outputData) {
 
     }
 }
