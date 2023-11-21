@@ -87,7 +87,7 @@ public class CardSearchView extends JPanel {
         searchButton.setFocusable(false);
         advancedSearchButton.setFocusable(false);
 
-        searchPanel.add(new JLabel("Search keywords: "));
+        searchPanel.add(new JLabel("Search Keywords: "));
         searchPanel.add(searchField, new GridBagConstraintBuilder().gridx(1).weightx(1).weighty(1).build());
         searchPanel.add(advancedSearchButton, new GridBagConstraintBuilder().gridx(2).build());
         searchPanel.add(searchButton, new GridBagConstraintBuilder().gridx(3).build());
@@ -111,7 +111,7 @@ public class CardSearchView extends JPanel {
             infoLabel.setText(evt.selectedCard.name);
             Dimension panelSize2 = new Dimension(50, 100);
             infoPanel.setPreferredSize(panelSize2);
-            resultContainer.setPreferredSize(new Dimension(100, 0));
+            resultContainer.setPreferredSize(new Dimension(100, 100));
         });
         
         searchField.addKeyListener(new KeyAdapter() {
@@ -128,6 +128,7 @@ public class CardSearchView extends JPanel {
 
         searchButton.addActionListener(evt -> {
             controller.performSearch(searchField.getText());
+            infoPanel.setVisible(false);
         });
         
         // Finish setting UI
