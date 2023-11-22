@@ -10,17 +10,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import data_access.pokemon.PokemonCardDataAccessInterface;
+import entity.Deck;
 import entity.User;
+import org.json.JSONObject;
 
 
 public class PostGreSQLAccessObject implements DatabaseAccessInterface {
+    private final PokemonCardDataAccessInterface pokemonDAO;
     private static String dbURL;
     private static String dbUsername;
     private static String dbPassword;
     
     private Connection connection;
 
-    public PostGreSQLAccessObject() {
+    public PostGreSQLAccessObject(PokemonCardDataAccessInterface pokemonDAO) {
+        this.pokemonDAO = pokemonDAO;
         try {
             File f = new File("resources/postgresql-api-key.txt");
             BufferedReader reader = new BufferedReader(new FileReader(f));
@@ -97,7 +102,38 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
         //User user = new User(username, password);
 
         try {
-            executeQuery("INSERT INTO users (username, password) VALUES ('%s', '%s');");
+            executeQuery("INSERT INTO users (username, password) VALUES ('%s', '%s');".formatted(username, password));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Deck getDeck(String id) {
+        ResultSet results = executeQuery("SELECT * FROM decks WHERE id='%s'".formatted(id));
+        try {
+            if (results.next()) {
+                Deck deck = new Deck(results.getString("name"), id);
+                for (String cardId : (String[]) results.getArray("cards").getArray()) {
+                    deck.addCard(pokemonDAO.getCard(cardId));
+                }
+
+                return deck;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public void uploadDeck(Deck deck) {
+        JSONObject cardList = new JSONObject(deck.getCards());
+
+        try {
+            executeQuery("INSERT INTO decks (id, name, cards) VALUES ('%s', '%s', %s);".formatted(deck.id, deck.name, cardList.toString()));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,8 +1,14 @@
 package app;
 
+import java.util.Date;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import entity.Message;
+import org.json.JSONObject;
+import org.json.JSONWriter;
 
 import app.usecase_factories.AppUseCaseFactory;
 import app.usecase_factories.CardSearchUseCaseFactory;
@@ -15,6 +21,8 @@ import data_access.pokemon.TestCardDataAccessObject;
 import data_access.database.TestDatabaseAccessObject;
 import data_access.image.ImageCacheAccessInterface;
 import entity.Card;
+import entity.Conversation;
+import entity.SellListing;
 import interface_adapters.app.AppController;
 import interface_adapters.app.AppViewModel;
 import interface_adapters.app.cardsearch.CardSearchViewModel;
@@ -31,7 +39,7 @@ public class Main {
 
         PokemonCardDataAccessInterface pokemonCardDAO = new TestCardDataAccessObject();
         ImageCacheAccessInterface imageDAO = (ImageCacheAccessInterface) pokemonCardDAO;
-        DatabaseAccessInterface db = new TestDatabaseAccessObject();//new PostGreSQLAccessObject();
+        DatabaseAccessInterface db = new TestDatabaseAccessObject();//new PostGreSQLAccessObject(pokemonCardDAO);
 
         // Other
 

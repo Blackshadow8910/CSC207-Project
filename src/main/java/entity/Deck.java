@@ -16,7 +16,7 @@ public class Deck {
     public void addCard(Card card){
         this.deck.add(card);
     }
-    public ArrayList<Card> cardList()
+    public ArrayList<Card> getCards()
     {
         return new ArrayList<>(deck);
     }
@@ -61,5 +61,13 @@ public class Deck {
 
         }
         return true;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getId() {
+        return id;
     }
 }

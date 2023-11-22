@@ -15,12 +15,11 @@ import data_access.image.ImageCacheAccessInterface;
 import entity.Card;
 import entity.PokemonCard;
 
-public class TestCardDataAccessObject implements PokemonCardDataAccessInterface, ImageCacheAccessInterface {
-
-    public ArrayList<Card> cards = new ArrayList<>();
+public class TestCardDataAccessObject extends ArrayListCardDataAccessObject implements ImageCacheAccessInterface {
     public BufferedImage placeHolderImage = readPlaceholderImage();
 
     public TestCardDataAccessObject() {
+        super();
         cards.add(new PokemonCard(
             "Salamander", 
             "salamander",
@@ -69,33 +68,7 @@ public class TestCardDataAccessObject implements PokemonCardDataAccessInterface,
     @Override
     public void fireImageCacheUpdated(String key) {
     }
-    
-    @Override
-    public Card getCard(String id) {
-        for (Card card : cards) {
-            if (card.id.equals(id)) {
-                return card;
-            }
-        }
-        return null;
-    }
 
-    @Override
-    public ArrayList<Card> searchCards(PokemonGuruCardSearchFilter filter) {
-        ArrayList<Card> results = new ArrayList<>();
-        for (Card card : cards) {
-            if (card.name.contains(filter.name)) {
-                results.add(card);
-            }
-        }
-        return results;
-    }
-
-    @Override
-    public ArrayList<Card> searchCards(String query) {
-        return searchCards(new PokemonGuruCardSearchFilter(query));
-    }
-    
     private BufferedImage readPlaceholderImage() {
         try {
             File f = new File("resources/img/Cardback.jpg");
