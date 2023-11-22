@@ -17,13 +17,11 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
 import app.GUIManager;
@@ -33,6 +31,7 @@ import interface_adapters.app.AppViewModel;
 import usecase.app.AppInputBoundary;
 import usecase.app.AppInteractor;
 import usecase.app.AppOutputBoundary;
+import util.GridBagConstraintBuilder;
 
 /**
  * Where the bulk of the app will be; this will contain the ui for features after you have logged in
@@ -46,15 +45,15 @@ public class AppView extends JPanel {
     private CardLayout tabs = new CardLayout();
     private JPanel contentPanel = new JPanel(tabs);
 
-    private JButton[] tabButtons = {
-        new JButton("Card Viewer"),
-        new JButton("Deck Builder"),
-        new JButton("Deck Browser"),
-        new JButton("Other"),
-    };
+    private ArrayList<JButton> tabButtons = new ArrayList<>();
+
+    private ArrayList<JComponent> tabComponents = new ArrayList<>();
 
     private JPanel buttonPanel = new JPanel();
-    private LayoutManager buttonPanelLayout = new GridLayout(1, 4, 2, 0);
+    private LayoutManager buttonPanelLayout = new GridBagLayout();
+    private GridBagConstraintBuilder tabButtonGBCBuilder = new GridBagConstraintBuilder()
+            .weightx(1)
+            .weighty(1);
 
     private GridLayout headerPanelLayout = new GridLayout(1, 2);
     private JPanel headerPanel = new JPanel(headerPanelLayout);
@@ -66,7 +65,7 @@ public class AppView extends JPanel {
     private JLabel userLabel = new JLabel("User");
     private JLabel userIconLabel = new JLabel(new ImageIcon());
 
-    public AppView(AppViewModel appViewModel, AppController appController, CardSearchView cardSearchView, InventoryView inventoryView) {
+    public AppView(AppViewModel appViewModel, AppController appController) {
         this.appViewModel = appViewModel;
         this.appController = appController;
         
@@ -113,13 +112,6 @@ public class AppView extends JPanel {
             }
         });
 
-        for (JButton button : tabButtons) {
-            button.setFocusable(false);
-            button.addActionListener(evt -> {
-                showTab(button.getText());
-            });
-        }
-
         // Finish setting UI
 
         setLayout(borderLayout);
@@ -127,12 +119,6 @@ public class AppView extends JPanel {
         add(contentPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.AFTER_LAST_LINE);
         add(headerPanel, BorderLayout.BEFORE_FIRST_LINE);
-
-        contentPanel.add(cardSearchView, "Card Viewer");
-        contentPanel.add(new JPanel(), "Deck Builder");
-        contentPanel.add(inventoryView, "My cards");
-
-        showTab("Card Viewer");
     }
 
     public void showTab(String tab) {
@@ -144,5 +130,36 @@ public class AppView extends JPanel {
         for (JButton button : tabButtons) {
             button.setEnabled(!button.getText().equals(tab));
         }
+    }
+
+    public void addTab(String name, JComponent component) {
+        JButton button = new JButton(name);
+
+        button.setFocusable(false);
+        button.addActionListener(evt -> {
+            showTab(button.getText());
+        });
+
+        buttonPanel.add(button, tabButtonGBCBuilder.gridx(tabButtons.size()).build());
+
+        tabButtons.add(new JButton(name));
+        tabComponents.add(component);
+        contentPanel.add(component, name);
+
+        if (tabLabel.getText().equals("")) {
+            showTab(name);
+        }
+    }
+
+    public JComponent getTabComponent(String label) {
+        int i = 0;
+        for (JButton button : tabButtons) {
+            if (button.getText().equals(label)) {
+                return tabComponents.get(i);
+            }
+
+            i++;
+        }
+        return null;
     }
 }

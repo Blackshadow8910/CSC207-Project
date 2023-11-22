@@ -21,6 +21,7 @@ import util.GridBagConstraintBuilder;
 public class CardSearchBarView extends JPanel {
     private final LayoutManager searchPanelLayout = new GridBagLayout();
     private final Border searchPanelBorder = new EmptyBorder(0, 8, 0, 0);
+    private final JLabel searchLabel = new JLabel("Search keywords: ");
     private final JTextField searchField = new JTextField();
     private final JButton searchButton = new JButton("Search");
     private final JButton advancedSearchButton = new JButton("Advanced");
@@ -34,7 +35,7 @@ public class CardSearchBarView extends JPanel {
         searchButton.setFocusable(false);
         advancedSearchButton.setFocusable(false);
 
-        add(new JLabel("Search keywords: "));
+        add(searchLabel);
         add(searchField, new GridBagConstraintBuilder().gridx(1).weightx(1).weighty(1).build());
         add(advancedSearchButton, new GridBagConstraintBuilder().gridx(2).build());
         add(searchButton, new GridBagConstraintBuilder().gridx(3).build());
@@ -88,5 +89,9 @@ public class CardSearchBarView extends JPanel {
 
     public interface SearchListener extends EventListener {
         public void onSearch(SearchEvent evt);
+    }
+
+    public void setLabelVisible(boolean value) {
+        searchLabel.setVisible(value);
     }
 }
