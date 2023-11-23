@@ -67,7 +67,7 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
                 Object[] inv = (Object[]) results.getArray("inventory").getArray();
                 for (Object cardId : inv) {
                     assert cardId instanceof String;
-                    user.inventory.add(pokemonDAO.getCard((String) cardId));
+                    user.addOwnedCard(pokemonDAO.getCard((String) cardId));
                 }
                 
                 return user;
@@ -96,7 +96,7 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
                 Object[] inv = (Object[]) results.getArray("inventory").getArray();
                 for (Object cardId : inv) {
                     assert cardId instanceof String;
-                    user.inventory.add(pokemonDAO.getCard((String) cardId));
+                    user.addOwnedCard(pokemonDAO.getCard((String) cardId));
                 }
                 
                 return user;

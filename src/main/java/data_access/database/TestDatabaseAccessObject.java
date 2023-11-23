@@ -31,7 +31,7 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
             testDeck.addCard(new Card("henry", "s", "s"));
             uploadDeck(testDeck);
 
-            getUser("bob").inventory.addAll(pokemonDAO.searchCards("horse"));
+            getUser("bob").addOwnedCards(pokemonDAO.searchCards("Horse"));
         } catch (UserAlreadyExistsException e) {
         }
     }

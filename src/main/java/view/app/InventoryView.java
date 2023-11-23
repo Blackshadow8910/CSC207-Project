@@ -38,7 +38,7 @@ public class InventoryView extends JPanel {
     private final GridBagConstraints searchPanelGBC = new GridBagConstraintBuilder()
             .build();
 
-    public InventoryView(InventoryViewModel viewModel, InventoryController controller) {
+    public InventoryView(InventoryViewModel viewModel, InventoryController controller, AppView appView) {
         setLayout(new BorderLayout());
         this.viewModel = viewModel;
         this.controller = controller;
@@ -52,6 +52,13 @@ public class InventoryView extends JPanel {
         gridContainer.add(searchBarPanel, searchPanelGBC);
 
         // Listeners
+
+        viewModel.addPropertyChangeListener(evt -> {
+            if (evt.getPropertyName().equals("currentResults")) {
+                cardPanel.displayResults(viewModel.getCurrentResults());
+            }
+        });
+
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -61,12 +68,22 @@ public class InventoryView extends JPanel {
             }
         });
 
+        appView.addLoginListener(evt -> {
+            viewModel.setCurrentUser(evt.user);
+            refreshCardDisplay();
+        });
+
         add(gridContainer, BorderLayout.CENTER);
     }
 
     private void refreshCardDisplay() {
         PokemonGuruCardSearchFilter filter = searchBarPanel.getFilter();
 
-        controller.
+        if (viewModel.getCurrentUser() == null) {
+            JOptionPane.showMessageDialog(this, "Not logged in.", "", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        controller.displayInventory(viewModel.getCurrentUser(), filter);
     }
 }

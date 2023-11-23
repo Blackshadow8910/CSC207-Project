@@ -51,7 +51,7 @@ public class Main {
         InventoryViewModel inventoryViewModel = new InventoryViewModel();
 
         AppView appView = AppUseCaseFactory.create(appViewModel);
-        InventoryView inventoryView = InventoryUseCaseFactory.create(inventoryViewModel, db, imageDAO);
+        InventoryView inventoryView = InventoryUseCaseFactory.create(inventoryViewModel, db, imageDAO, appView);
         CardSearchView cardSearchView = CardSearchUseCaseFactory.create(cardSearchViewModel, pokemonCardDAO, imageDAO);
         LoginView loginView = LoginUseCaseFactory.create(loginViewModel, appViewModel, db, guiManager);
         SignupView signupView = SignupUseCaseFactory.create(signupViewModel, loginViewModel, db, guiManager);

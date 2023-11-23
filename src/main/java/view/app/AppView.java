@@ -19,12 +19,16 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.EventObject;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
 import app.GUIManager;
+import entity.Card;
+import entity.User;
 import interface_adapters.app.AppController;
 import interface_adapters.app.AppPresenter;
 import interface_adapters.app.AppViewModel;
@@ -40,30 +44,32 @@ public class AppView extends JPanel {
     private AppViewModel appViewModel;
     private AppController appController;
 
-    private BorderLayout borderLayout = new BorderLayout();
+    private final ArrayList<LoginListener> loginListeners = new ArrayList<>();
 
-    private CardLayout tabs = new CardLayout();
-    private JPanel contentPanel = new JPanel(tabs);
+    private final BorderLayout borderLayout = new BorderLayout();
 
-    private ArrayList<JButton> tabButtons = new ArrayList<>();
+    private final CardLayout tabs = new CardLayout();
+    private final JPanel contentPanel = new JPanel(tabs);
 
-    private ArrayList<JComponent> tabComponents = new ArrayList<>();
+    private final ArrayList<JButton> tabButtons = new ArrayList<>();
 
-    private JPanel buttonPanel = new JPanel();
-    private LayoutManager buttonPanelLayout = new GridBagLayout();
-    private GridBagConstraintBuilder tabButtonGBCBuilder = new GridBagConstraintBuilder()
+    private final ArrayList<JComponent> tabComponents = new ArrayList<>();
+
+    private final JPanel buttonPanel = new JPanel();
+    private final LayoutManager buttonPanelLayout = new GridBagLayout();
+    private final GridBagConstraintBuilder tabButtonGBCBuilder = new GridBagConstraintBuilder()
             .weightx(1)
             .weighty(1);
 
-    private GridLayout headerPanelLayout = new GridLayout(1, 2);
-    private JPanel headerPanel = new JPanel(headerPanelLayout);
-    private JPanel headerLeft = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    private JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 0));
+    private final GridLayout headerPanelLayout = new GridLayout(1, 2);
+    private final JPanel headerPanel = new JPanel(headerPanelLayout);
+    private final JPanel headerLeft = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    private final JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 0));
 
-    private Font headerFont = new Font(Font.SANS_SERIF, Font.PLAIN, 18);
-    private JLabel tabLabel = new JLabel("Card Viewer");
-    private JLabel userLabel = new JLabel("User");
-    private JLabel userIconLabel = new JLabel(new ImageIcon());
+    private final Font headerFont = new Font(Font.SANS_SERIF, Font.PLAIN, 18);
+    private final JLabel tabLabel = new JLabel("Card Viewer");
+    private final JLabel userLabel = new JLabel("User");
+    private final JLabel userIconLabel = new JLabel(new ImageIcon());
 
     public AppView(AppViewModel appViewModel, AppController appController) {
         this.appViewModel = appViewModel;
@@ -108,6 +114,7 @@ public class AppView extends JPanel {
                     tabLabel.setText(appViewModel.currentTab);
                 } else if (evt.getPropertyName().equals("currentUser")) {
                     userLabel.setText(appViewModel.currentUser.username);
+                    fireLoginListeners(new LoginEvent(appController, appViewModel.currentUser));
                 }
             }
         });
@@ -161,5 +168,29 @@ public class AppView extends JPanel {
             i++;
         }
         return null;
+    }
+
+    interface LoginListener extends EventListener {
+        public void onLogin(LoginEvent evt);
+    }
+
+    public class LoginEvent extends EventObject {
+        public final User user;
+
+        public LoginEvent(Object source, User user) {
+            super(source);
+
+            this.user = user;
+        }
+    }
+
+    public void addLoginListener(LoginListener listener) {
+        loginListeners.add(listener);
+    }
+
+    private void fireLoginListeners(LoginEvent evt) {
+        for (LoginListener loginListener : loginListeners) {
+            loginListener.onLogin(evt);
+        }
     }
 }
