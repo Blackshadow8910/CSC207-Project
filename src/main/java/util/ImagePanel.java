@@ -12,6 +12,11 @@ public class ImagePanel extends JPanel {
         this.image = image;
     }
 
+    public void setImage(Image image) {
+        this.image = image;
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         g.drawImage(image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST), 0, 0, null);

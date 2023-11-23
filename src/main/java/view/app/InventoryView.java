@@ -2,17 +2,23 @@ package view.app;
 
 import interface_adapters.app.inventory.InventoryController;
 import interface_adapters.app.inventory.InventoryViewModel;
+import usecase.app.cardsearch.CardDisplayData;
 import util.GridBagConstraintBuilder;
+import util.ImagePanel;
 
 import javax.swing.*;
 
 import data_access.pokemon.PokemonCardDataAccessInterface;
 import data_access.pokemon.PokemonGuruCardSearchFilter;
+import entity.Card;
 
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.EventListener;
 
 public class InventoryView extends JPanel {
     private InventoryViewModel viewModel;
@@ -27,7 +33,7 @@ public class InventoryView extends JPanel {
             .weighty(1)
             .build();
     
-    private final JPanel infoPanel = new JPanel();
+    private final InfoPanel infoPanel = new InfoPanel();
     private final GridBagConstraints infoPanelGBC = new GridBagConstraintBuilder()
             .gridx(1)
             .gridheight(2)
@@ -59,6 +65,15 @@ public class InventoryView extends JPanel {
             }
         });
 
+        infoPanel.addRemoveListener(evt -> {
+            controller.removeCard(viewModel.getCurrentUser(), evt.card);
+            refreshCardDisplay();
+        });
+
+        cardPanel.addSelectListener(evt -> {
+            infoPanel.displayData(evt.data);
+        });
+
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -85,5 +100,80 @@ public class InventoryView extends JPanel {
         }
 
         controller.displayInventory(viewModel.getCurrentUser(), filter);
+    }
+
+    public static class InfoPanel extends JPanel {
+        private Card currentCard;
+
+        private JPanel mainContainer = new JPanel();
+        private BoxLayout mainContainerLayout = new BoxLayout(mainContainer, BoxLayout.Y_AXIS);
+
+        private final ImagePanel imagePanel = new ImagePanel(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
+        private final JLabel nameLabel = new JLabel();
+
+        private final JButton removeButton = new JButton("Remove");
+        private final ArrayList<RemoveListener> removeListeners = new ArrayList<>();
+
+        public InfoPanel() {
+            setLayout(new BorderLayout());
+            mainContainer.setLayout(mainContainerLayout);
+
+            imagePanel.setPreferredSize(new Dimension(114, 160));
+
+            removeButton.addActionListener(evt -> {
+                if (currentCard == null) {
+                    return;
+                }
+
+                RemoveEvent emitEvent = new RemoveEvent(currentCard);
+                for (RemoveListener removeListener : removeListeners) {
+                    removeListener.onRemove(emitEvent);
+                }
+                clearData();
+            });
+
+            mainContainer.add(imagePanel);
+            mainContainer.add(nameLabel);
+
+            add(removeButton, BorderLayout.SOUTH);
+            add(mainContainer, BorderLayout.CENTER);
+
+            clearData();
+        }
+
+        public void displayData(CardDisplayData data) {
+            currentCard = data.card;
+
+            removeButton.setEnabled(true);
+
+            nameLabel.setText(data.card.name);
+            imagePanel.setImage(data.image);
+            
+            revalidate();
+            repaint();
+        }
+
+        public void clearData() {
+            currentCard = null;
+
+            removeButton.setEnabled(false);
+
+            nameLabel.setText("");
+            imagePanel.setImage(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
+
+            revalidate();
+            repaint();
+        }
+
+        public record RemoveEvent(Card card) {
+        }
+
+        public static interface RemoveListener extends EventListener {
+            public void onRemove(RemoveEvent evt);
+        }
+
+        public void addRemoveListener(RemoveListener listener) {
+            removeListeners.add(listener);
+        }
     }
 }

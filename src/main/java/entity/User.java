@@ -39,11 +39,20 @@ public class User {
 
     public void removeOwnedCard(String id) {
         int n = 0;
+        Card card = null;
         for (Card ownedCard : ownedCards) {
             if (ownedCard.id.equals(id)) {
-                ownedCards.remove(n);
+                card = ownedCard;
+                break;
             }
             n++;
         }
+        if (card != null) {
+            ownedCards.remove(card);
+        }
+    }
+
+    public void removeOwnedCard(Card card) {
+        ownedCards.remove(card);
     }
 }

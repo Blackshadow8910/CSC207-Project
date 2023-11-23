@@ -113,7 +113,7 @@ public class CardView extends JPanel {
             
             @Override
             public void mouseReleased(MouseEvent e) {
-                fireSelectListeners(new SelectEvent(this, data.card));
+                fireSelectListeners(new SelectEvent(this, data));
             }
 
             @Override
@@ -132,11 +132,13 @@ public class CardView extends JPanel {
 
     public class SelectEvent extends EventObject {
         public final Card selectedCard;
+        public final CardDisplayData data;
 
-        public SelectEvent(Object source, Card selectedCard) {
+        public SelectEvent(Object source, CardDisplayData data) {
             super(source);
 
-            this.selectedCard = selectedCard;
+            this.data = data;
+            this.selectedCard = data.card;
         }
     }
 }
