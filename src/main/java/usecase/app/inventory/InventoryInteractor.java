@@ -1,6 +1,7 @@
 package usecase.app.inventory;
 
 import data_access.image.ImageDataAccessInterface;
+import data_access.pokemon.PokemonCardDataAccessInterface;
 
 public class InventoryInteractor implements InventoryInputBoundary {
     private InventoryDataAccessInterface dataAccessObject;
@@ -13,7 +14,7 @@ public class InventoryInteractor implements InventoryInputBoundary {
         this.presenter = presenter;
     }
 
-    public void execute(InventoryInputData inputData) {
-
+    public void displayInventory(PokemonCardDataAccessInterface inventoryDAO) {
+        
     } 
 }

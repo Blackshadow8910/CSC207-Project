@@ -38,7 +38,7 @@ public class Main {
 
         PokemonCardDataAccessInterface pokemonCardDAO = new TestCardDataAccessObject();
         ImageCacheAccessInterface imageDAO = (ImageCacheAccessInterface) pokemonCardDAO;
-        DatabaseAccessInterface db = new TestDatabaseAccessObject();//new PostGreSQLAccessObject(pokemonCardDAO);
+        DatabaseAccessInterface db = new TestDatabaseAccessObject(pokemonCardDAO);//new PostGreSQLAccessObject(pokemonCardDAO);
 
         // Other
 

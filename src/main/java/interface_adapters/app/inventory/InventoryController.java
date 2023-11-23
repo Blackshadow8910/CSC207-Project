@@ -8,4 +8,8 @@ public class InventoryController {
     public InventoryController(InventoryInputBoundary inputBoundary) {
         this.inputBoundary = inputBoundary;
     }
+
+    public void displayInventory(User user) {
+        inputBoundary.displayInventory();
+    }
 }

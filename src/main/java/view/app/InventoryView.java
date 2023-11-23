@@ -5,6 +5,10 @@ import interface_adapters.app.inventory.InventoryViewModel;
 import util.GridBagConstraintBuilder;
 
 import javax.swing.*;
+
+import data_access.pokemon.PokemonCardDataAccessInterface;
+import data_access.pokemon.PokemonGuruCardSearchFilter;
+
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -58,5 +62,11 @@ public class InventoryView extends JPanel {
         });
 
         add(gridContainer, BorderLayout.CENTER);
+    }
+
+    private void refreshCardDisplay() {
+        PokemonGuruCardSearchFilter filter = searchBarPanel.getFilter();
+
+        controller.
     }
 }

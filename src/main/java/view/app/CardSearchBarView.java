@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import data_access.pokemon.PokemonGuruCardSearchFilter;
 import usecase.app.cardsearch.CardSearchInputData;
 import util.GridBagConstraintBuilder;
 
@@ -93,5 +94,9 @@ public class CardSearchBarView extends JPanel {
 
     public void setLabelVisible(boolean value) {
         searchLabel.setVisible(value);
+    }
+
+    public PokemonGuruCardSearchFilter getFilter() {
+        return new PokemonGuruCardSearchFilter(searchField.getText());
     }
 }

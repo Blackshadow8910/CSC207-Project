@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.security.spec.ECField;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -62,6 +63,12 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
         try {
             if (results.next()) {
                 User user = new User(username, results.getString("password"));
+
+                Object[] inv = (Object[]) results.getArray("inventory").getArray();
+                for (Object cardId : inv) {
+                    assert cardId instanceof String;
+                    user.inventory.add(pokemonDAO.getCard((String) cardId));
+                }
                 
                 return user;
             } else {
@@ -85,6 +92,12 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
         try {
             if (results.next()) {
                 User user = new User(username, results.getString("password"));
+
+                Object[] inv = (Object[]) results.getArray("inventory").getArray();
+                for (Object cardId : inv) {
+                    assert cardId instanceof String;
+                    user.inventory.add(pokemonDAO.getCard((String) cardId));
+                }
                 
                 return user;
             } else {

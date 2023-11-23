@@ -5,14 +5,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import entity.*;
+import data_access.pokemon.PokemonCardDataAccessInterface;
+import entity.Card;
+import entity.Conversation;
+import entity.Deck;
+import entity.Message;
+import entity.SellListing;
+import entity.User;
 
 public class TestDatabaseAccessObject implements DatabaseAccessInterface {
+    private final PokemonCardDataAccessInterface pokemonDAO;
+
     public ArrayList<User> users = new ArrayList<>();
     private final HashMap<String, Deck> decks = new HashMap<>();
     private final HashMap<String, SellListing> sellListings = new HashMap<>();
 
-    public TestDatabaseAccessObject() {
+    public TestDatabaseAccessObject(PokemonCardDataAccessInterface pokemonDAO) {
+        this.pokemonDAO = pokemonDAO;
+
         try {
             registerUser("bob", "123456");
             registerUser("steven", "654321");
@@ -21,6 +31,7 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
             testDeck.addCard(new Card("henry", "s", "s"));
             uploadDeck(testDeck);
 
+            getUser("bob").inventory.addAll(pokemonDAO.searchCards("horse"));
         } catch (UserAlreadyExistsException e) {
         }
     }
