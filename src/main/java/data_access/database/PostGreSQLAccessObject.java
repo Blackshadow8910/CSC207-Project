@@ -12,6 +12,7 @@ import java.sql.Statement;
 
 import data_access.pokemon.PokemonCardDataAccessInterface;
 import entity.Deck;
+import entity.SellListing;
 import entity.User;
 import org.json.JSONObject;
 
@@ -26,6 +27,7 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
 
     public PostGreSQLAccessObject(PokemonCardDataAccessInterface pokemonDAO) {
         this.pokemonDAO = pokemonDAO;
+
         try {
             File f = new File("resources/postgresql-api-key.txt");
             BufferedReader reader = new BufferedReader(new FileReader(f));
@@ -137,5 +139,29 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public SellListing getSellListing(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSellListing'");
+    }
+
+    @Override
+    public void uploadSellListing(SellListing sellListing) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'uploadSellListing'");
+    }
+
+    @Override
+    public void closeSellListing(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'closeSellListing'");
+    }
+
+    @Override
+    public void replyToSellListing(String sellListingId, String userID, String contents) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'replyToSellListing'");
     }
 }
