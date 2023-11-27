@@ -1,18 +1,10 @@
 package view.app;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.LayoutManager;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -41,8 +33,9 @@ import util.GridBagConstraintBuilder;
  * Where the bulk of the app will be; this will contain the ui for features after you have logged in
  */
 public class AppView extends JPanel {
-    private AppViewModel appViewModel;
-    private AppController appController;
+    private final AppViewModel appViewModel;
+    private final AppController appController;
+    private final GUIManager guiManager;
 
     private final BorderLayout borderLayout = new BorderLayout();
 
@@ -68,10 +61,13 @@ public class AppView extends JPanel {
     private final JLabel tabLabel = new JLabel("Card Viewer");
     private final JLabel userLabel = new JLabel("User");
     private final JLabel userIconLabel = new JLabel(new ImageIcon());
+    private final JPopupMenu userMenu = new JPopupMenu();
+    private final JMenuItem logoutMenuItem = new JMenuItem("Log out");
 
-    public AppView(AppViewModel appViewModel, AppController appController) {
+    public AppView(AppViewModel appViewModel, AppController appController, GUIManager guiManager) {
         this.appViewModel = appViewModel;
         this.appController = appController;
+        this.guiManager = guiManager;
         
         // Setup buttons
 
@@ -88,8 +84,10 @@ public class AppView extends JPanel {
         headerRight.add(userIconLabel);
         headerLeft.add(tabLabel);
         headerPanel.setBorder(new MatteBorder(0, 0, 1, 0, Color.gray));
+        userIconLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         tabLabel.setFont(headerFont);
         userLabel.setFont(headerFont);
+        userMenu.add(logoutMenuItem);
 
         // Load Image
 
@@ -101,9 +99,9 @@ public class AppView extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         // Bind behaviours
-        
+
         appViewModel.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -111,10 +109,24 @@ public class AppView extends JPanel {
                     tabs.show(contentPanel, appViewModel.currentTab);
                     tabLabel.setText(appViewModel.currentTab);
                 } else if (evt.getPropertyName().equals("currentUser")) {
-                    userLabel.setText(appViewModel.currentUser.username);
-                    //appViewModel.fireLoginListeners(new AppViewModel.LoginEvent(appController, appViewModel.currentUser));
+                    if (evt.getNewValue() != null) {
+                        userLabel.setText(appViewModel.currentUser.username);
+                        //appViewModel.fireLoginListeners(new AppViewModel.LoginEvent(appController, appViewModel.currentUser));
+                    }
                 }
             }
+        });
+
+        userIconLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                userMenu.show(userIconLabel, 0, userIconLabel.getHeight());
+            }
+        });
+
+        logoutMenuItem.addActionListener(evt -> {
+            appViewModel.setCurrentUser(null);
+            guiManager.showView("login");
         });
 
         // Finish setting UI

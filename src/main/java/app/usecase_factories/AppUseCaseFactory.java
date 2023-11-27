@@ -21,11 +21,11 @@ public class AppUseCaseFactory {
     /** Prevent instantiation. */
     private AppUseCaseFactory() {}
 
-    public static AppView create(AppViewModel appViewModel) {
+    public static AppView create(AppViewModel appViewModel, GUIManager guiManager) {
         AppOutputBoundary appOutputBoundary = new AppPresenter(appViewModel);
         AppInputBoundary appInputBoundary = new AppInteractor(appOutputBoundary);
         AppController appController = new AppController(appInputBoundary);
 
-        return new AppView(appViewModel, appController);
+        return new AppView(appViewModel, appController, guiManager);
     }
 }

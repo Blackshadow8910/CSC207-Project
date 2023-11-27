@@ -131,7 +131,6 @@ public class LoginView extends JPanel {
                             JOptionPane.INFORMATION_MESSAGE
                     );
                 } else if (evt.getPropertyName().equals("username")) {
-                    System.out.println("ASDSA");
                     usernameField.setText((String)evt.getNewValue());
                 } else if (evt.getPropertyName().equals("password")) {
                     passwordField.setText((String)evt.getNewValue());

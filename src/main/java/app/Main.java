@@ -53,7 +53,7 @@ public class Main {
         InventoryViewModel inventoryViewModel = new InventoryViewModel();
         TradeViewModel tradeViewModel = new TradeViewModel();
 
-        AppView appView = AppUseCaseFactory.create(appViewModel);
+        AppView appView = AppUseCaseFactory.create(appViewModel, guiManager);
         TradeView tradeView = TradeUseCaseFactory.create(tradeViewModel, db, imageDAO, appViewModel);
         InventoryView inventoryView = InventoryUseCaseFactory.create(inventoryViewModel, db, imageDAO, appViewModel);
         CardSearchView cardSearchView = CardSearchUseCaseFactory.create(cardSearchViewModel, pokemonCardDAO, imageDAO);
