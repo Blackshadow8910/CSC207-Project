@@ -44,16 +44,20 @@ public class CardView extends JPanel {
 
     public void displayResults(Collection<CardDisplayData> results) {
         resultContainer.removeAll();
+        int number = 0;
 
         for (CardDisplayData result : results) {
+            number++;
             JPanel entry = createResultEntry(result);
             resultContainer.add(entry);
 
             bindResultEntryListeners(entry, result);
         }
+        int result = number / 5;
 
         resultContainer.revalidate();
         resultContainer.repaint();
+        resultContainer.setPreferredSize(new Dimension(100, 200 + (result * 200)));
     }
 
     public JPanel createResultEntry(CardDisplayData data) {
