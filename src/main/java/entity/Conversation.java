@@ -8,7 +8,7 @@ public class Conversation {
     /**
      * A list of the users in the conversation. Must be non empty.
      */
-    private final ArrayList<String> participants = new ArrayList<>();
+    private final ArrayList<User> participants = new ArrayList<>();
     private final ArrayList<Message> messages = new ArrayList<>();
 
 
@@ -17,12 +17,12 @@ public class Conversation {
 
     }
 
-    public List<String> getParticipants() {
+    public List<User> getParticipants() {
         return participants;
     }
 
-    public void addParticipant(String userID) {
-        participants.add(userID);
+    public void addParticipant(User user) {
+        participants.add(user);
     }
 
     public List<Message> getMessages() {

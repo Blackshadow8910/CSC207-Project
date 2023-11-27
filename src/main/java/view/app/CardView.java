@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EventListener;
 import java.util.EventObject;
 import java.util.HashSet;
@@ -41,7 +42,7 @@ public class CardView extends JPanel {
         add(resultScrollPane, BorderLayout.CENTER);
     }
 
-    public void displayResults(ArrayList<CardDisplayData> results) {
+    public void displayResults(Collection<CardDisplayData> results) {
         resultContainer.removeAll();
 
         for (CardDisplayData result : results) {
@@ -112,7 +113,7 @@ public class CardView extends JPanel {
             
             @Override
             public void mouseReleased(MouseEvent e) {
-                fireSelectListeners(new SelectEvent(this, data.card));
+                fireSelectListeners(new SelectEvent(this, data));
             }
 
             @Override
@@ -131,11 +132,13 @@ public class CardView extends JPanel {
 
     public class SelectEvent extends EventObject {
         public final Card selectedCard;
+        public final CardDisplayData data;
 
-        public SelectEvent(Object source, Card selectedCard) {
+        public SelectEvent(Object source, CardDisplayData data) {
             super(source);
 
-            this.selectedCard = selectedCard;
+            this.data = data;
+            this.selectedCard = data.card;
         }
     }
 }

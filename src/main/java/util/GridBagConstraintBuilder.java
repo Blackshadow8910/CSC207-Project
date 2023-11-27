@@ -89,4 +89,20 @@ public class GridBagConstraintBuilder {
             ipadx, 
             ipady);
     }
+
+    public static GridBagConstraints constraint(int gridX, int gridY) {
+        return new GridBagConstraintBuilder()
+            .gridx(gridX)
+            .gridy(gridY)
+            .build();
+    }
+
+    public static GridBagConstraints constraint(int gridX, int gridY, int weightx, int weighty) {
+        return new GridBagConstraintBuilder()
+            .gridx(gridX)
+            .gridy(gridY)
+            .weightx(weightx)
+            .weighty(weighty)
+            .build();
+    }
 }

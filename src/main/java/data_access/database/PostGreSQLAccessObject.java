@@ -4,14 +4,19 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.security.spec.ECField;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import data_access.pokemon.PokemonCardDataAccessInterface;
 import entity.Deck;
+import entity.Message;
+import entity.SellListing;
 import entity.User;
 import org.json.JSONObject;
 
@@ -26,6 +31,7 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
 
     public PostGreSQLAccessObject(PokemonCardDataAccessInterface pokemonDAO) {
         this.pokemonDAO = pokemonDAO;
+
         try {
             File f = new File("resources/postgresql-api-key.txt");
             BufferedReader reader = new BufferedReader(new FileReader(f));
@@ -60,6 +66,12 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
         try {
             if (results.next()) {
                 User user = new User(username, results.getString("password"));
+
+                Object[] inv = (Object[]) results.getArray("inventory").getArray();
+                for (Object cardId : inv) {
+                    assert cardId instanceof String;
+                    user.addOwnedCard(pokemonDAO.getCard((String) cardId));
+                }
                 
                 return user;
             } else {
@@ -83,6 +95,12 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
         try {
             if (results.next()) {
                 User user = new User(username, results.getString("password"));
+
+                Object[] inv = (Object[]) results.getArray("inventory").getArray();
+                for (Object cardId : inv) {
+                    assert cardId instanceof String;
+                    user.addOwnedCard(pokemonDAO.getCard((String) cardId));
+                }
                 
                 return user;
             } else {
@@ -137,5 +155,35 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public SellListing getSellListing(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSellListing'");
+    }
+
+    @Override
+    public void uploadSellListing(SellListing sellListing) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'uploadSellListing'");
+    }
+
+    @Override
+    public void closeSellListing(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'closeSellListing'");
+    }
+
+    @Override
+    public void replyToSellListing(String sellListingId, Message message) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'replyToSellListing'");
+    }
+
+    @Override
+    public ArrayList<SellListing> getSellListings() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSellListings'");
     }
 }

@@ -17,22 +17,25 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.EventObject;
 
 import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
 import app.GUIManager;
+import entity.Card;
+import entity.User;
 import interface_adapters.app.AppController;
 import interface_adapters.app.AppPresenter;
 import interface_adapters.app.AppViewModel;
 import usecase.app.AppInputBoundary;
 import usecase.app.AppInteractor;
 import usecase.app.AppOutputBoundary;
+import util.GridBagConstraintBuilder;
 
 /**
  * Where the bulk of the app will be; this will contain the ui for features after you have logged in
@@ -41,32 +44,32 @@ public class AppView extends JPanel {
     private AppViewModel appViewModel;
     private AppController appController;
 
-    private BorderLayout borderLayout = new BorderLayout();
+    private final BorderLayout borderLayout = new BorderLayout();
 
-    private CardLayout tabs = new CardLayout();
-    private JPanel contentPanel = new JPanel(tabs);
+    private final CardLayout tabs = new CardLayout();
+    private final JPanel contentPanel = new JPanel(tabs);
 
-    private JButton[] tabButtons = {
-        new JButton("Card Viewer"),
-        new JButton("Deck Builder"),
-        new JButton("Deck Browser"),
-        new JButton("Other"),
-    };
+    private final ArrayList<JButton> tabButtons = new ArrayList<>();
 
-    private JPanel buttonPanel = new JPanel();
-    private LayoutManager buttonPanelLayout = new GridLayout(1, 4, 2, 0);
+    private final ArrayList<JComponent> tabComponents = new ArrayList<>();
 
-    private GridLayout headerPanelLayout = new GridLayout(1, 2);
-    private JPanel headerPanel = new JPanel(headerPanelLayout);
-    private JPanel headerLeft = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    private JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 0));
+    private final JPanel buttonPanel = new JPanel();
+    private final LayoutManager buttonPanelLayout = new GridBagLayout();
+    private final GridBagConstraintBuilder tabButtonGBCBuilder = new GridBagConstraintBuilder()
+            .weightx(1)
+            .weighty(1);
 
-    private Font headerFont = new Font(Font.SANS_SERIF, Font.PLAIN, 18);
-    private JLabel tabLabel = new JLabel("Card Viewer");
-    private JLabel userLabel = new JLabel("User");
-    private JLabel userIconLabel = new JLabel(new ImageIcon());
+    private final GridLayout headerPanelLayout = new GridLayout(1, 2);
+    private final JPanel headerPanel = new JPanel(headerPanelLayout);
+    private final JPanel headerLeft = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    private final JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 0));
 
-    public AppView(AppViewModel appViewModel, AppController appController, CardSearchView cardSearchView) {
+    private final Font headerFont = new Font(Font.SANS_SERIF, Font.PLAIN, 18);
+    private final JLabel tabLabel = new JLabel("Card Viewer");
+    private final JLabel userLabel = new JLabel("User");
+    private final JLabel userIconLabel = new JLabel(new ImageIcon());
+
+    public AppView(AppViewModel appViewModel, AppController appController) {
         this.appViewModel = appViewModel;
         this.appController = appController;
         
@@ -109,16 +112,10 @@ public class AppView extends JPanel {
                     tabLabel.setText(appViewModel.currentTab);
                 } else if (evt.getPropertyName().equals("currentUser")) {
                     userLabel.setText(appViewModel.currentUser.username);
+                    //appViewModel.fireLoginListeners(new AppViewModel.LoginEvent(appController, appViewModel.currentUser));
                 }
             }
         });
-
-        for (JButton button : tabButtons) {
-            button.setFocusable(false);
-            button.addActionListener(evt -> {
-                showTab(button.getText());
-            });
-        }
 
         // Finish setting UI
 
@@ -127,11 +124,6 @@ public class AppView extends JPanel {
         add(contentPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.AFTER_LAST_LINE);
         add(headerPanel, BorderLayout.BEFORE_FIRST_LINE);
-
-        contentPanel.add(cardSearchView, "Card Viewer");
-        contentPanel.add(new JPanel(), "Deck Builder");
-
-        showTab("Card Viewer");
     }
 
     public void showTab(String tab) {
@@ -143,5 +135,36 @@ public class AppView extends JPanel {
         for (JButton button : tabButtons) {
             button.setEnabled(!button.getText().equals(tab));
         }
+    }
+
+    public void addTab(String name, JComponent component) {
+        JButton button = new JButton(name);
+
+        button.setFocusable(false);
+        button.addActionListener(evt -> {
+            showTab(button.getText());
+        });
+
+        buttonPanel.add(button, tabButtonGBCBuilder.gridx(tabButtons.size()).build());
+
+        tabButtons.add(new JButton(name));
+        tabComponents.add(component);
+        contentPanel.add(component, name);
+
+        if (tabLabel.getText().equals("")) {
+            showTab(name);
+        }
+    }
+
+    public JComponent getTabComponent(String label) {
+        int i = 0;
+        for (JButton button : tabButtons) {
+            if (button.getText().equals(label)) {
+                return tabComponents.get(i);
+            }
+
+            i++;
+        }
+        return null;
     }
 }

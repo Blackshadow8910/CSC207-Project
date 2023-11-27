@@ -18,7 +18,7 @@ public class ArrayListCardDataAccessObject implements PokemonCardDataAccessInter
     protected final ArrayList<Card> cards;
 
     public ArrayListCardDataAccessObject(ArrayList<Card> src) {
-        cards = src;
+        cards = (ArrayList<Card>) src.clone();
     }
 
     public ArrayListCardDataAccessObject() {
@@ -49,5 +49,10 @@ public class ArrayListCardDataAccessObject implements PokemonCardDataAccessInter
     @Override
     public ArrayList<Card> searchCards(String query) {
         return searchCards(new PokemonGuruCardSearchFilter(query));
+    }
+
+    
+    public void removeCard(Card card) {
+        cards.remove(card);
     }
 }
