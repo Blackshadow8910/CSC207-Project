@@ -1,24 +1,11 @@
 package view.app;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.ScrollPane;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
 import entity.Message;
@@ -27,6 +14,7 @@ import interface_adapters.app.AppViewModel;
 import interface_adapters.app.trade.TradeController;
 import interface_adapters.app.trade.TradeViewModel;
 import util.GridBagConstraintBuilder;
+import util.ImagePanel;
 
 public class TradeView extends JPanel {
     private final TradeController controller;
@@ -66,6 +54,11 @@ public class TradeView extends JPanel {
     private final JPanel conversationTypingContainer = new JPanel(new GridBagLayout()); 
     private final JTextArea conversationTypingArea = new JTextArea();
     private final JButton conversationSendButton = new JButton("Send");
+    private final JPanel listingDetailPanel = new JPanel(new BorderLayout());
+    private final ImagePanel listingImagePanel = new ImagePanel(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
+    private final JTextPane listingDetailMainText = new JTextPane();
+
+
     
 
     public TradeView(TradeViewModel viewModel, TradeController controller, AppViewModel appViewModel) {
@@ -97,7 +90,14 @@ public class TradeView extends JPanel {
         conversationTypingContainer.add(conversationTypingArea, GridBagConstraintBuilder.constraint(0, 0, 1, 0));
         conversationTypingContainer.add(conversationSendButton, GridBagConstraintBuilder.constraint(1, 0));
 
+        listingDetailPanel.setPreferredSize(new Dimension(240, 0));
+        listingDetailPanel.add(listingDetailMainText);
+        listingDetailMainText.setEditable(false);
+//        listingDetailPanel.add(listingImagePanel);
+//        listingImagePanel.setPreferredSize(new Dimension(114, 160));
+
         listingPanel.add(listingBackButton, BorderLayout.WEST);
+        listingPanel.add(listingDetailPanel, BorderLayout.EAST);
         listingPanel.add(conversationScrollPane, BorderLayout.CENTER);
         listingPanel.add(conversationTypingContainer, BorderLayout.SOUTH);
 
@@ -132,9 +132,14 @@ public class TradeView extends JPanel {
         });
 
         conversationSendButton.addActionListener(evt -> {
+            String messageText = conversationTypingArea.getText();
+            if (messageText.isEmpty()) {
+                return;
+            }
+
             controller.replyToSellListing(viewModel.getCurrentListing(), new Message(
                 appViewModel.currentUser, 
-                conversationTypingArea.getText(),
+                messageText,
                 new Date()
             ));
 
@@ -215,6 +220,51 @@ public class TradeView extends JPanel {
     }
 
     private void displayListingDetails(SellListing listing) {
+        conversationPanel.removeAll();
 
+        int i = 0;
+        for (Message message : listing.openConversation(appViewModel.currentUser).getMessages()) {
+            conversationPanel.add(createMessageEntry(message), new GridBagConstraintBuilder()
+                            .gridy(i)
+                            .weightx(1)
+                            .insets(new Insets(8, 8, 8, 8))
+                            .build());
+
+            i++;
+        }
+
+        listingDetailMainText.setText("""
+                %s wants to sell %s for $%s. You can also make a counteroffer.
+                
+                Card Name %s
+                Card ID: %s
+                Market value: Unknown
+                """.formatted(
+                        listing.seller.username,
+                        listing.card.name,
+                        listing.price,
+                        listing.card.name,
+                        listing.card.id
+                ));
+
+        conversationPanel.add(new JPanel(), GridBagConstraintBuilder.constraint(0, i, 0, 1));
+    }
+
+    private JComponent createMessageEntry(Message message) {
+        JPanel panel = new JPanel(new BorderLayout());
+        JLabel senderLabel = new JLabel(message.getSender());
+        JTextPane contentLabel = new JTextPane();// (message.getContent());
+
+        contentLabel.setText(message.getContent());
+        contentLabel.setEditable(false);
+
+        senderLabel.setBorder(new MatteBorder(0, 0, 1, 0, Color.gray));
+
+        panel.add(senderLabel, BorderLayout.NORTH);
+        panel.add(contentLabel, BorderLayout.CENTER);
+
+        panel.setBorder(new MatteBorder(1, 1, 1, 1, Color.gray));
+
+        return panel;
     }
 }

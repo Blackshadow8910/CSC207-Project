@@ -18,6 +18,14 @@ public class AppViewModel extends ViewModel {
 
     public AppViewModel() {
         super("app");
+
+        addPropertyChangeListener(evt -> {
+            if (evt.getPropertyName().equals("currentUser")) {
+                if (currentUser != null) {
+                    fireLoginListeners(new LoginEvent(this, currentUser));
+                }
+            }
+        });
     }
 
     public void setTab(String tab) {

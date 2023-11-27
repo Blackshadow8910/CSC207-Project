@@ -89,6 +89,14 @@ public class InventoryView extends JPanel {
             refreshCardDisplay();
         });
 
+        appViewModel.addPropertyChangeListener(evt -> {
+            if (evt.getPropertyName().equals("currentTab")) {
+                if (appViewModel.currentTab.equals("My cards")) {
+                    refreshCardDisplay();
+                }
+            }
+        });
+
         add(gridContainer, BorderLayout.CENTER);
     }
 
