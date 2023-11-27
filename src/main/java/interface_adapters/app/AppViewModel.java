@@ -1,5 +1,9 @@
 package interface_adapters.app;
 
+import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.EventObject;
+
 import javax.swing.JComponent;
 
 import entity.User;
@@ -9,6 +13,8 @@ import view.app.AppView;
 public class AppViewModel extends ViewModel {
     public String currentTab;
     public User currentUser;
+
+    private final ArrayList<LoginListener> loginListeners = new ArrayList<>();
 
     public AppViewModel() {
         super("app");
@@ -26,5 +32,31 @@ public class AppViewModel extends ViewModel {
         currentUser = user;
 
         firePropertyChanged("currentUser", oldUser, currentUser);
+    }
+
+    
+
+    public interface LoginListener extends EventListener {
+        public void onLogin(LoginEvent evt);
+    }
+
+    public class LoginEvent extends EventObject {
+        public final User user;
+
+        public LoginEvent(Object source, User user) {
+            super(source);
+
+            this.user = user;
+        }
+    }
+
+    public void addLoginListener(LoginListener listener) {
+        loginListeners.add(listener);
+    }
+
+    private void fireLoginListeners(LoginEvent evt) {
+        for (LoginListener loginListener : loginListeners) {
+            loginListener.onLogin(evt);
+        }
     }
 }

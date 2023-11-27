@@ -1,5 +1,6 @@
 package view.app;
 
+import interface_adapters.app.AppViewModel;
 import interface_adapters.app.inventory.InventoryController;
 import interface_adapters.app.inventory.InventoryViewModel;
 import usecase.app.cardsearch.CardDisplayData;
@@ -44,7 +45,7 @@ public class InventoryView extends JPanel {
     private final GridBagConstraints searchPanelGBC = new GridBagConstraintBuilder()
             .build();
 
-    public InventoryView(InventoryViewModel viewModel, InventoryController controller, AppView appView) {
+    public InventoryView(InventoryViewModel viewModel, InventoryController controller, AppViewModel appViewModel) {
         setLayout(new BorderLayout());
         this.viewModel = viewModel;
         this.controller = controller;
@@ -83,7 +84,7 @@ public class InventoryView extends JPanel {
             }
         });
 
-        appView.addLoginListener(evt -> {
+        appViewModel.addLoginListener(evt -> {
             viewModel.setCurrentUser(evt.user);
             refreshCardDisplay();
         });

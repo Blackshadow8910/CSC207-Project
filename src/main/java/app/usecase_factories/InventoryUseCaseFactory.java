@@ -4,6 +4,7 @@ package app.usecase_factories;
 
 import data_access.image.ImageDataAccessInterface;
 import data_access.pokemon.PokemonCardDataAccessInterface;
+import interface_adapters.app.AppViewModel;
 import interface_adapters.app.cardsearch.CardSearchController;
 import interface_adapters.app.cardsearch.CardSearchPresenter;
 import interface_adapters.app.cardsearch.CardSearchViewModel;
@@ -29,13 +30,13 @@ public class InventoryUseCaseFactory {
     public static InventoryView create(InventoryViewModel inventoryViewModel,
                                                   InventoryDataAccessInterface dataAccessObject,
                                                   ImageDataAccessInterface imageAccessObject, 
-                                                  AppView appView) {
+                                                  AppViewModel appViewModel) {
 
         InventoryOutputBoundary inventoryOutputBoundary = new InventoryPresenter(inventoryViewModel);
         InventoryInputBoundary inventoryInputBoundary = new InventoryInteractor(inventoryOutputBoundary, dataAccessObject, imageAccessObject);
         InventoryController inventoryController = new InventoryController(inventoryInputBoundary);
 
-        return new InventoryView(inventoryViewModel, inventoryController, appView);
+        return new InventoryView(inventoryViewModel, inventoryController, appViewModel);
 
     }
 }

@@ -24,6 +24,7 @@ import interface_adapters.app.AppController;
 import interface_adapters.app.AppViewModel;
 import interface_adapters.app.cardsearch.CardSearchViewModel;
 import interface_adapters.app.inventory.InventoryViewModel;
+import interface_adapters.app.trade.TradeViewModel;
 import interface_adapters.login.LoginViewModel;
 import interface_adapters.signup.SignupViewModel;
 import view.LoginView;
@@ -31,6 +32,7 @@ import view.SignupView;
 import view.app.AppView;
 import view.app.CardSearchView;
 import view.app.InventoryView;
+import view.app.TradeView;
 
 public class Main {
     public static void main(String[] args) {
@@ -49,9 +51,11 @@ public class Main {
         AppViewModel appViewModel = new AppViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         InventoryViewModel inventoryViewModel = new InventoryViewModel();
+        TradeViewModel tradeViewModel = new TradeViewModel();
 
         AppView appView = AppUseCaseFactory.create(appViewModel);
-        InventoryView inventoryView = InventoryUseCaseFactory.create(inventoryViewModel, db, imageDAO, appView);
+        TradeView tradeView = TradeUseCaseFactory.create(tradeViewModel, db, imageDAO, appViewModel);
+        InventoryView inventoryView = InventoryUseCaseFactory.create(inventoryViewModel, db, imageDAO, appViewModel);
         CardSearchView cardSearchView = CardSearchUseCaseFactory.create(cardSearchViewModel, pokemonCardDAO, imageDAO);
         LoginView loginView = LoginUseCaseFactory.create(loginViewModel, appViewModel, db, guiManager);
         SignupView signupView = SignupUseCaseFactory.create(signupViewModel, loginViewModel, db, guiManager);
@@ -59,6 +63,7 @@ public class Main {
         appView.addTab("Card Search", cardSearchView);
         appView.addTab("Deck builder", new JPanel());
         appView.addTab("My cards", inventoryView);
+        appView.addTab("Trade cards", tradeView);
 
         guiManager.addView("login", loginView);
         guiManager.addView("app", appView);

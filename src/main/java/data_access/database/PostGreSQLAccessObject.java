@@ -10,9 +10,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import data_access.pokemon.PokemonCardDataAccessInterface;
 import entity.Deck;
+import entity.Message;
 import entity.SellListing;
 import entity.User;
 import org.json.JSONObject;
@@ -173,8 +176,14 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
     }
 
     @Override
-    public void replyToSellListing(String sellListingId, String userID, String contents) {
+    public void replyToSellListing(String sellListingId, Message message) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'replyToSellListing'");
+    }
+
+    @Override
+    public ArrayList<SellListing> getSellListings() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSellListings'");
     }
 }

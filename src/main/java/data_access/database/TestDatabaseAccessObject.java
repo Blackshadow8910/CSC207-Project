@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import data_access.pokemon.PokemonCardDataAccessInterface;
 import entity.Card;
@@ -32,6 +33,11 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
             uploadDeck(testDeck);
 
             getUser("bob").addOwnedCards(pokemonDAO.searchCards("Horse"));
+
+            sellListings.put("sell1", new SellListing("sell1", pokemonDAO.getCard("horse"), getUser("steven"), 12.99));
+            sellListings.put("sell2", new SellListing("sell2", pokemonDAO.getCard("horse"), getUser("steven"), 13.99));
+            sellListings.put("sell3", new SellListing("sell3", pokemonDAO.getCard("horse"), getUser("steven"), 14.99));
+            sellListings.put("sell4", new SellListing("sell4", pokemonDAO.getCard("horse"), getUser("steven"), 15.99));
         } catch (UserAlreadyExistsException e) {
         }
     }
@@ -103,14 +109,19 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
     }
 
     @Override
-    public void replyToSellListing(String sellListingId, String userID, String content) {
+    public void replyToSellListing(String sellListingId, Message message) {
         SellListing sellListing =  getSellListing(sellListingId);
 
         if (sellListing == null) {
             throw new RuntimeException("No such sell listing.");
         }
 
-        Conversation c = sellListing.openConversation(userID);
-        c.sendMessage(new Message(userID, content, new Date()));
+        Conversation c = sellListing.openConversation(getUser(message.getSender()));
+        c.sendMessage(message);
+    }
+
+    @Override
+    public ArrayList<SellListing> getSellListings() {
+        return new ArrayList<>(sellListings.values());
     }
 }

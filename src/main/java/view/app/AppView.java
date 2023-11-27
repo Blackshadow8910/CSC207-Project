@@ -44,8 +44,6 @@ public class AppView extends JPanel {
     private AppViewModel appViewModel;
     private AppController appController;
 
-    private final ArrayList<LoginListener> loginListeners = new ArrayList<>();
-
     private final BorderLayout borderLayout = new BorderLayout();
 
     private final CardLayout tabs = new CardLayout();
@@ -114,7 +112,7 @@ public class AppView extends JPanel {
                     tabLabel.setText(appViewModel.currentTab);
                 } else if (evt.getPropertyName().equals("currentUser")) {
                     userLabel.setText(appViewModel.currentUser.username);
-                    fireLoginListeners(new LoginEvent(appController, appViewModel.currentUser));
+                    //appViewModel.fireLoginListeners(new AppViewModel.LoginEvent(appController, appViewModel.currentUser));
                 }
             }
         });
@@ -168,29 +166,5 @@ public class AppView extends JPanel {
             i++;
         }
         return null;
-    }
-
-    interface LoginListener extends EventListener {
-        public void onLogin(LoginEvent evt);
-    }
-
-    public class LoginEvent extends EventObject {
-        public final User user;
-
-        public LoginEvent(Object source, User user) {
-            super(source);
-
-            this.user = user;
-        }
-    }
-
-    public void addLoginListener(LoginListener listener) {
-        loginListeners.add(listener);
-    }
-
-    private void fireLoginListeners(LoginEvent evt) {
-        for (LoginListener loginListener : loginListeners) {
-            loginListener.onLogin(evt);
-        }
     }
 }
