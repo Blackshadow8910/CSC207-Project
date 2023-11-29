@@ -20,6 +20,8 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     @Override
     public void presentSuccess(LoginOutputData data) {
+        viewModel.setPassword("");
+        viewModel.setUsername("");
         appViewModel.setCurrentUser(data.user);
         guiManager.showView(appViewModel.viewName);
     }
