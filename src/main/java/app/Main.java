@@ -23,6 +23,7 @@ import entity.SellListing;
 import interface_adapters.app.AppController;
 import interface_adapters.app.AppViewModel;
 import interface_adapters.app.cardsearch.CardSearchViewModel;
+import interface_adapters.app.deckbuilder.DeckBuilderViewModel;
 import interface_adapters.app.inventory.InventoryViewModel;
 import interface_adapters.app.trade.TradeViewModel;
 import interface_adapters.login.LoginViewModel;
@@ -52,6 +53,7 @@ public class Main {
         SignupViewModel signupViewModel = new SignupViewModel();
         InventoryViewModel inventoryViewModel = new InventoryViewModel();
         TradeViewModel tradeViewModel = new TradeViewModel();
+        DeckBuilderViewModel deckBuilderViewModel = new DeckBuilderViewModel();
 
         AppView appView = AppUseCaseFactory.create(appViewModel, guiManager);
         TradeView tradeView = TradeUseCaseFactory.create(tradeViewModel, db, imageDAO, appViewModel);
