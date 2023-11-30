@@ -1,5 +1,9 @@
 package usecase.app.deckbuilder;
 
+import java.util.ArrayList;
+
+import usecase.app.cardsearch.CardDisplayData;
+
 public interface DeckBuilderOutputBoundary {
-    public void present(DeckBuilderOutputData outputData);
+    public void presentSearchResults(ArrayList<CardDisplayData> results);
 }

@@ -1,6 +1,8 @@
 package interface_adapters.app.deckbuilder;
 
+import entity.Deck;
 import usecase.app.deckbuilder.DeckBuilderInputBoundary;
+import usecase.app.deckbuilder.DeckBuilderInputData;
 import usecase.app.deckbuilder.DeckBuilderInputBoundary;
 
 public class DeckBuilderController {
@@ -8,5 +10,13 @@ public class DeckBuilderController {
 
     public DeckBuilderController(DeckBuilderInputBoundary inputBoundary) {
         this.inputBoundary = inputBoundary;
+    }
+
+    public void search(DeckBuilderInputData data) {
+        inputBoundary.search(data);
+    }
+
+    public void saveDeck(Deck deck) {
+        
     }
 }

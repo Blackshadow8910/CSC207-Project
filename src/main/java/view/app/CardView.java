@@ -57,7 +57,7 @@ public class CardView extends JPanel {
 
         resultContainer.revalidate();
         resultContainer.repaint();
-        resultContainer.setPreferredSize(new Dimension(100, 200 + (result * 200)));
+        resultContainer.setPreferredSize(new Dimension(getWidth() - 100, 200 + (result * (resultEntrySize.height + resultContainerLayout.getVgap()))));
     }
 
     public JPanel createResultEntry(CardDisplayData data) {
