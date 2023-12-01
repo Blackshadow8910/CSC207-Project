@@ -30,6 +30,7 @@ import javax.swing.border.EmptyBorder;
 import entity.Card;
 import entity.Deck;
 import entity.PokemonCard;
+import interface_adapters.app.AppViewModel;
 import interface_adapters.app.deckbuilder.DeckBuilderController;
 import interface_adapters.app.deckbuilder.DeckBuilderViewModel;
 import usecase.app.cardsearch.CardDisplayData;
@@ -38,8 +39,9 @@ import util.GridBagConstraintBuilder;
 import util.ImagePanel;
 
 public class DeckBuilderView extends JPanel {
-    private DeckBuilderViewModel viewModel;
-    private DeckBuilderController controller;
+    private final DeckBuilderViewModel viewModel;
+    public final DeckBuilderController controller;
+    private final AppViewModel appViewModel;
 
     private JPanel gridContainer = new JPanel(new GridBagLayout());
 
@@ -80,9 +82,10 @@ public class DeckBuilderView extends JPanel {
         .build();
 
 
-    public DeckBuilderView(DeckBuilderViewModel viewModel, DeckBuilderController controller) {
+    public DeckBuilderView(DeckBuilderViewModel viewModel, DeckBuilderController controller, AppViewModel appViewModel) {
         this.viewModel = viewModel;
         this.controller = controller;
+        this.appViewModel = appViewModel;
 
         setLayout(new BorderLayout());
 
@@ -134,6 +137,9 @@ public class DeckBuilderView extends JPanel {
                 getActiveSubCardView().displayResults((ArrayList<CardDisplayData>) evt.getNewValue());
             } else if (evt.getPropertyName().equals("deck")) {
                 displayDeckData(viewModel.getDeck());
+                if (appViewModel.currentTab.equals("Deck browser")) {
+                    appViewModel.setTab("Deck builder");
+                }
             }
         });
 
@@ -225,12 +231,17 @@ public class DeckBuilderView extends JPanel {
 
             saveButton.addActionListener(evt -> {
                 SaveDialog saveDialog = new SaveDialog(closeEvt -> {
-                    Deck deck = new Deck(closeEvt.name, closeEvt.name);
+                    String deckAuthor = viewModel.getDeck().author;
+                    if (deckAuthor.equals("Unknown")) {
+                        deckAuthor = appViewModel.currentUser.username;
+                    }
+                    Deck deck = new Deck(closeEvt.name, closeEvt.name, deckAuthor);
 
                     for (Card card : viewModel.getDeck().getCards()) {
                         deck.addCard(card);
                     }
-
+                    
+                    viewModel.setDeck(deck);
                     controller.saveDeck(deck);
                 });
                 
@@ -263,9 +274,13 @@ public class DeckBuilderView extends JPanel {
             mainTextPane.setText("""
                 Cards: %s/60
                 Pokemon: %s/6
+                Is valid: %s
+                Problems: %s
             """.formatted(
                 deck.getCards().size(),
-                deck.getCards().stream().filter((Card card) -> card instanceof PokemonCard).toList().size()
+                deck.getCards().stream().filter((Card card) -> card instanceof PokemonCard).toList().size(),
+                deck.isValid(),
+                String.join("\n", deck.getProblems())
             ));
             
             revalidate();

@@ -1,18 +1,26 @@
 package entity;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
+import java.util.Map.Entry;
 import java.util.HashMap;
 
 public class Deck {
     public ArrayList<Card> deck;
     public final String name;
     public final String id;
-    public Deck(String name, String id){
+    public final String author;
+    public Deck(String name, String id, String author){
         this.name = name;
         this.id = id;
         this.deck = new ArrayList<Card>();
-
+        this.author = author;
     }
+
+    public Deck(String name, String id) {
+        this(name, id, "Unknown");
+    }
+
     public void addCard(Card card){
         this.deck.add(card);
     }
@@ -69,5 +77,43 @@ public class Deck {
 
     public String getId() {
         return id;
+    }
+
+    public Deck clone() {
+        Deck result = new Deck(name, id, author);
+
+        for (Card card : deck) {
+            result.addCard(card);
+        }
+
+        return result;
+    }
+
+    public Collection<String> getProblems() {
+        ArrayList<String> problems = new ArrayList<>();
+
+        if (deckLength() < 60) {
+            problems.add("Deck is too small: %s/60".formatted(deckLength()));
+        } else if (deckLength() > 60) {
+            problems.add("Deck is too big: %s > 60".formatted(deckLength()));
+        }
+
+        HashMap<Card, Integer> counts = new HashMap<>();
+        for (Card card : deck) {
+            if (!counts.containsKey(card))
+                counts.put(card, 0);
+
+            counts.put(card, counts.get(card) + 1);
+
+            if (counts.get(card) == 5) {
+                problems.add("Too many copies of card: %s".formatted(card.name));
+            }
+        }
+
+        return problems;
+    }
+
+    public boolean isValid() {
+        return getProblems().size() == 0;
     }
 }

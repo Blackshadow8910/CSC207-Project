@@ -17,6 +17,6 @@ public class DeckBuilderController {
     }
 
     public void saveDeck(Deck deck) {
-        
+        inputBoundary.saveDeck(deck);
     }
 }

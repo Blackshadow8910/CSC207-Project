@@ -19,6 +19,7 @@ import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
 import app.GUIManager;
+import data_access.pokemon.TestCardDataAccessObject;
 import entity.Card;
 import entity.User;
 import interface_adapters.app.AppController;
@@ -58,7 +59,7 @@ public class AppView extends JPanel {
     private final JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 0));
 
     private final Font headerFont = new Font(Font.SANS_SERIF, Font.PLAIN, 18);
-    private final JLabel tabLabel = new JLabel("Card Viewer");
+    private final JLabel tabLabel = new JLabel("");
     private final JLabel userLabel = new JLabel("User");
     private final JLabel userIconLabel = new JLabel(new ImageIcon());
     private final JPopupMenu userMenu = new JPopupMenu();
@@ -96,7 +97,7 @@ public class AppView extends JPanel {
             Image i = ImageIO.read(new File("resources/img/user-icon.png")).getScaledInstance(d.width, d.height, Image.SCALE_SMOOTH);
             userIconLabel.setIcon(new ImageIcon(i));
             userIconLabel.setPreferredSize(d);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -106,7 +107,7 @@ public class AppView extends JPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("currentTab")) {
-                    tabs.show(contentPanel, appViewModel.currentTab);
+                    showTab(appViewModel.currentTab);
                     tabLabel.setText(appViewModel.currentTab);
                 } else if (evt.getPropertyName().equals("currentUser")) {
                     if (evt.getNewValue() != null) {
@@ -147,6 +148,12 @@ public class AppView extends JPanel {
         for (JButton button : tabButtons) {
             button.setEnabled(!button.getText().equals(tab));
         }
+
+        // Update viewmodel
+
+        if (appViewModel.currentTab == null || !appViewModel.currentTab.equals(tab)) {
+            appViewModel.setTab(tab);
+        }
     }
 
     public void addTab(String name, JComponent component) {
@@ -159,7 +166,7 @@ public class AppView extends JPanel {
 
         buttonPanel.add(button, tabButtonGBCBuilder.gridx(tabButtons.size()).build());
 
-        tabButtons.add(new JButton(name));
+        tabButtons.add(button);
         tabComponents.add(component);
         contentPanel.add(component, name);
 
