@@ -46,7 +46,7 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
     @Override
     public User getUser(String username, String password) {
         for (User user : users) {
-            if (user.username.equals(username)) {
+            if (user.username.equalsIgnoreCase(username)) {
                 if (user.password.equals(password)) {
                     return user;
                 }
@@ -58,7 +58,7 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
     @Override
     public User getUser(String username) {
         for (User user : users) {
-            if (user.username.equals(username)) {
+            if (user.username.equalsIgnoreCase(username)) {
                 return user;
             }
         }
