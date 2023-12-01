@@ -18,6 +18,8 @@ import entity.Deck;
 import entity.Message;
 import entity.SellListing;
 import entity.User;
+import usecase.app.deckbrowser.DeckSearchFilter;
+
 import org.json.JSONObject;
 
 
@@ -185,5 +187,11 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
     public ArrayList<SellListing> getSellListings() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getSellListings'");
+    }
+
+    @Override
+    public ArrayList<Deck> getDecks(DeckSearchFilter filter) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDecks'");
     }
 }

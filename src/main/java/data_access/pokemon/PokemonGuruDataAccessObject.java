@@ -1,5 +1,7 @@
 package data_access.pokemon;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -117,6 +119,10 @@ public class PokemonGuruDataAccessObject implements PokemonCardDataAccessInterfa
     
     @Override
     public BufferedImage getImage(String url) {
+        if (url.startsWith("img/")) {
+            return getLocalImage(url);
+        }
+
         try {
             if (imageCache.containsKey(url)) {
                 return imageCache.get(url).get();
@@ -128,6 +134,27 @@ public class PokemonGuruDataAccessObject implements PokemonCardDataAccessInterfa
             e.printStackTrace();
             return null;
         }
+    }
+
+    private BufferedImage getLocalImage(String url) {
+        File f = new File("resources/%s".formatted(url));
+
+        if (f.exists()) {
+            Image image;
+            try {
+                image = ImageIO.read(f);
+
+                BufferedImage base = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_4BYTE_ABGR);
+                Graphics2D g = base.createGraphics();
+                g.drawImage(image, 0, 0, image.getWidth(null), image.getHeight(null), Color.WHITE, null);
+                g.dispose();
+
+                return base;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     private void requestImage(String url) {

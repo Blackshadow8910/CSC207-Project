@@ -1,8 +1,8 @@
-package usecase.database;
+package usecase.app.deckbuilder;
 
 import entity.Deck;
 
-public interface DeckDataAccessInterface {
+public interface DeckBuilderDataAccessInterface {
     public Deck getDeck(String id);
     public void uploadDeck(Deck deck);
 }

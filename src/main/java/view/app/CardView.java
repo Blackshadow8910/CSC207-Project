@@ -38,6 +38,8 @@ public class CardView extends JPanel {
 
         resultScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         resultScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        resultScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        resultScrollPane.getViewport().setScrollMode(2);
 
         add(resultScrollPane, BorderLayout.CENTER);
     }
@@ -57,7 +59,7 @@ public class CardView extends JPanel {
 
         resultContainer.revalidate();
         resultContainer.repaint();
-        resultContainer.setPreferredSize(new Dimension(100, 200 + (result * 200)));
+        resultContainer.setPreferredSize(new Dimension(getWidth() - 100, 200 + (result * (resultEntrySize.height + resultContainerLayout.getVgap()))));
     }
 
     public JPanel createResultEntry(CardDisplayData data) {
@@ -70,6 +72,7 @@ public class CardView extends JPanel {
         panel.add(textLabel, BorderLayout.SOUTH);
 
         textLabel.setBackground(Color.BLUE);
+        textLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         panel.setPreferredSize(resultEntrySize);
         
         // Hover stylings: Subject to change
@@ -108,24 +111,8 @@ public class CardView extends JPanel {
     private void bindResultEntryListeners(JComponent entry, CardDisplayData data) {
         entry.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-            
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-            
-            @Override
             public void mouseReleased(MouseEvent e) {
                 fireSelectListeners(new SelectEvent(this, data));
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
             }
         });
     }

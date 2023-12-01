@@ -13,6 +13,7 @@ import entity.Deck;
 import entity.Message;
 import entity.SellListing;
 import entity.User;
+import usecase.app.deckbrowser.DeckSearchFilter;
 
 public class TestDatabaseAccessObject implements DatabaseAccessInterface {
     private final PokemonCardDataAccessInterface pokemonDAO;
@@ -28,7 +29,7 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
             registerUser("bob", "123456");
             registerUser("steven", "654321");
 
-            Deck testDeck = new Deck("TestDeck", "testdeck");
+            Deck testDeck = new Deck("TestDeck", "TestDeck");
             testDeck.addCard(new Card("henry", "s", "s"));
             uploadDeck(testDeck);
 
@@ -68,10 +69,15 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
         if (getUser(username) != null) {
             throw new UserAlreadyExistsException(username);
         }
-
+        
         users.add(new User(username, password));
     }
 
+    @Override
+    public ArrayList<Deck> getDecks(DeckSearchFilter filter) {
+        return new ArrayList<>(decks.values());
+    }
+    
     @Override
     public Deck getDeck(String id) {
         if (decks.containsKey(id)) {

@@ -40,3 +40,5 @@ https://docs.google.com/drawings/d/17H3lf1jQ2WkPr8LSaVP1RicslJ-A33M8ZlaVulrb_PI/
 # Final Presentation Slides
 https://docs.google.com/presentation/d/1Mj335fNQPe3TfsOWVu7XBOL7-hcLt7OX/edit?usp=sharing&ouid=111135043737973381784&rtpof=true&sd=true
 
+# External resources
+icons created by Freepik - Flaticon: https://www.flaticon.com/free-icons

@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
+import javax.naming.spi.DirectoryManager;
 
 import data_access.image.ImageCacheAccessInterface;
 import entity.Card;
@@ -54,6 +56,25 @@ public class TestCardDataAccessObject extends ArrayListCardDataAccessObject impl
 
     @Override
     public BufferedImage getImage(String url) {
+        if (url.startsWith("img/")) {
+            File f = new File("resources/%s".formatted(url));
+
+            if (f.exists()) {
+                Image image;
+                try {
+                    image = ImageIO.read(f);
+
+                    BufferedImage base = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_4BYTE_ABGR);
+                    Graphics2D g = base.createGraphics();
+                    g.drawImage(image, 0, 0, image.getWidth(null), image.getHeight(null), new Color(0, 0, 0, 0), null);
+                    g.dispose();
+
+                    return base;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return placeHolderImage;
     }
     
@@ -75,8 +96,9 @@ public class TestCardDataAccessObject extends ArrayListCardDataAccessObject impl
             Image image = ImageIO.read(f).getScaledInstance(245, 342, Image.SCALE_DEFAULT);
 
             BufferedImage base = new BufferedImage(245, 342, BufferedImage.TYPE_4BYTE_ABGR);
-
-            base.createGraphics().drawImage(image, 0, 0, 245, 342, Color.WHITE, null);
+            Graphics2D g = base.createGraphics();
+            g.drawImage(image, 0, 0, 245, 342, new Color(0, true), null);
+            g.dispose();
 
             return base;
         } catch (IOException e) {
