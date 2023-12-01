@@ -4,6 +4,8 @@ import kotlin.NotImplementedError;
 import usecase.signup.SignupInputBoundary;
 import usecase.signup.SignupInputData;
 
+import javax.swing.*;
+
 import static interface_adapters.signup.SignupRestrictions.*;
 
 public class SignupController {
@@ -14,32 +16,30 @@ public class SignupController {
     }
 
     public void signup(String username, String password) {
-        System.out.println(username);
-        System.out.println(password);
         switch(username_verifier(username))
         {
-            case "Alphanum Error":
-                // Create JPanel for Length Error
+            case "AlphanumError":
+                windowCreator("Username Error", "Make sure your username consists of only letters and number");
                 return;
             case "LengthError":
-                // Create JPanel for Length Error
+                windowCreator("Username Error", "Make sure your username has at least 3 and at most 30 character");
                 return;
         }
-        switch(password_verifier(password))
+        switch(password_verifier(username ,password))
         {
             case "LengthError":
-                // Create JPanel for Length Error
+                windowCreator("Password Error", "Make sure your password has at least 8 characters and at most 30");
                 return;
-            case "" :
+            case "AlphanumError" :
+                windowCreator("Password Error", "Make sure your password consists of only letters and numbers");
+                return;
+            case "ComplexityError":
+                windowCreator("Password Error", "Make sure your password has at least one uppercase character, one lowercase character, and one number");
+                return;
+            case "UsernameInPasswordError":
+                windowCreator("Password Error", "Make your password stronger by not putting your username in it");
                 return;
         }
-        if (username_in_password(username, password))
-        {
-            // Create JPanel for username in password error
-            return;
-        }
-        //TODO Remove the next line, using it to test stuff
-        System.out.println("Successfully Signed Up!");
         inputBoundary.register(new SignupInputData(username, password));
 
 
