@@ -91,6 +91,7 @@ public class CardSearchView extends JPanel {
 
         searchPanel.addSearchListener(evt -> {
             controller.performSearch(evt.data);
+            infoPanel.setVisible(false);
         });
         
         // Finish setting UI
