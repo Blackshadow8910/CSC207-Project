@@ -1,8 +1,6 @@
 package usecase.app.inventory;
 
-import data_access.pokemon.ArrayListCardDataAccessObject;
-import data_access.pokemon.PokemonCardDataAccessInterface;
-import data_access.pokemon.PokemonGuruCardSearchFilter;
+import entity.PokemonGuruCardSearchFilter;
 import entity.Card;
 import entity.User;
 
