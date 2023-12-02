@@ -126,9 +126,6 @@ public class CardSearchView extends JPanel {
                 // Handle the exception (e.g., show an error message to the user)
             }
 
-            System.out.println(evt.selectedCard.imageURL);
-            System.out.println(evt.selectedCard.getClass().getName());
-
             // Adjust panel and container sizes as needed
             Dimension panelSize2 = new Dimension(50, 100);
             infoPanel.setPreferredSize(panelSize2);
