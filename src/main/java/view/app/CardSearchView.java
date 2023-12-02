@@ -35,6 +35,9 @@ public class CardSearchView extends JPanel {
     private final JPanel descriptionPanel = new JPanel();
     private final JLabel cardNameLabel = new JLabel();
     private final JLabel cardTypeLabel = new JLabel();
+    private final JPanel cardNamePanel = new JPanel();
+    private final JPanel cardInfoPanel = new JPanel();
+    private final JLabel cardIDLabel = new JLabel();
     private final JLabel cardImageLabel = new JLabel();
     private final MatteBorder infoPanelBorder = new MatteBorder(0, 1, 0, 0, Color.GRAY);
     private final GridBagConstraints infoPanelGBC = new GridBagConstraintBuilder()
@@ -68,13 +71,13 @@ public class CardSearchView extends JPanel {
 
         // Setup UI
 
-        infoPanel.setLayout(new GridLayout(1,2));
+        infoPanel.setLayout(new GridLayout(3,1));
 
         infoPanel.setBorder(infoPanelBorder);
         // Creating The Card Information
-        JPanel cardInfoPanel = new JPanel();
-        cardInfoPanel.add(cardNameLabel);
-        cardInfoPanel.setLayout(new GridLayout(1,4));
+        cardNamePanel.add(cardNameLabel);
+        cardInfoPanel.add(cardIDLabel);
+        cardInfoPanel.setLayout(new GridLayout(4,1));
 
         // Creating The Card Image
         JPanel cardImagePanel = new JPanel();
@@ -83,8 +86,9 @@ public class CardSearchView extends JPanel {
 
         // Adding the Name and Image
 
-        infoPanel.add(cardInfoPanel);
+        infoPanel.add(cardNamePanel);
         infoPanel.add(cardImagePanel);
+        infoPanel.add(cardInfoPanel);
 
         mainPanel.add(resultContainer, BorderLayout.CENTER);
 
@@ -105,14 +109,13 @@ public class CardSearchView extends JPanel {
         resultContainer.addSelectListener(evt -> {
             infoPanel.setVisible(true);
             cardNameLabel.setText(evt.selectedCard.name);
-            cardTypeLabel.setText(evt.selectedCard.id);
-
+            cardIDLabel.setText(evt.selectedCard.id);
             // Add the Card Image
             try {
                 URL imageUrl = new URL(evt.selectedCard.imageURL);
                 ImageIcon imageIcon = new ImageIcon(imageUrl);
                 // Scale the image to fit your requirements
-                Image scaledImage = imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+                Image scaledImage = imageIcon.getImage().getScaledInstance(80, 100, Image.SCALE_SMOOTH);
                 imageIcon = new ImageIcon(scaledImage);
 
                 // Assuming cardImageLabel is a JLabel where you want to display the image
