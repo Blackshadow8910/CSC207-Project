@@ -26,7 +26,7 @@ public class TestCardDataAccessObject extends ArrayListCardDataAccessObject impl
                 "Salamander",
                 "salamander",
                 "https://images.pokemontcg.io/xy1/1.png",
-                List.of("normal"),
+                List.of("normal", "Cringe"),
                 List.of("Basic"),
                 "CringeSet",
                 12.1231231231321321));

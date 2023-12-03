@@ -4,30 +4,19 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-import entity.PokemonCard;
 import interface_adapters.app.cardsearch.CardSearchController;
 import interface_adapters.app.cardsearch.CardSearchViewModel;
-import usecase.app.cardsearch.CardSearchInputData;
 import usecase.app.cardsearch.CardDisplayData;
 import util.GridBagConstraintBuilder;
-import util.ImagePanel;
-import view.app.CardView.SelectEvent;
 
 public class CardSearchView extends JPanel {
     private CardSearchViewModel viewModel;
@@ -127,29 +116,29 @@ public class CardSearchView extends JPanel {
             try {
                 Field typesField = evt.selectedCard.getClass().getField("types");
                 List<String> typesValue = (List<String>) typesField.get(evt.selectedCard);
-                cardTypeLabel.setText("Types : " + typesValue.toString());
-            } catch (NoSuchFieldException | IllegalAccessException e) {
+                cardTypeLabel.setText("Types : " + typesValue.toString().replaceAll("[\\[\\]]", " "));
+            } catch (NoSuchFieldException | IllegalAccessException ignored) {
             }
             try {
                 Field typesField = evt.selectedCard.getClass().getField("subtypes");
                 List<String> typesValue = (List<String>) typesField.get(evt.selectedCard);
-                cardSubtypesLabel.setText("Subtypes : " + typesValue.toString());
-            } catch (NoSuchFieldException | IllegalAccessException e) {
+
+                cardSubtypesLabel.setText("Subtypes : " + typesValue.toString().replaceAll("[\\[\\]]", " "));
+            } catch (NoSuchFieldException | IllegalAccessException ignored) {
             }
             try {
                 Field typesField = evt.selectedCard.getClass().getField("marketPrice");
                 double typesValue = (double) typesField.get(evt.selectedCard);
                 double rounded_value = (double) Math.round(typesValue * 100) /100;
-                cardPriceLabel.setText("Market Price : " + rounded_value);
-            } catch (NoSuchFieldException | IllegalAccessException e) {
+                cardPriceLabel.setText("Market Price : $" + rounded_value);
+            } catch (NoSuchFieldException | IllegalAccessException ignored) {
 
             }
             try {
                 Field typesField = evt.selectedCard.getClass().getField("setID");
                 String typesValue = (String) typesField.get(evt.selectedCard);
                 cardSetIDLabel.setText("SetID : " + typesValue);
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-
+            } catch (NoSuchFieldException | IllegalAccessException ignored) {
             }
 
 
