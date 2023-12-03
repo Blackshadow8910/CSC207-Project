@@ -9,14 +9,12 @@ import util.ImagePanel;
 
 import javax.swing.*;
 
-import data_access.pokemon.PokemonCardDataAccessInterface;
-import data_access.pokemon.PokemonGuruCardSearchFilter;
+import entity.PokemonGuruCardSearchFilter;
 import entity.Card;
 
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.EventListener;
@@ -75,6 +73,10 @@ public class InventoryView extends JPanel {
             infoPanel.displayData(evt.data);
         });
 
+        searchBarPanel.addSearchListener(evt -> {
+            performSearch(evt.data.filter);
+        });
+
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -103,6 +105,10 @@ public class InventoryView extends JPanel {
     private void refreshCardDisplay() {
         PokemonGuruCardSearchFilter filter = searchBarPanel.getFilter();
 
+        performSearch(filter);
+    }
+
+    private void performSearch(PokemonGuruCardSearchFilter filter) {
         if (viewModel.getCurrentUser() == null) {
             JOptionPane.showMessageDialog(this, "Not logged in.", "", JOptionPane.ERROR_MESSAGE);
             return;

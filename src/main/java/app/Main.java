@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import data_access.pokemon.PokemonGuruDataAccessObject;
 import entity.Message;
 import org.json.JSONObject;
 import org.json.JSONWriter;
@@ -42,7 +43,7 @@ public class Main {
     public static void main(String[] args) {
         // Data access init
 
-        PokemonCardDataAccessInterface pokemonCardDAO = new TestCardDataAccessObject();
+        PokemonCardDataAccessInterface pokemonCardDAO = new PokemonGuruDataAccessObject();//new TestCardDataAccessObject();
         ImageCacheAccessInterface imageDAO = (ImageCacheAccessInterface) pokemonCardDAO;
         DatabaseAccessInterface db = new TestDatabaseAccessObject(pokemonCardDAO);//new PostGreSQLAccessObject(pokemonCardDAO);
 

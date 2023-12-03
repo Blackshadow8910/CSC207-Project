@@ -1,9 +1,6 @@
 package interface_adapters.app.inventory;
 
-import java.util.ArrayList;
-
-import data_access.pokemon.ArrayListCardDataAccessObject;
-import data_access.pokemon.PokemonGuruCardSearchFilter;
+import entity.PokemonGuruCardSearchFilter;
 import entity.Card;
 import entity.User;
 import usecase.app.inventory.InventoryInputBoundary;
