@@ -13,13 +13,13 @@ public class PokemonCard extends Card {
     public double marketPrice;
 
     public PokemonCard(
-            String name,
-            String id,
-            String imageURL,
-            List<String> types,
-            List<String> subtypes,
-            String setID,
-            double marketPrice
+        String name,
+        String id,
+        String imageURL,
+        List<String> types,
+        List<String> subtypes,
+        String setID,
+        double marketPrice
     ) {
         super(name, id, imageURL);
         this.types = types;
@@ -27,12 +27,15 @@ public class PokemonCard extends Card {
         this.setID = setID;
         this.marketPrice = marketPrice;
     }
-    public List<String> get_type()
-    {
-        return this.types;
+
+    public PokemonCard(
+            String name,
+            String id,
+            String imageURL,
+            List<String> types
+    ) {
+        this(name, id, imageURL, types, new ArrayList<>(), "",0.0);
     }
-
-
 
     // public PokemonCard(JSONObject data) {
     //     super(data.getString("name"), data.getString("id"), );
