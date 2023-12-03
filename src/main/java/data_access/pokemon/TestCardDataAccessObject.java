@@ -23,35 +23,22 @@ public class TestCardDataAccessObject extends ArrayListCardDataAccessObject impl
     public TestCardDataAccessObject() {
         super();
         cards.add(new PokemonCard(
-            "Salamander", 
-            "salamander",
-            "doesn't matter",
-            List.of("normal")));
+                "Salamander",
+                "salamander",
+                "https://images.pokemontcg.io/xy1/1.png",
+                List.of("normal", "Cringe"),
+                List.of("Basic"),
+                "CringeSet",
+                12.1231231231321321));
         cards.add(new PokemonCard(
-            "Horse", 
-            "horse",
-            "doesn't matter",
-            List.of("normal")));
-        cards.add(new PokemonCard(
-            "Pookichu", 
-            "pikamon",
-            "pica",
-            List.of("electric")));
-        cards.add(new PokemonCard(
-            "Goober", 
-            "gober",
-            "stu",
-            List.of("what")));
-        cards.add(new PokemonCard(
-            "Frep", 
-            "freb",
-            "ferb",
-            List.of("derf")));
-        cards.add(new PokemonCard(
-            "junston", 
-            "ppoo",
-            "h",
-            List.of("torp")));
+                "Horse",
+                "horse",
+                "https://images.pokemontcg.io/xy1/2.png",
+                List.of("Fire"),
+                List.of("EX"),
+                "Cool Set",
+                13)
+        );
     }
 
     @Override
