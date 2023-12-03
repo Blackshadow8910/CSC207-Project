@@ -1,3 +1,4 @@
+import interface_adapters.app.AppController;
 import interface_adapters.app.AppPresenter;
 import interface_adapters.app.AppViewModel;
 import org.junit.Assert;
@@ -37,5 +38,21 @@ public class AppInteractorTest {
         // Assert
         // You can add more specific verifications based on your implementation
         assertEquals(mockTab,viewModel.currentTab);
+    }
+
+    @Test
+    public void testInteractorChangeTab() {
+        // Arrange
+        String mockTab = "MockTab";
+
+        AppOutputBoundary presenter = new AppPresenter(new AppViewModel());
+        AppInteractor input = new AppInteractor(presenter);
+        AppController controller = new AppController(input);
+        // Act
+        controller.changeTab(mockTab);
+
+        // Assert
+        // You can add more specific verifications based on your implementation
+        assertEquals(mockTab,"MockTab");
     }
 }
