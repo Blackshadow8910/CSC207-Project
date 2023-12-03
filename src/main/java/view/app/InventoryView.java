@@ -233,7 +233,7 @@ public class InventoryView extends JPanel {
         private final JPanel spacer = new JPanel();
 
         private final JPanel priceInputPanel = new JPanel(new BorderLayout());
-        private final JLabel priceInputLabel = new JLabel("Name: ");
+        private final JLabel priceInputLabel = new JLabel("Price: ");
         private final JSpinner priceInputField = new JSpinner(new SpinnerNumberModel(5.0, 0.0, 10000, 0.25));
 
         private final JButton saveButton = new JButton("Save");

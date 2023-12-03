@@ -132,8 +132,6 @@ public class TradeView extends JPanel {
                     displayListingDetails(listing, conversation);
             
                     showSubtab("Listing");
-                } else {
-                    System.out.println("Null conversation");
                 }
             } else if (evt.getPropertyName().equals("infoMessage")) {
                 String message = (String) evt.getNewValue();
@@ -292,7 +290,7 @@ public class TradeView extends JPanel {
         JPanel[] jPanels = new JPanel[listing.getConversations().size() + 1];
 
         JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.add(new JLabel("You listed %s for %s".formatted(listing.card.name, listing.price)), BorderLayout.WEST);
+        headerPanel.add(new JLabel("You listed %s for $%s".formatted(listing.card.name, listing.price)), BorderLayout.WEST);
         headerPanel.setBorder(new MatteBorder(0, 0, 3, 0, Color.gray));
         headerPanel.setMaximumSize(new Dimension(800, 80));
         headerPanel.setMinimumSize(headerPanel.getMaximumSize());
@@ -361,7 +359,7 @@ public class TradeView extends JPanel {
                 
                 Card Name %s
                 Card ID: %s
-                Market value: %s
+                Market value: $%s
                 """.formatted(
                         listing.seller.username,
                         listing.card.name,
