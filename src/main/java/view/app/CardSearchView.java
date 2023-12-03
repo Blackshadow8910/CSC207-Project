@@ -1,10 +1,16 @@
 package view.app;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,6 +44,7 @@ public class CardSearchView extends JPanel {
     private final JPanel cardNamePanel = new JPanel();
     private final JPanel cardInfoPanel = new JPanel();
     private final JLabel cardIDLabel = new JLabel();
+    private final JLabel cardSubtypesLabel = new JLabel();
     private final JLabel cardImageLabel = new JLabel();
     private final MatteBorder infoPanelBorder = new MatteBorder(0, 1, 0, 0, Color.GRAY);
     private final GridBagConstraints infoPanelGBC = new GridBagConstraintBuilder()
@@ -74,10 +81,14 @@ public class CardSearchView extends JPanel {
         infoPanel.setLayout(new GridLayout(3,1));
 
         infoPanel.setBorder(infoPanelBorder);
-        // Creating The Card Information
+        // Creating The Header for the Info Box, just the card's name
         cardNamePanel.add(cardNameLabel);
+        // Creating The Card Information
+        cardInfoPanel.setLayout(new GridLayout(2,2));
+
+        cardInfoPanel.add(cardTypeLabel);
+        cardInfoPanel.add(cardSubtypesLabel);
         cardInfoPanel.add(cardIDLabel);
-        cardInfoPanel.setLayout(new GridLayout(4,1));
 
         // Creating The Card Image
         JPanel cardImagePanel = new JPanel();
@@ -89,6 +100,7 @@ public class CardSearchView extends JPanel {
         infoPanel.add(cardNamePanel);
         infoPanel.add(cardImagePanel);
         infoPanel.add(cardInfoPanel);
+
 
         mainPanel.add(resultContainer, BorderLayout.CENTER);
 
@@ -110,7 +122,32 @@ public class CardSearchView extends JPanel {
             infoPanel.setVisible(true);
             cardNameLabel.setText(evt.selectedCard.name);
             cardIDLabel.setText(evt.selectedCard.id);
+            cardTypeLabel.setText(evt.selectedCard.name);
+            try {
+                Field typesField = evt.selectedCard.getClass().getField("types");
+                List<String> typesValue = (List<String>) typesField.get(evt.selectedCard);
+                cardTypeLabel.setText("Types : " + typesValue.toString());
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            try {
+                Field typesField = evt.selectedCard.getClass().getField("subtypes");
+                List<String> typesValue = (List<String>) typesField.get(evt.selectedCard);
+                cardSubtypesLabel.setText("Subtypes : " + typesValue.toString());
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+
+
+
             // Add the Card Image
+
+
+
+
+
+
             try {
                 URL imageUrl = new URL(evt.selectedCard.imageURL);
                 ImageIcon imageIcon = new ImageIcon(imageUrl);
