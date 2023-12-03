@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import entity.Deck;
 import usecase.app.deckbrowser.DeckBrowserOutputBoundary;
-import usecase.app.deckbrowser.DeckBrowserOutputData;
 
 public class DeckBrowserPresenter implements DeckBrowserOutputBoundary {
     private DeckBrowserViewModel viewModel;
