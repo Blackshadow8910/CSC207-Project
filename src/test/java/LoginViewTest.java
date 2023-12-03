@@ -39,7 +39,6 @@ public class LoginViewTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        // Additional setup if needed
 
         loginView = new LoginView(loginViewModel, mockLoginController, mockGUIManager);
     }

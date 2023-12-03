@@ -40,5 +40,4 @@ public class SignupViewModelTest {
         assert signupViewModel.getUsername().equals("testUser");
     }
 
-    // Add more test methods as needed
 }

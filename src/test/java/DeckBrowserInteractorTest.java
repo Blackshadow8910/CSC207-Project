@@ -50,6 +50,22 @@ public class DeckBrowserInteractorTest {
     }
 
     @Test
+    public void testFilterDisplayDecks() {
+        // Arrange
+        DeckSearchFilter filter = new DeckSearchFilter("hi");
+        ArrayList<Deck> mockDecks = createMockDeckList();
+        when(mockDao.getDecks(filter)).thenReturn(mockDecks);
+        when(mockImageDao.getImage("img/deck-icon.png")).thenReturn(any());
+
+        // Act
+        deckBrowserInteractor.displayDecks(filter);
+
+        // Assert
+        verify(mockPresenter).setDefaultDeckImage(any());
+        verify(mockPresenter).presentDecks(mockDecks);
+    }
+
+    @Test
     public void testDisplayDecksDefault() {
         // Arrange
         ArrayList<Deck> mockDecks = createMockDeckList();
