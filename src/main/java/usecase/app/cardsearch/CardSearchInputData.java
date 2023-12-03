@@ -1,6 +1,6 @@
 package usecase.app.cardsearch;
 
-import data_access.pokemon.PokemonGuruCardSearchFilter;
+import entity.PokemonGuruCardSearchFilter;
 
 public class CardSearchInputData {
     public final PokemonGuruCardSearchFilter filter;

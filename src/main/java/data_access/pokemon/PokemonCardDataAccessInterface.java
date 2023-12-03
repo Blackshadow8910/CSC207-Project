@@ -1,9 +1,9 @@
 package data_access.pokemon;
 
-import java.awt.Image;
 import java.util.ArrayList;
 
 import entity.Card;
+import entity.PokemonGuruCardSearchFilter;
 
 public interface PokemonCardDataAccessInterface {
     public Card getCard(String id);

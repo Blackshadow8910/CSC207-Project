@@ -2,12 +2,11 @@ package usecase.app.deckbuilder;
 
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.List;
 
 import data_access.image.ImageDataAccessInterface;
 import data_access.pokemon.ArrayListCardDataAccessObject;
 import data_access.pokemon.PokemonCardDataAccessInterface;
-import data_access.pokemon.PokemonGuruCardSearchFilter;
+import entity.PokemonGuruCardSearchFilter;
 import entity.Card;
 import entity.Deck;
 import usecase.app.cardsearch.CardDisplayData;

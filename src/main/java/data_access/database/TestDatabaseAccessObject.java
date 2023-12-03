@@ -30,15 +30,21 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
             registerUser("steven", "654321");
 
             Deck testDeck = new Deck("TestDeck", "TestDeck");
-            testDeck.addCard(new Card("henry", "s", "s"));
+            if (pokemonDAO.getCard("g1-1")!= null) {
+                testDeck.addCard(pokemonDAO.getCard("g1-1"));
+                getUser("bob").addOwnedCard(pokemonDAO.getCard("g1-1"));
+            }
             uploadDeck(testDeck);
 
             getUser("bob").addOwnedCards(pokemonDAO.searchCards("Horse"));
 
-            sellListings.put("sell1", new SellListing("sell1", pokemonDAO.getCard("horse"), getUser("steven"), 12.99));
-            sellListings.put("sell2", new SellListing("sell2", pokemonDAO.getCard("horse"), getUser("steven"), 13.99));
-            sellListings.put("sell3", new SellListing("sell3", pokemonDAO.getCard("horse"), getUser("steven"), 14.99));
-            sellListings.put("sell4", new SellListing("sell4", pokemonDAO.getCard("horse"), getUser("steven"), 15.99));
+
+            if (pokemonDAO.getCard("g1-1")!= null) {
+                sellListings.put("sell1", new SellListing("sell1", pokemonDAO.getCard("g1-1"), getUser("steven"), 12.99));
+                sellListings.put("sell2", new SellListing("sell2", pokemonDAO.getCard("g1-1"), getUser("steven"), 13.99));
+                sellListings.put("sell3", new SellListing("sell3", pokemonDAO.getCard("g1-1"), getUser("steven"), 14.99));
+                sellListings.put("sell4", new SellListing("sell4", pokemonDAO.getCard("g1-1"), getUser("steven"), 15.99));
+            }
         } catch (UserAlreadyExistsException e) {
         }
     }

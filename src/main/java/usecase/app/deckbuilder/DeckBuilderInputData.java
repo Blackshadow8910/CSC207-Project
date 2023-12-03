@@ -1,6 +1,6 @@
 package usecase.app.deckbuilder;
 
-import data_access.pokemon.PokemonGuruCardSearchFilter;
+import entity.PokemonGuruCardSearchFilter;
 import entity.Deck;
 
 public class DeckBuilderInputData {
