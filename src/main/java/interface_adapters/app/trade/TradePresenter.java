@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import entity.SellListing;
 import usecase.app.trade.TradeOutputBoundary;
-import usecase.app.trade.TradeOutputData;
 
 public class TradePresenter implements TradeOutputBoundary {
     private TradeViewModel viewModel;

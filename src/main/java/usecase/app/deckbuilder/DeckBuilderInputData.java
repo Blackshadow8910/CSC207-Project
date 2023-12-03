@@ -15,8 +15,4 @@ public class DeckBuilderInputData {
         this.target = target;
         this.searchDeck = searchDeck;
     }
-
-    public DeckBuilderInputData(PokemonGuruCardSearchFilter filter, int target) {
-        this(filter, target, null);
-    }
 }

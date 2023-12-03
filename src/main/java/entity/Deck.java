@@ -43,32 +43,9 @@ public class Deck {
         return dummy_card;
     }
 
-    private int deckLength()
+    public int deckLength()
     {
         return deck.size();
-    }
-
-    public boolean deckValid()
-    {
-        HashMap<String, Integer> cardCounting = new HashMap<>();
-        if(deckLength() != 60)
-        {
-            return false;
-        }
-        for (int i = 0; i < deckLength(); i++)
-        {
-            if (cardCounting.get(deck.get(i).name) == 4)
-            {
-                return false;
-            }
-            if (!cardCounting.containsKey(deck.get(i).name))
-            {
-                cardCounting.put(deck.get(i).name, 0);
-            }
-            cardCounting.put(deck.get(i).name, cardCounting.get(deck.get(i).name) + 1);
-
-        }
-        return true;
     }
 
     public String getName() {

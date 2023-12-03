@@ -99,4 +99,8 @@ public class CardSearchBarView extends JPanel {
     public PokemonGuruCardSearchFilter getFilter() {
         return new PokemonGuruCardSearchFilter(searchField.getText());
     }
+
+    public JButton getSearchButton(){
+        return searchButton;
+    }
 }

@@ -232,8 +232,4 @@ public class SignupView extends JPanel {
 
         add(layeredPane);
     }
-
-    public void setLoginViewModel(LoginViewModel loginViewModel) {
-        this.loginViewModel = loginViewModel;
-    }
 }

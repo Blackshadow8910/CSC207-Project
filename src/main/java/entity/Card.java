@@ -29,13 +29,4 @@ public class Card {
     public static Card from(JSONObject data) {
         return CardBuilder.from(data).build();
     }
-
-
-    protected ArrayList<String> JSONArrayToStringList(JSONArray jsonArray) {
-        ArrayList<String> result = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++) {
-            result.add(jsonArray.getString(i));
-        }
-        return result;
-    } 
 }

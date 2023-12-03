@@ -1,6 +1,8 @@
 import data_access.image.ImageDataAccessInterface;
 import data_access.pokemon.PokemonCardDataAccessInterface;
 import entity.Card;
+import interface_adapters.app.cardsearch.CardSearchPresenter;
+import interface_adapters.app.cardsearch.CardSearchViewModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -15,6 +17,7 @@ import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class CardSearchInteractorTest {
@@ -44,6 +47,7 @@ public class CardSearchInteractorTest {
         when(mockDataAccessObject.searchCards("pikachu")).thenReturn(mockResults);
 
         // Act
+
         cardSearchInteractor.performSearch(inputData);
 
         //for (Card mockCard : mockResults) {
@@ -51,6 +55,7 @@ public class CardSearchInteractorTest {
         //}
         // Assert
         verify(mockPresenter).present(any(CardSearchOutputData.class));
+
     }
 
     private ArrayList<Card> createMockCardList() {
@@ -62,38 +67,4 @@ public class CardSearchInteractorTest {
         return mockCards;
     }
 
-    private static class ConcreteImage extends Image {
-        private String imageData;
-
-        public ConcreteImage(String imageData) {
-            this.imageData = imageData;
-        }
-
-        @Override
-        public int getWidth(ImageObserver observer) {
-            return 0;
-        }
-
-        @Override
-        public int getHeight(ImageObserver observer) {
-            return 0;
-        }
-
-        @Override
-        public ImageProducer getSource() {
-            return null;
-        }
-
-        @Override
-        public Graphics getGraphics() {
-            return null;
-        }
-
-        @Override
-        public Object getProperty(String name, ImageObserver observer) {
-            return null;
-        }
-
-        // Implement methods of the Image interface as needed
-    }
 }

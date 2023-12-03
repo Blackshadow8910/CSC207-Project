@@ -102,7 +102,7 @@ public class CardView extends JPanel {
         selectListeners.add(listener);
     }
 
-    private void fireSelectListeners(SelectEvent evt) {
+    public void fireSelectListeners(SelectEvent evt) {
         for (SelectListener l : selectListeners) {
             l.onClick(evt);
         }
@@ -117,11 +117,15 @@ public class CardView extends JPanel {
         });
     }
 
-    interface SelectListener extends EventListener {
+    public JPanel  getResultContainer(){
+        return resultContainer;
+    }
+
+    public interface SelectListener extends EventListener {
         public void onClick(SelectEvent evt);
     }
 
-    public class SelectEvent extends EventObject {
+    public static class SelectEvent extends EventObject {
         public final Card selectedCard;
         public final CardDisplayData data;
 
@@ -132,4 +136,5 @@ public class CardView extends JPanel {
             this.selectedCard = data.card;
         }
     }
+
 }

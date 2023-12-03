@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import usecase.app.cardsearch.CardDisplayData;
 import usecase.app.inventory.InventoryOutputBoundary;
-import usecase.app.inventory.InventoryOutputData;
 
 public class InventoryPresenter implements InventoryOutputBoundary {
     private InventoryViewModel viewModel;
