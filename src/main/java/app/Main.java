@@ -61,8 +61,8 @@ public class Main {
         DeckBrowserViewModel deckBrowserViewModel = new DeckBrowserViewModel();
 
         AppView appView = AppUseCaseFactory.create(appViewModel, guiManager);
-        TradeView tradeView = TradeUseCaseFactory.create(tradeViewModel, db, imageDAO, appViewModel);
-        InventoryView inventoryView = InventoryUseCaseFactory.create(inventoryViewModel, db, imageDAO, appViewModel);
+        TradeView tradeView = TradeUseCaseFactory.create(tradeViewModel, db, imageDAO, appViewModel, inventoryViewModel);
+        InventoryView inventoryView = InventoryUseCaseFactory.create(inventoryViewModel, db, imageDAO, appViewModel, tradeViewModel);
         DeckBuilderView deckBuilderView = DeckBuilderUserCaseFactory.create(deckBuilderViewModel, appViewModel, db, pokemonCardDAO, imageDAO);
         DeckBrowserView deckBrowserView = DeckBuilderUserCaseFactory.createBrowser(deckBrowserViewModel, deckBuilderViewModel, db, pokemonCardDAO, imageDAO);
         CardSearchView cardSearchView = CardSearchUseCaseFactory.create(cardSearchViewModel, pokemonCardDAO, imageDAO);

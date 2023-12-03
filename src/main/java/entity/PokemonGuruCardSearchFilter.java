@@ -42,6 +42,7 @@ public class PokemonGuruCardSearchFilter {
                 for (String subtype : subtypes) {
                     if (subtype.startsWith("-")) {
                         exclude.add(subtype.substring(1));
+                        continue;
                     }
                     if (text.length() > 0) {
                         text += " OR ";
