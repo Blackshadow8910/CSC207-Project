@@ -41,9 +41,10 @@ public class CardSearchView extends JPanel {
     private final JPanel descriptionPanel = new JPanel();
     private final JLabel cardNameLabel = new JLabel();
     private final JLabel cardTypeLabel = new JLabel();
+    private final JLabel cardSetIDLabel = new JLabel();
     private final JPanel cardNamePanel = new JPanel();
     private final JPanel cardInfoPanel = new JPanel();
-    private final JLabel cardIDLabel = new JLabel();
+    private final JLabel cardPriceLabel = new JLabel();
     private final JLabel cardSubtypesLabel = new JLabel();
     private final JLabel cardImageLabel = new JLabel();
     private final MatteBorder infoPanelBorder = new MatteBorder(0, 1, 0, 0, Color.GRAY);
@@ -88,7 +89,8 @@ public class CardSearchView extends JPanel {
 
         cardInfoPanel.add(cardTypeLabel);
         cardInfoPanel.add(cardSubtypesLabel);
-        cardInfoPanel.add(cardIDLabel);
+        cardInfoPanel.add(cardPriceLabel);
+        cardInfoPanel.add(cardSetIDLabel);
 
         // Creating The Card Image
         JPanel cardImagePanel = new JPanel();
@@ -121,32 +123,39 @@ public class CardSearchView extends JPanel {
         resultContainer.addSelectListener(evt -> {
             infoPanel.setVisible(true);
             cardNameLabel.setText(evt.selectedCard.name);
-            cardIDLabel.setText(evt.selectedCard.id);
             cardTypeLabel.setText(evt.selectedCard.name);
             try {
                 Field typesField = evt.selectedCard.getClass().getField("types");
                 List<String> typesValue = (List<String>) typesField.get(evt.selectedCard);
                 cardTypeLabel.setText("Types : " + typesValue.toString());
             } catch (NoSuchFieldException | IllegalAccessException e) {
-                e.printStackTrace();
             }
             try {
                 Field typesField = evt.selectedCard.getClass().getField("subtypes");
                 List<String> typesValue = (List<String>) typesField.get(evt.selectedCard);
                 cardSubtypesLabel.setText("Subtypes : " + typesValue.toString());
             } catch (NoSuchFieldException | IllegalAccessException e) {
-                e.printStackTrace();
+            }
+            try {
+                Field typesField = evt.selectedCard.getClass().getField("marketPrice");
+                double typesValue = (double) typesField.get(evt.selectedCard);
+                double rounded_value = (double) Math.round(typesValue * 100) /100;
+                cardPriceLabel.setText("Market Price : " + rounded_value);
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+
+            }
+            try {
+                Field typesField = evt.selectedCard.getClass().getField("setID");
+                String typesValue = (String) typesField.get(evt.selectedCard);
+                cardSetIDLabel.setText("SetID : " + typesValue);
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+
             }
 
 
 
 
             // Add the Card Image
-
-
-
-
-
 
             try {
                 URL imageUrl = new URL(evt.selectedCard.imageURL);

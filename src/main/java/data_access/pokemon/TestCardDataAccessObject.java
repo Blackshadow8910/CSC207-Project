@@ -29,7 +29,7 @@ public class TestCardDataAccessObject extends ArrayListCardDataAccessObject impl
                 List.of("normal"),
                 List.of("Basic"),
                 "CringeSet",
-                12));
+                12.1231231231321321));
         cards.add(new PokemonCard(
                 "Horse",
                 "horse",
