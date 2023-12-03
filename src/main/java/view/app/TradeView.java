@@ -138,6 +138,10 @@ public class TradeView extends JPanel {
             } else if (evt.getPropertyName().equals("infoMessage")) {
                 String message = (String) evt.getNewValue();
                 JOptionPane.showMessageDialog(this, message);
+            } else if (evt.getPropertyName().equals("uploadListing")) {
+                SellListing listing = (SellListing) evt.getNewValue();
+
+                controller.uploadSellListing(listing);
             }
         });
 
