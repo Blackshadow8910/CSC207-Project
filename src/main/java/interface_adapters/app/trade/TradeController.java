@@ -1,7 +1,6 @@
 package interface_adapters.app.trade;
 
-import entity.Message;
-import entity.SellListing;
+import entity.*;
 import usecase.app.trade.TradeInputBoundary;
 
 public class TradeController {
@@ -15,7 +14,28 @@ public class TradeController {
         inputBoundary.updateSellListings();
     }
 
-    public void replyToSellListing(SellListing listing, Message message) {
-        inputBoundary.replyToSellListing(listing, message);
+    public void replyToConversation(Conversation conversation, Message message) {
+        inputBoundary.replyToConversation(conversation, message);
+    }
+
+    public void resolveListing(SellListing listing, Message message) {
+        Card returnOffer = message.getCardOffer();
+        User buyer = null;
+        for (Conversation conversation : listing.getConversations()) {
+            if (conversation.getParticipants().get(1).username.equals(message.getSender())) {
+                buyer = conversation.getParticipants().get(1);
+                break;
+            }
+        }
+
+        if (buyer == null) {
+            throw new RuntimeException("Buyer doesn't have open conversation");
+        }
+
+        inputBoundary.resolveSellListing(listing, buyer, returnOffer);
+    }
+
+    public void uploadSellListing(SellListing listing) {
+        inputBoundary.uploadSellListing(listing);
     }
 }

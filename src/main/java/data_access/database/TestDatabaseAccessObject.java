@@ -114,22 +114,42 @@ public class TestDatabaseAccessObject implements DatabaseAccessInterface {
     }
 
     @Override
-    public void closeSellListing(String id) {
-        if (sellListings.containsKey(id)) {
-            sellListings.remove(id);
+    public void closeSellListing(SellListing listing, User buyer, Card offer) {
+        if (sellListings.containsKey(listing.id)) {
+            if (!listing.seller.getOwnedCards().contains(listing.getCard()))
+                throw new RuntimeException("Card not in seller inventory");
+
+            if (offer == null || buyer.getOwnedCards().contains(offer)) {
+                sellListings.remove(listing.id);
+                if (offer != null) {
+                    moveCard(offer, buyer, listing.seller);
+                    moveCard(listing.getCard(), listing.seller, buyer);
+                }
+            } else {
+                throw new RuntimeException("Card not in inventory");
+            }
+        } else {
+            throw new RuntimeException("Sell listing nonexistent");
+        }
+    }
+
+    private void moveCard(Card card, User from, User to) {
+        if (from.getOwnedCards().contains(card)) {
+            from.removeOwnedCard(card);
+            to.addOwnedCard(card);
         }
     }
 
     @Override
-    public void replyToSellListing(String sellListingId, Message message) {
-        SellListing sellListing =  getSellListing(sellListingId);
+    public void replyToConversation(Conversation conversation, Message message) {
+        //SellListing sellListing =  getSellListing(sellListingId);
 
-        if (sellListing == null) {
-            throw new RuntimeException("No such sell listing.");
-        }
-
-        Conversation c = sellListing.openConversation(getUser(message.getSender()));
-        c.sendMessage(message);
+//        if (sellListing == null) {
+//            throw new RuntimeException("No such sell listing.");
+//        }
+//
+//        Conversation c = sellListing.openConversation(getUser(message.getSender()));
+        conversation.sendMessage(message);
     }
 
     @Override

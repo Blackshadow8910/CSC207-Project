@@ -1,13 +1,17 @@
 package view.app;
 
+import entity.PokemonCard;
+import entity.SellListing;
 import interface_adapters.app.AppViewModel;
 import interface_adapters.app.inventory.InventoryController;
 import interface_adapters.app.inventory.InventoryViewModel;
+import interface_adapters.app.trade.TradeViewModel;
 import usecase.app.cardsearch.CardDisplayData;
 import util.GridBagConstraintBuilder;
 import util.ImagePanel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import entity.PokemonGuruCardSearchFilter;
 import entity.Card;
@@ -18,10 +22,14 @@ import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.EventListener;
+import java.util.UUID;
+import java.util.function.Consumer;
 
 public class InventoryView extends JPanel {
     private InventoryViewModel viewModel;
     private InventoryController controller;
+    private final AppViewModel appViewModel;
+    private final TradeViewModel tradeViewModel;
 
     private JPanel gridContainer = new JPanel(new GridBagLayout());
 
@@ -43,10 +51,12 @@ public class InventoryView extends JPanel {
     private final GridBagConstraints searchPanelGBC = new GridBagConstraintBuilder()
             .build();
 
-    public InventoryView(InventoryViewModel viewModel, InventoryController controller, AppViewModel appViewModel) {
+    public InventoryView(InventoryViewModel viewModel, InventoryController controller, AppViewModel appViewModel, TradeViewModel tradeViewModel) {
         setLayout(new BorderLayout());
         this.viewModel = viewModel;
         this.controller = controller;
+        this.appViewModel = appViewModel;
+        this.tradeViewModel = tradeViewModel;
 
         // Setup
 
@@ -117,7 +127,7 @@ public class InventoryView extends JPanel {
         controller.displayInventory(viewModel.getCurrentUser(), filter);
     }
 
-    public static class InfoPanel extends JPanel {
+    public class InfoPanel extends JPanel {
         private Card currentCard;
 
         private JPanel mainContainer = new JPanel();
@@ -126,6 +136,8 @@ public class InventoryView extends JPanel {
         private final ImagePanel imagePanel = new ImagePanel(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
         private final JLabel nameLabel = new JLabel();
 
+        private final JPanel buttonContainer = new JPanel(new GridLayout(1, 2));
+        private final JButton sellButton = new JButton("Sell");
         private final JButton removeButton = new JButton("Remove");
         private final ArrayList<RemoveListener> removeListeners = new ArrayList<>();
 
@@ -134,6 +146,22 @@ public class InventoryView extends JPanel {
             mainContainer.setLayout(mainContainerLayout);
 
             imagePanel.setPreferredSize(new Dimension(114, 160));
+
+            sellButton.addActionListener(evt ->{
+                SellDialog dialog = new SellDialog(price -> {
+                    tradeViewModel.uploadSellListing(new SellListing(
+                            UUID.randomUUID().toString(),
+                            currentCard,
+                            appViewModel.currentUser,
+                            price
+                    ));
+                    appViewModel.setTab("Trade cards");
+                });
+
+                if (currentCard instanceof PokemonCard)
+                    dialog.setPrice(((PokemonCard) currentCard).marketPrice);
+                dialog.displayDialog(InventoryView.this);
+            });
 
             removeButton.addActionListener(evt -> {
                 if (currentCard == null) {
@@ -150,7 +178,9 @@ public class InventoryView extends JPanel {
             mainContainer.add(imagePanel);
             mainContainer.add(nameLabel);
 
-            add(removeButton, BorderLayout.SOUTH);
+            buttonContainer.add(sellButton);
+            buttonContainer.add(removeButton);
+            add(buttonContainer, BorderLayout.SOUTH);
             add(mainContainer, BorderLayout.CENTER);
 
             clearData();
@@ -160,6 +190,7 @@ public class InventoryView extends JPanel {
             currentCard = data.card;
 
             removeButton.setEnabled(true);
+            sellButton.setEnabled(true);
 
             nameLabel.setText(data.card.name);
             imagePanel.setImage(data.image);
@@ -172,6 +203,7 @@ public class InventoryView extends JPanel {
             currentCard = null;
 
             removeButton.setEnabled(false);
+            sellButton.setEnabled(false);
 
             nameLabel.setText("");
             imagePanel.setImage(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
@@ -189,6 +221,72 @@ public class InventoryView extends JPanel {
 
         public void addRemoveListener(RemoveListener listener) {
             removeListeners.add(listener);
+        }
+    }
+
+    public class SellDialog extends JDialog {
+        private Consumer<Double> callback;
+
+        private final JPanel boxContainer = new JPanel();
+        private final BoxLayout boxLayout = new BoxLayout(boxContainer, BoxLayout.Y_AXIS);
+
+        private final JPanel spacer = new JPanel();
+
+        private final JPanel priceInputPanel = new JPanel(new BorderLayout());
+        private final JLabel priceInputLabel = new JLabel("Price: ");
+        private final JSpinner priceInputField = new JSpinner(new SpinnerNumberModel(5.0, 0.0, 10000, 0.25));
+
+        private final JButton saveButton = new JButton("Save");
+
+        public SellDialog() {
+            super(new JFrame(), "Save", true);
+
+            boxContainer.setLayout(boxLayout);
+            boxContainer.setBorder(new EmptyBorder(new Insets(12, 12, 12, 12)));
+
+            priceInputPanel.add(priceInputLabel, BorderLayout.WEST);
+            priceInputPanel.add(priceInputField, BorderLayout.CENTER);
+            spacer.setPreferredSize(new Dimension(200, 0));
+
+            boxContainer.add(spacer);
+            boxContainer.add(priceInputPanel);
+            boxContainer.add(wrapInBorderContainer(saveButton));
+
+            saveButton.addActionListener(evt -> {
+                fireCallback((Double) priceInputField.getValue());
+                SellDialog.this.dispose();
+            });
+
+            add(boxContainer);
+
+            pack();
+        }
+
+        private JPanel wrapInBorderContainer(JComponent c) {
+            JPanel panel = new JPanel(new BorderLayout());
+
+            panel.add(c, BorderLayout.CENTER);
+
+            return panel;
+        }
+
+        public SellDialog(Consumer<Double> callback) {
+            this();
+            this.callback = callback;
+        }
+
+        public void displayDialog(JComponent origin) {
+            setLocationRelativeTo(origin);
+            setVisible(true);
+        }
+
+        public void setPrice(Double name) {
+            priceInputField.setValue(name);
+        }
+        private void fireCallback(double price) {
+            if (callback != null) {
+                callback.accept(price);
+            }
         }
     }
 }

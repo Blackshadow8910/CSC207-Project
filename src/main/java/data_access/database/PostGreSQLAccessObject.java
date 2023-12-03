@@ -14,10 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data_access.pokemon.PokemonCardDataAccessInterface;
-import entity.Deck;
-import entity.Message;
-import entity.SellListing;
-import entity.User;
+import entity.*;
 import usecase.app.deckbrowser.DeckSearchFilter;
 
 import org.json.JSONObject;
@@ -172,13 +169,13 @@ public class PostGreSQLAccessObject implements DatabaseAccessInterface {
     }
 
     @Override
-    public void closeSellListing(String id) {
+    public void closeSellListing(SellListing listing, User buyer, Card offer) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'closeSellListing'");
     }
 
     @Override
-    public void replyToSellListing(String sellListingId, Message message) {
+    public void replyToConversation(Conversation conversation, Message message) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'replyToSellListing'");
     }

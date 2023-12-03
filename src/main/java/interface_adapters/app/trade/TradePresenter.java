@@ -16,4 +16,7 @@ public class TradePresenter implements TradeOutputBoundary {
     public void presentSellListings(ArrayList<SellListing> listings) {
         viewModel.setListings(listings);
     }
+    public void presentInfoMessage(String message) {
+        viewModel.setInfoMessage(message);
+    }
 }

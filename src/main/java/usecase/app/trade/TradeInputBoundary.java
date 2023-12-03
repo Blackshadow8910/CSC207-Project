@@ -1,9 +1,10 @@
 package usecase.app.trade;
 
-import entity.Message;
-import entity.SellListing;
+import entity.*;
 
 public interface TradeInputBoundary {
     public void updateSellListings();
-    public void replyToSellListing(SellListing listing, Message message);
+    public void replyToConversation(Conversation conversation, Message message);
+    public void resolveSellListing(SellListing listing, User buyer, Card offer);
+    public void uploadSellListing(SellListing listing);
 }

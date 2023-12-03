@@ -7,6 +7,7 @@ import interface_adapters.app.AppViewModel;
 import interface_adapters.app.inventory.InventoryController;
 import interface_adapters.app.inventory.InventoryPresenter;
 import interface_adapters.app.inventory.InventoryViewModel;
+import interface_adapters.app.trade.TradeViewModel;
 import usecase.app.inventory.InventoryDataAccessInterface;
 import usecase.app.inventory.InventoryInputBoundary;
 import usecase.app.inventory.InventoryInteractor;
@@ -19,15 +20,16 @@ public class InventoryUseCaseFactory {
     private InventoryUseCaseFactory() {}
 
     public static InventoryView create(InventoryViewModel inventoryViewModel,
-                                                  InventoryDataAccessInterface dataAccessObject,
-                                                  ImageDataAccessInterface imageAccessObject, 
-                                                  AppViewModel appViewModel) {
+                                       InventoryDataAccessInterface dataAccessObject,
+                                       ImageDataAccessInterface imageAccessObject,
+                                       AppViewModel appViewModel,
+                                       TradeViewModel tradeViewModel) {
 
         InventoryOutputBoundary inventoryOutputBoundary = new InventoryPresenter(inventoryViewModel);
         InventoryInputBoundary inventoryInputBoundary = new InventoryInteractor(inventoryOutputBoundary, dataAccessObject, imageAccessObject);
         InventoryController inventoryController = new InventoryController(inventoryInputBoundary);
 
-        return new InventoryView(inventoryViewModel, inventoryController, appViewModel);
+        return new InventoryView(inventoryViewModel, inventoryController, appViewModel, tradeViewModel);
 
     }
 }
