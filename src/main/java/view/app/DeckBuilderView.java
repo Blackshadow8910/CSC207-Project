@@ -1,12 +1,6 @@
 package view.app;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
@@ -220,7 +214,10 @@ public class DeckBuilderView extends JPanel {
         private final JLabel nameLabel = new JLabel();
         private final JTextPane mainTextPane = new JTextPane();
 
+        private final JPanel buttonContainer = new JPanel(new GridLayout(2, 1));
         private final JButton saveButton = new JButton("Save");
+
+        private final JButton newDeckButton = new JButton("New deck");
         private final ArrayList<RemoveListener> removeListeners = new ArrayList<>();
 
         public InfoPanel() {
@@ -242,11 +239,15 @@ public class DeckBuilderView extends JPanel {
                     }
                     
                     viewModel.setDeck(deck);
-                    controller.saveDeck(deck);
+                    controller.saveDeck(deck.clone());
                 });
                 
                 saveDialog.setDeckName(viewModel.getDeck().name);
                 saveDialog.displayDialog(DeckBuilderView.this);
+            });
+
+            newDeckButton.addActionListener(evt -> {
+                viewModel.setDeck(new Deck("New deck", "New deck"));
             });
 
             nameLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
@@ -258,7 +259,9 @@ public class DeckBuilderView extends JPanel {
             mainContainer.add(nameLabel);
             mainContainer.add(mainTextPane);
             
-            add(saveButton, BorderLayout.SOUTH);
+            buttonContainer.add(newDeckButton);
+            buttonContainer.add(saveButton);
+            add(buttonContainer, BorderLayout.SOUTH);
             add(mainContainer, BorderLayout.CENTER);
 
             clearData();
