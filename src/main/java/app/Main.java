@@ -65,7 +65,7 @@ public class Main {
         InventoryView inventoryView = InventoryUseCaseFactory.create(inventoryViewModel, db, imageDAO, appViewModel);
         DeckBuilderView deckBuilderView = DeckBuilderUserCaseFactory.create(deckBuilderViewModel, appViewModel, db, pokemonCardDAO, imageDAO);
         DeckBrowserView deckBrowserView = DeckBuilderUserCaseFactory.createBrowser(deckBrowserViewModel, deckBuilderViewModel, db, pokemonCardDAO, imageDAO);
-        CardSearchView cardSearchView = CardSearchUseCaseFactory.create(cardSearchViewModel, pokemonCardDAO, imageDAO);
+        CardSearchView cardSearchView = CardSearchUseCaseFactory.create(cardSearchViewModel, pokemonCardDAO, imageDAO, appViewModel);
         LoginView loginView = LoginUseCaseFactory.create(loginViewModel, appViewModel, db, guiManager);
         SignupView signupView = SignupUseCaseFactory.create(signupViewModel, loginViewModel, db, guiManager);
 

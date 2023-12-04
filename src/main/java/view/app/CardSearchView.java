@@ -1,6 +1,7 @@
 package view.app;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +14,17 @@ import java.net.URL;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
+import interface_adapters.app.AppViewModel;
 import interface_adapters.app.cardsearch.CardSearchController;
 import interface_adapters.app.cardsearch.CardSearchViewModel;
 import usecase.app.cardsearch.CardDisplayData;
 import util.GridBagConstraintBuilder;
+import util.ImagePanel;
 
 public class CardSearchView extends JPanel {
     private CardSearchViewModel viewModel;
     private CardSearchController controller;
+    private final AppViewModel appViewModel;
     
     private final GridBagLayout mainGridBagLayout = new GridBagLayout();
     private final JPanel mainContainer = new JPanel(mainGridBagLayout);
@@ -35,7 +39,7 @@ public class CardSearchView extends JPanel {
     private final JPanel cardInfoPanel = new JPanel();
     private final JLabel cardPriceLabel = new JLabel();
     private final JLabel cardSubtypesLabel = new JLabel();
-    private final JLabel cardImageLabel = new JLabel();
+    private final ImagePanel cardImagePanel = new ImagePanel(new BufferedImage(112, 160, BufferedImage.TYPE_4BYTE_ABGR));
     private final MatteBorder infoPanelBorder = new MatteBorder(0, 1, 0, 0, Color.GRAY);
     private final GridBagConstraints infoPanelGBC = new GridBagConstraintBuilder()
         .fill(GridBagConstraints.BOTH)
@@ -62,13 +66,14 @@ public class CardSearchView extends JPanel {
     
     private final CardView resultContainer = new CardView();
 
-    public CardSearchView(CardSearchViewModel viewModel, CardSearchController controller) {
+    public CardSearchView(CardSearchViewModel viewModel, CardSearchController controller, AppViewModel appViewModel) {
         this.viewModel = viewModel;
         this.controller = controller;
+        this.appViewModel = appViewModel;
 
         // Setup UI
 
-        infoPanel.setLayout(new GridLayout(3,1));
+        infoPanel.setLayout(new BorderLayout());
 
         infoPanel.setBorder(infoPanelBorder);
         // Creating The Header for the Info Box, just the card's name
@@ -81,17 +86,25 @@ public class CardSearchView extends JPanel {
         cardInfoPanel.add(cardPriceLabel);
         cardInfoPanel.add(cardSetIDLabel);
 
-        // Creating The Card Image
-        JPanel cardImagePanel = new JPanel();
-        cardImagePanel.add(cardImageLabel);
-        cardImagePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-
         // Adding the Name and Image
 
-        infoPanel.add(cardNamePanel);
-        infoPanel.add(cardImagePanel);
-        infoPanel.add(cardInfoPanel);
+        JPanel cardImageContainer = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        cardImageContainer.add(cardImagePanel);
+        cardImagePanel.setPreferredSize(new Dimension((int) (240 * 0.8), (int) (340 * 0.8)));
 
+        JButton addInventoryButton = new JButton("Add to inventory");
+        addInventoryButton.addActionListener(evt -> {
+            if (viewModel.getCurrentCard()!= null)
+                appViewModel.currentUser.addOwnedCard(viewModel.getCurrentCard());
+        });
+
+        JPanel bottomContainer = new JPanel(new BorderLayout());
+        bottomContainer.add(cardInfoPanel, BorderLayout.CENTER);
+        bottomContainer.add(addInventoryButton, BorderLayout.SOUTH);
+
+        infoPanel.add(cardNamePanel, BorderLayout.NORTH);
+        infoPanel.add(cardImageContainer, BorderLayout.CENTER);
+        infoPanel.add(bottomContainer, BorderLayout.SOUTH);
 
         mainPanel.add(resultContainer, BorderLayout.CENTER);
 
@@ -141,25 +154,13 @@ public class CardSearchView extends JPanel {
             } catch (NoSuchFieldException | IllegalAccessException ignored) {
             }
 
-
+            viewModel.setCurrentCard(evt.selectedCard);
+            addInventoryButton.setEnabled(true);
 
 
             // Add the Card Image
 
-            try {
-                URL imageUrl = new URL(evt.selectedCard.imageURL);
-                ImageIcon imageIcon = new ImageIcon(imageUrl);
-                // Scale the image to fit your requirements
-                Image scaledImage = imageIcon.getImage().getScaledInstance(80, 100, Image.SCALE_SMOOTH);
-                imageIcon = new ImageIcon(scaledImage);
-
-                // Assuming cardImageLabel is a JLabel where you want to display the image
-                cardImageLabel.setIcon(imageIcon);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-                throw new RuntimeException(e);
-                // Handle the exception (e.g., show an error message to the user)
-            }
+            cardImagePanel.setImage(evt.data.image);
 
             // Adjust panel and container sizes as needed
             Dimension panelSize2 = new Dimension(50, 100);
@@ -170,13 +171,14 @@ public class CardSearchView extends JPanel {
         searchPanel.addSearchListener(evt -> {
             controller.performSearch(evt.data);
         });
+        addInventoryButton.setEnabled(false);
         
         // Finish setting UI
 
         mainContainer.add(mainPanel, mainPanelGBC);
         mainContainer.add(searchPanel, searchPanelGBC);
         mainContainer.add(infoPanel, infoPanelGBC);
-        infoPanel.setVisible(false);
+        //infoPanel.setVisible(false);
 
         setLayout(new BorderLayout());
         add(mainContainer, BorderLayout.CENTER);

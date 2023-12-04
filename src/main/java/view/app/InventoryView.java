@@ -81,6 +81,8 @@ public class InventoryView extends JPanel {
             @Override
             public void componentResized(ComponentEvent e) {
                 infoPanel.setPreferredSize(new Dimension((int)Math.round(getWidth() * 0.25), getHeight()));
+                infoPanel.setMinimumSize(infoPanel.getPreferredSize());
+                infoPanel.setMaximumSize(infoPanel.getPreferredSize());
                 searchBarPanel.setPreferredSize(new Dimension(0, 40));
                 revalidate();
             }
