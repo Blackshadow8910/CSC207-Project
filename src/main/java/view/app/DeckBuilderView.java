@@ -119,7 +119,7 @@ public class DeckBuilderView extends JPanel {
                 getActiveSubCardView().displayResults((ArrayList<CardDisplayData>) evt.getNewValue());
             } else if (evt.getPropertyName().equals("deck")) {
                 displayDeckData(viewModel.getDeck());
-                if (appViewModel.currentTab.equals("Deck browser")) {
+                if (appViewModel.getCurrentTab().equals("Deck browser")) {
                     appViewModel.setTab("Deck builder");
                 }
             }
@@ -190,6 +190,22 @@ public class DeckBuilderView extends JPanel {
         panel.add(c, BorderLayout.CENTER);
 
         return panel;
+    }
+
+    public CardSearchBarView getSearchBarPanel() {
+        return searchBarPanel;
+    }
+
+    public CardView getAddCardView() {
+        return addCardView;
+    }
+
+    public CardView getRemoveCardView() {
+        return removeCardView;
+    }
+
+    public InfoPanel getInfoPanel() {
+        return infoPanel;
     }
 
     public class InfoPanel extends JPanel {
@@ -287,6 +303,10 @@ public class DeckBuilderView extends JPanel {
 
             revalidate();
             repaint();
+        }
+
+        public JButton getSaveButton() {
+            return saveButton;
         }
 
         public record RemoveEvent(Card card) {

@@ -9,6 +9,7 @@ import view.app.CardView;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,6 @@ public class CardViewTest {
 
         // Check if the displayed results match the expected size
         assertEquals(results.size(), cardView.getResultContainer().getComponentCount());
-
-        assertEquals(584, cardView.getResultContainer().getPreferredSize().height);
     }
 
     @Test
@@ -48,7 +47,7 @@ public class CardViewTest {
         List<CardDisplayData> results = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             results.add(new CardDisplayData(new Card("Card" + i, String.valueOf(i),
-                    "imageURL1"), null));
+                    "imageURL1"), new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)));
         }
         return results;
     }

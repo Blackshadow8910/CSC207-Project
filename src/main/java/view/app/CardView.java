@@ -38,6 +38,7 @@ public class CardView extends JPanel {
         int number = 0;
         int rowLength = (int) (Math.floor(resultContainer.getWidth() / (resultEntrySize.getWidth() + resultContainerLayout.getHgap())));
 
+
         for (CardDisplayData result : results) {
             number++;
             JPanel entry = createResultEntry(result);
@@ -45,7 +46,12 @@ public class CardView extends JPanel {
 
             bindResultEntryListeners(entry, result);
         }
-        int result = number / rowLength;
+        int result;
+        if (rowLength == 0) {
+            result = number;
+        } else {
+            result = number / rowLength;
+        }
 
         resultContainer.revalidate();
         resultContainer.repaint();
@@ -92,7 +98,7 @@ public class CardView extends JPanel {
         selectListeners.add(listener);
     }
 
-    private void fireSelectListeners(SelectEvent evt) {
+    public void fireSelectListeners(SelectEvent evt) {
         for (SelectListener l : selectListeners) {
             l.onClick(evt);
         }
@@ -107,11 +113,15 @@ public class CardView extends JPanel {
         });
     }
 
-    interface SelectListener extends EventListener {
+    public JPanel getResultContainer() {
+        return resultContainer;
+    }
+
+    public interface SelectListener extends EventListener {
         void onClick(SelectEvent evt);
     }
 
-    public class SelectEvent extends EventObject {
+    public static class SelectEvent extends EventObject {
         public final Card selectedCard;
         public final CardDisplayData data;
 

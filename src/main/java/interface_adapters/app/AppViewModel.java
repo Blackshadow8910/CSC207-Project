@@ -41,6 +41,14 @@ public class AppViewModel extends ViewModel {
 
     
 
+    public String getCurrentTab() {
+        return currentTab;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
     public interface LoginListener extends EventListener {
         void onLogin(LoginEvent evt);
     }

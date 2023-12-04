@@ -103,7 +103,7 @@ public class InventoryView extends JPanel {
 
         appViewModel.addPropertyChangeListener(evt -> {
             if (evt.getPropertyName().equals("currentTab")) {
-                if (appViewModel.currentTab.equals("My cards")) {
+                if (appViewModel.getCurrentTab().equals("My cards")) {
                     refreshCardDisplay();
                 }
             }

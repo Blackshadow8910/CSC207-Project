@@ -1,8 +1,8 @@
 import data_access.image.ImageDataAccessInterface;
 import data_access.pokemon.PokemonCardDataAccessInterface;
-import data_access.pokemon.PokemonGuruCardSearchFilter;
 import entity.Card;
 import entity.Deck;
+import entity.PokemonGuruCardSearchFilter;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

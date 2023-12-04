@@ -80,6 +80,10 @@ public class CardSearchBarView extends JPanel {
         }
     }
 
+    public JButton getSearchButton() {
+        return searchButton;
+    }
+
 
     public class SearchEvent extends EventObject {
         public final CardSearchInputData data;

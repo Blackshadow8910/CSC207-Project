@@ -149,7 +149,7 @@ public class TradeView extends JPanel {
                     showSubtab("Browse");
                 }
             } if (evt.getPropertyName().equals("currentTab")) {
-                if (appViewModel.currentTab.equals("Trade cards")) {
+                if (appViewModel.getCurrentTab().equals("Trade cards")) {
                     updateSellListings();
                     viewModel.setCurrentConversation(null, null);
                     showSubtab("Browse");

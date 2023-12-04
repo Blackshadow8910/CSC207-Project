@@ -29,6 +29,7 @@ public class DeckBuilderViewTest {
         controller = mock(DeckBuilderController.class);
         appViewModel = mock(AppViewModel.class);
         deckBuilderView = new DeckBuilderView(viewModel, controller, appViewModel);
+        when(appViewModel.getCurrentTab()).thenReturn("Deck browser");
     }
 
     @Test
@@ -43,7 +44,7 @@ public class DeckBuilderViewTest {
     @Test
     public void testDisplayDeckData() {
         Deck deck = new Deck("Test Deck", "1", "John Doe");
-        appViewModel.setTab("Deck browser");
+        when(appViewModel.getCurrentTab()).thenReturn("Deck browser");
         deckBuilderView.displayDeckData(deck);
         Card card = new Card("Card1", "1", "imageURL1");
         viewModel.addToDeck(card);

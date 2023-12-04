@@ -1,7 +1,7 @@
 import data_access.image.ImageDataAccessInterface;
 import data_access.pokemon.ArrayListCardDataAccessObject;
-import data_access.pokemon.PokemonGuruCardSearchFilter;
 import entity.Card;
+import entity.PokemonGuruCardSearchFilter;
 import entity.User;
 import org.junit.Before;
 import org.junit.Test;

@@ -138,4 +138,12 @@ public class LoginView extends JPanel {
 
         add(layeredPane);
     }
+
+    public JButton getLoginButton() {
+        return submitButton;
+    }
+
+    public JButton getSignButton() {
+        return signupButton;
+    }
 }

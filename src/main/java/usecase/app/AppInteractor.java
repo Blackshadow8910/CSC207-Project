@@ -9,6 +9,6 @@ public class AppInteractor implements AppInputBoundary {
 
     @Override
     public void changeTab(String tab) {
-        
+        presenter.changeTab(tab);
     }
 }

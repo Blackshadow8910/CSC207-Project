@@ -93,8 +93,8 @@ public class AppView extends JPanel {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("currentTab")) {
-                    showTab(appViewModel.currentTab);
-                    tabLabel.setText(appViewModel.currentTab);
+                    showTab(appViewModel.getCurrentTab());
+                    tabLabel.setText(appViewModel.getCurrentTab());
                 } else if (evt.getPropertyName().equals("currentUser")) {
                     if (evt.getNewValue() != null) {
                         userLabel.setText(appViewModel.currentUser.username);
@@ -137,7 +137,7 @@ public class AppView extends JPanel {
 
         // Update viewmodel
 
-        if (appViewModel.currentTab == null || !appViewModel.currentTab.equals(tab)) {
+        if (appViewModel.getCurrentTab() == null || !appViewModel.getCurrentTab().equals(tab)) {
             appViewModel.setTab(tab);
         }
     }
