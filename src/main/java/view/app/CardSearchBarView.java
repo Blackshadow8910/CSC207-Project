@@ -199,18 +199,12 @@ public class CardSearchBarView extends JPanel {
 
             if (basicCheckBox.isSelected()) {
                 filter.addSubtype("Basic");
-            } else {
-                filter.addSubtype("-Basic");
             }
             if (exCheckBox.isSelected()) {
                 filter.addSubtype("EX");
-            } else {
-                filter.addSubtype("-EX");
             }
             if (megaCheckBox.isSelected()) {
                 filter.addSubtype("MEGA");
-            } else {
-                filter.addSubtype("-MEGA");
             }
 
             try {

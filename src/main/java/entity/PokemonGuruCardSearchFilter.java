@@ -45,7 +45,7 @@ public class PokemonGuruCardSearchFilter {
                         continue;
                     }
                     if (text.length() > 0) {
-                        text += " OR ";
+                        text += " AND ";
                     }
 
                     text += "subtypes:%s".formatted(encodeString(subtype));
@@ -62,7 +62,8 @@ public class PokemonGuruCardSearchFilter {
                     text += "-subtypes:%s".formatted(encodeString(subtype));
                 }
 
-                result += "(%s) ".formatted(text);
+                if (!text.isEmpty())
+                    result += "(%s) ".formatted(text);
             }
 
             if (!setID.isEmpty()) {
