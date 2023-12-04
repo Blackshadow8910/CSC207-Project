@@ -12,8 +12,6 @@ public class GridBagConstraintBuilder {
     private int anchor = GridBagConstraints.CENTER;
     private Insets insets = new Insets(0, 0, 0, 0);
     private int fill = GridBagConstraints.BOTH;
-    private final int ipadx = 0;
-    private final int ipady = 0;
 
     public GridBagConstraintBuilder() {
 
@@ -75,6 +73,8 @@ public class GridBagConstraintBuilder {
     }
 
     public GridBagConstraints build() {
+        int ipady = 0;
+        int ipadx = 0;
         return new GridBagConstraints(
             gridx, 
             gridy, 
@@ -84,9 +84,9 @@ public class GridBagConstraintBuilder {
             weighty, 
             anchor, 
             fill, 
-            insets, 
-            ipadx, 
-            ipady);
+            insets,
+                ipadx,
+                ipady);
     }
 
     public static GridBagConstraints constraint(int gridX, int gridY) {

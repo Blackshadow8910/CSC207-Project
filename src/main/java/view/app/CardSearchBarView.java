@@ -17,8 +17,6 @@ import java.util.HashSet;
 import java.util.function.Consumer;
 
 public class CardSearchBarView extends JPanel {
-    private final LayoutManager searchPanelLayout = new GridBagLayout();
-    private final Border searchPanelBorder = new EmptyBorder(0, 8, 0, 0);
     private final JLabel searchLabel = new JLabel("Search keywords: ");
     private final JTextField searchField = new JTextField();
     private final JButton searchButton = new JButton("Search");
@@ -27,7 +25,9 @@ public class CardSearchBarView extends JPanel {
     private final HashSet<SearchListener> searchListeners = new HashSet<>();
 
     public CardSearchBarView() {
+        Border searchPanelBorder = new EmptyBorder(0, 8, 0, 0);
         setBorder(searchPanelBorder);
+        LayoutManager searchPanelLayout = new GridBagLayout();
         setLayout(searchPanelLayout);
 
         searchButton.setFocusable(false);
@@ -85,7 +85,7 @@ public class CardSearchBarView extends JPanel {
     }
 
 
-    public class SearchEvent extends EventObject {
+    public static class SearchEvent extends EventObject {
         public final CardSearchInputData data;
 
         public SearchEvent(Object source, CardSearchInputData data) {
@@ -118,9 +118,6 @@ public class CardSearchBarView extends JPanel {
         private Consumer<CloseEvent> callback;
 
         private final JPanel boxContainer = new JPanel();
-        private final BoxLayout boxLayout = new BoxLayout(boxContainer, BoxLayout.Y_AXIS);
-
-        private final JPanel spacer = new JPanel();
 
         private final JPanel nameInputPanel = new JPanel(new BorderLayout());
         private final JTextField nameInputField = new JTextField();
@@ -130,39 +127,37 @@ public class CardSearchBarView extends JPanel {
         private final JCheckBox basicCheckBox = new JCheckBox("Basic");
         private final JCheckBox exCheckBox = new JCheckBox("EX");
         private final JCheckBox megaCheckBox = new JCheckBox("Mega");
-        private final JPanel subtypeBox = new JPanel(new GridLayout(1, 3));
 
-        private final JButton saveButton = new JButton("Save");
-
-        private final JPanel priceBox = new JPanel(new GridLayout(1, 2));
         private final JTextField minPriceField = new JTextField();
         private final JTextField maxPriceField = new JTextField();
 
         public AdvancedSearchDialog() {
             super(new JFrame(), "Advanced Search", true);
 
+            BoxLayout boxLayout = new BoxLayout(boxContainer, BoxLayout.Y_AXIS);
             boxContainer.setLayout(boxLayout);
             boxContainer.setBorder(new EmptyBorder(new Insets(12, 12, 12, 12)));
 
+            JPanel spacer = new JPanel();
             spacer.setPreferredSize(new Dimension(400, 0));
 
             typeField.setToolTipText("""
                 A space seperated list of all types to search for. The results will match any of the given types.
             """);
 
+            JPanel subtypeBox = new JPanel(new GridLayout(1, 3));
             subtypeBox.add(basicCheckBox);
             subtypeBox.add(exCheckBox);
             subtypeBox.add(megaCheckBox);
-            basicCheckBox.setSelected(true);
-            exCheckBox.setSelected(true);
-            megaCheckBox.setSelected(true);
 
             boxContainer.add(spacer);
             boxContainer.add(initInputComponent("Name: ", nameInputField));
             boxContainer.add(initInputComponent("Types: ", typeField));
             boxContainer.add(subtypeBox);
+            JPanel priceBox = new JPanel(new GridLayout(1, 2));
             boxContainer.add(priceBox);
             boxContainer.add(initInputComponent("Set ID: ", setIDField));
+            JButton saveButton = new JButton("Save");
             boxContainer.add(wrapInBorderContainer(saveButton));
 
             priceBox.add(initInputComponent("Min price", minPriceField));

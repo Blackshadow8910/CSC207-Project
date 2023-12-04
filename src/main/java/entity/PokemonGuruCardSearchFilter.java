@@ -8,8 +8,8 @@ import java.util.Collection;
 
 public class PokemonGuruCardSearchFilter {
     public String name = "";
-    public ArrayList<String> types = new ArrayList<>();
-    public ArrayList<String> subtypes = new ArrayList<>();
+    public final ArrayList<String> types = new ArrayList<>();
+    public final ArrayList<String> subtypes = new ArrayList<>();
     public String setID = "";
     public double minPrice = 0;
     public double maxPrice = Double.MAX_VALUE;
@@ -24,20 +24,20 @@ public class PokemonGuruCardSearchFilter {
             ).replaceAll("%2B", " ") + " ";
 
             if (!types.isEmpty()) {
-                String text = "";
+                StringBuilder text = new StringBuilder();
 
                 for (String type : types) {
                     if (text.length() > 0) {
-                        text += " OR ";
+                        text.append(" OR ");
                     }
-                    text += "types:%s".formatted(encodeString(type));
+                    text.append("types:%s".formatted(encodeString(type)));
                 }
 
-                result += "(%s) ".formatted(text);
+                result += "(%s) ".formatted(text.toString());
             }
 
             if (!subtypes.isEmpty()) {
-                String text = "";
+                StringBuilder text = new StringBuilder();
 
                 ArrayList<String> exclude = new ArrayList<>();
                 for (String subtype : subtypes) {
@@ -46,25 +46,25 @@ public class PokemonGuruCardSearchFilter {
                         continue;
                     }
                     if (text.length() > 0) {
-                        text += " AND ";
+                        text.append(" AND ");
                     }
 
-                    text += "subtypes:%s".formatted(encodeString(subtype));
+                    text.append("subtypes:%s".formatted(encodeString(subtype)));
                 }
 
-                result += "(%s) ".formatted(text);
+                result += "(%s) ".formatted(text.toString());
 
-                text = "";
+                text = new StringBuilder();
                 for (String subtype : exclude) {
                     if (text.length() > 0) {
-                        text += " AND ";
+                        text.append(" AND ");
                     }
 
-                    text += "-subtypes:%s".formatted(encodeString(subtype));
+                    text.append("-subtypes:%s".formatted(encodeString(subtype)));
                 }
 
-                if (!text.isEmpty())
-                    result += "(%s) ".formatted(text);
+                if (text.length() > 0)
+                    result += "(%s) ".formatted(text.toString());
             }
 
             if (!setID.isEmpty()) {
@@ -83,7 +83,7 @@ public class PokemonGuruCardSearchFilter {
         }
     }
 
-    private String encodeString(String str) throws UnsupportedEncodingException {
+    private String encodeString(String str) {
         return URLEncoder.encode(str, StandardCharsets.UTF_8);
     }
 

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PokemonCard extends Card {
-    public List<String> types;
-    public List<String> subtypes;
-    public String setID;
-    public double marketPrice;
+    public final List<String> types;
+    public final List<String> subtypes;
+    public final String setID;
+    public final double marketPrice;
 
     public PokemonCard(
         String name,

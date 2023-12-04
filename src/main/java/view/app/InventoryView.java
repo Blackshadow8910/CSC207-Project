@@ -29,25 +29,11 @@ public class InventoryView extends JPanel {
     private final AppViewModel appViewModel;
     private final TradeViewModel tradeViewModel;
 
-    private final JPanel gridContainer = new JPanel(new GridBagLayout());
-
     private final CardView cardPanel = new CardView();
-    private final GridBagConstraints  cardPanelGBC = new GridBagConstraintBuilder()
-            .gridy(1)
-            .weightx(1)
-            .weighty(1)
-            .build();
-    
+
     private final InfoPanel infoPanel = new InfoPanel();
-    private final GridBagConstraints infoPanelGBC = new GridBagConstraintBuilder()
-            .gridx(1)
-            .gridheight(2)
-            .weightx(0)
-            .build();
 
     private final CardSearchBarView searchBarPanel = new CardSearchBarView();
-    private final GridBagConstraints searchPanelGBC = new GridBagConstraintBuilder()
-            .build();
 
     public InventoryView(InventoryViewModel viewModel, InventoryController controller, AppViewModel appViewModel, TradeViewModel tradeViewModel) {
         setLayout(new BorderLayout());
@@ -60,8 +46,21 @@ public class InventoryView extends JPanel {
 
         searchBarPanel.setLabelVisible(false);
 
+        GridBagConstraints cardPanelGBC = new GridBagConstraintBuilder()
+                .gridy(1)
+                .weightx(1)
+                .weighty(1)
+                .build();
+        JPanel gridContainer = new JPanel(new GridBagLayout());
         gridContainer.add(cardPanel, cardPanelGBC);
+        GridBagConstraints infoPanelGBC = new GridBagConstraintBuilder()
+                .gridx(1)
+                .gridheight(2)
+                .weightx(0)
+                .build();
         gridContainer.add(infoPanel, infoPanelGBC);
+        GridBagConstraints searchPanelGBC = new GridBagConstraintBuilder()
+                .build();
         gridContainer.add(searchBarPanel, searchPanelGBC);
 
         // Listeners
@@ -131,18 +130,17 @@ public class InventoryView extends JPanel {
         private Card currentCard;
 
         private final JPanel mainContainer = new JPanel();
-        private final BoxLayout mainContainerLayout = new BoxLayout(mainContainer, BoxLayout.Y_AXIS);
 
         private final ImagePanel imagePanel = new ImagePanel(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
         private final JLabel nameLabel = new JLabel();
 
-        private final JPanel buttonContainer = new JPanel(new GridLayout(1, 2));
         private final JButton sellButton = new JButton("Sell");
         private final JButton removeButton = new JButton("Remove");
         private final ArrayList<RemoveListener> removeListeners = new ArrayList<>();
 
         public InfoPanel() {
             setLayout(new BorderLayout());
+            BoxLayout mainContainerLayout = new BoxLayout(mainContainer, BoxLayout.Y_AXIS);
             mainContainer.setLayout(mainContainerLayout);
 
             imagePanel.setPreferredSize(new Dimension(114, 160));
@@ -178,6 +176,7 @@ public class InventoryView extends JPanel {
             mainContainer.add(imagePanel);
             mainContainer.add(nameLabel);
 
+            JPanel buttonContainer = new JPanel(new GridLayout(1, 2));
             buttonContainer.add(sellButton);
             buttonContainer.add(removeButton);
             add(buttonContainer, BorderLayout.SOUTH);
@@ -224,32 +223,30 @@ public class InventoryView extends JPanel {
         }
     }
 
-    public class SellDialog extends JDialog {
+    public static class SellDialog extends JDialog {
         private Consumer<Double> callback;
 
         private final JPanel boxContainer = new JPanel();
-        private final BoxLayout boxLayout = new BoxLayout(boxContainer, BoxLayout.Y_AXIS);
 
-        private final JPanel spacer = new JPanel();
-
-        private final JPanel priceInputPanel = new JPanel(new BorderLayout());
-        private final JLabel priceInputLabel = new JLabel("Price: ");
         private final JSpinner priceInputField = new JSpinner(new SpinnerNumberModel(5.0, 0.0, 10000, 0.25));
-
-        private final JButton saveButton = new JButton("Save");
 
         public SellDialog() {
             super(new JFrame(), "Save", true);
 
+            BoxLayout boxLayout = new BoxLayout(boxContainer, BoxLayout.Y_AXIS);
             boxContainer.setLayout(boxLayout);
             boxContainer.setBorder(new EmptyBorder(new Insets(12, 12, 12, 12)));
 
+            JLabel priceInputLabel = new JLabel("Price: ");
+            JPanel priceInputPanel = new JPanel(new BorderLayout());
             priceInputPanel.add(priceInputLabel, BorderLayout.WEST);
             priceInputPanel.add(priceInputField, BorderLayout.CENTER);
+            JPanel spacer = new JPanel();
             spacer.setPreferredSize(new Dimension(200, 0));
 
             boxContainer.add(spacer);
             boxContainer.add(priceInputPanel);
+            JButton saveButton = new JButton("Save");
             boxContainer.add(wrapInBorderContainer(saveButton));
 
             saveButton.addActionListener(evt -> {

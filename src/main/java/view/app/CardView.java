@@ -16,8 +16,7 @@ import java.util.HashSet;
 public class CardView extends JPanel {
     private final FlowLayout resultContainerLayout = new FlowLayout(FlowLayout.LEFT, 12, 12);
     private final JPanel resultContainer = new JPanel(resultContainerLayout);
-    private final JScrollPane resultScrollPane = new JScrollPane(resultContainer);
-    
+
     private final Dimension resultEntrySize = new Dimension(114, 160 + 20);
 
     private final HashSet<SelectListener> selectListeners = new HashSet<>();
@@ -25,6 +24,7 @@ public class CardView extends JPanel {
     public CardView() {
         setLayout(new BorderLayout());
 
+        JScrollPane resultScrollPane = new JScrollPane(resultContainer);
         resultScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         resultScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         resultScrollPane.getVerticalScrollBar().setUnitIncrement(16);
@@ -72,9 +72,7 @@ public class CardView extends JPanel {
         panel.setPreferredSize(resultEntrySize);
         
         // Hover stylings: Subject to change
-        
-        //panel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        //Border b = new MatteBorder(1, 1, 1, 1, Color.gray);
+
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent evt) {

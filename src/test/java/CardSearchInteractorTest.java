@@ -63,10 +63,8 @@ public class CardSearchInteractorTest {
     }
 
     private static class ConcreteImage extends Image {
-        private final String imageData;
 
         public ConcreteImage(String imageData) {
-            this.imageData = imageData;
         }
 
         @Override

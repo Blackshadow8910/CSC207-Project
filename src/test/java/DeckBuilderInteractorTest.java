@@ -12,7 +12,6 @@ import usecase.app.deckbuilder.DeckBuilderInputData;
 import usecase.app.deckbuilder.DeckBuilderInteractor;
 import usecase.app.deckbuilder.DeckBuilderOutputBoundary;
 
-import java.awt.Image;
 import java.util.ArrayList;
 
 import static org.mockito.Mockito.*;

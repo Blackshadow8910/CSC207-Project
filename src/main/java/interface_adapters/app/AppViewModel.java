@@ -53,7 +53,7 @@ public class AppViewModel extends ViewModel {
         void onLogin(LoginEvent evt);
     }
 
-    public class LoginEvent extends EventObject {
+    public static class LoginEvent extends EventObject {
         public final User user;
 
         public LoginEvent(Object source, User user) {

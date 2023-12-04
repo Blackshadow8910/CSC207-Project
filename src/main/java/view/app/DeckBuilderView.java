@@ -25,43 +25,20 @@ public class DeckBuilderView extends JPanel {
     public final DeckBuilderController controller;
     private final AppViewModel appViewModel;
 
-    private final JPanel gridContainer = new JPanel(new GridBagLayout());
-
     private final CardLayout cardPanelLayout = new CardLayout();
     private final JPanel cardPanel = new JPanel(cardPanelLayout);
-    private final GridBagConstraints  cardPanelGBC = new GridBagConstraintBuilder()
-            .gridx(1)
-            .gridy(1)
-            .weightx(1)
-            .weighty(1)
-            .build();
 
     private final CardView addCardView = new CardView();
     private final CardView removeCardView = new CardView();
     
     private final InfoPanel infoPanel = new InfoPanel();
-    private final GridBagConstraints infoPanelGBC = new GridBagConstraintBuilder()
-            .gridx(2)
-            .gridheight(2)
-            .weightx(0)
-            .build();
 
     private final CardSearchBarView searchBarPanel = new CardSearchBarView();
-    private final GridBagConstraints searchPanelGBC = new GridBagConstraintBuilder()
-            .gridx(1)
-            .build();
 
     private final JButton[] subtabButtons = {
         new JButton("Add"),
         new JButton("Remove")
     };
-
-    private final JPanel subtabButtonContainer = new JPanel(new GridBagLayout());
-    private final GridBagConstraints subtabButtonContainerGBC = new GridBagConstraintBuilder()
-        .gridx(0)
-        .gridheight(2)
-        .fill(GridBagConstraints.BOTH)
-        .build();
 
 
     public DeckBuilderView(DeckBuilderViewModel viewModel, DeckBuilderController controller, AppViewModel appViewModel) {
@@ -74,6 +51,7 @@ public class DeckBuilderView extends JPanel {
         // UI setup
 
         int i = 0;
+        JPanel subtabButtonContainer = new JPanel(new GridBagLayout());
         for (JButton button : subtabButtons) {
             GridBagConstraints gbc = new GridBagConstraintBuilder()
                 .gridy(i)
@@ -92,9 +70,29 @@ public class DeckBuilderView extends JPanel {
 
         searchBarPanel.setLabelVisible(false);
 
+        GridBagConstraints subtabButtonContainerGBC = new GridBagConstraintBuilder()
+                .gridx(0)
+                .gridheight(2)
+                .fill(GridBagConstraints.BOTH)
+                .build();
+        JPanel gridContainer = new JPanel(new GridBagLayout());
         gridContainer.add(subtabButtonContainer, subtabButtonContainerGBC);
+        GridBagConstraints cardPanelGBC = new GridBagConstraintBuilder()
+                .gridx(1)
+                .gridy(1)
+                .weightx(1)
+                .weighty(1)
+                .build();
         gridContainer.add(cardPanel, cardPanelGBC);
+        GridBagConstraints infoPanelGBC = new GridBagConstraintBuilder()
+                .gridx(2)
+                .gridheight(2)
+                .weightx(0)
+                .build();
         gridContainer.add(infoPanel, infoPanelGBC);
+        GridBagConstraints searchPanelGBC = new GridBagConstraintBuilder()
+                .gridx(1)
+                .build();
         gridContainer.add(searchBarPanel, searchPanelGBC);
 
         cardPanel.add(addCardView, "Add");
@@ -212,20 +210,18 @@ public class DeckBuilderView extends JPanel {
         private Deck currentDeck;
 
         private final JPanel mainContainer = new JPanel();
-        private final BoxLayout mainContainerLayout = new BoxLayout(mainContainer, BoxLayout.Y_AXIS);
 
         // private final ImagePanel imagePanel = new ImagePanel(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
         private final JLabel nameLabel = new JLabel();
         private final JTextPane mainTextPane = new JTextPane();
 
-        private final JPanel buttonContainer = new JPanel(new GridLayout(2, 1));
         private final JButton saveButton = new JButton("Save");
 
-        private final JButton newDeckButton = new JButton("New deck");
         private final ArrayList<RemoveListener> removeListeners = new ArrayList<>();
 
         public InfoPanel() {
             setLayout(new BorderLayout());
+            BoxLayout mainContainerLayout = new BoxLayout(mainContainer, BoxLayout.Y_AXIS);
             mainContainer.setLayout(mainContainerLayout);
 
             // imagePanel.setPreferredSize(new Dimension(114, 160));
@@ -250,6 +246,7 @@ public class DeckBuilderView extends JPanel {
                 saveDialog.displayDialog(DeckBuilderView.this);
             });
 
+            JButton newDeckButton = new JButton("New deck");
             newDeckButton.addActionListener(evt -> {
                 viewModel.setDeck(new Deck("New deck", "New deck"));
             });
@@ -262,7 +259,8 @@ public class DeckBuilderView extends JPanel {
             // mainContainer.add(imagePanel);
             mainContainer.add(nameLabel);
             mainContainer.add(mainTextPane);
-            
+
+            JPanel buttonContainer = new JPanel(new GridLayout(2, 1));
             buttonContainer.add(newDeckButton);
             buttonContainer.add(saveButton);
             add(buttonContainer, BorderLayout.SOUTH);
@@ -325,28 +323,26 @@ public class DeckBuilderView extends JPanel {
         private Consumer<CloseEvent> callback;
 
         private final JPanel boxContainer = new JPanel();
-        private final BoxLayout boxLayout = new BoxLayout(boxContainer, BoxLayout.Y_AXIS);
 
-        private final JPanel spacer = new JPanel();
-
-        private final JPanel nameInputPanel = new JPanel(new BorderLayout());
-        private final JLabel nameInputLabel = new JLabel("Name: ");
         private final JTextField nameInputField = new JTextField();
-
-        private final JButton saveButton = new JButton("Save");
 
         public SaveDialog() {
             super(new JFrame(), "Save", true);
 
+            BoxLayout boxLayout = new BoxLayout(boxContainer, BoxLayout.Y_AXIS);
             boxContainer.setLayout(boxLayout);
             boxContainer.setBorder(new EmptyBorder(new Insets(12, 12, 12, 12)));
 
+            JLabel nameInputLabel = new JLabel("Name: ");
+            JPanel nameInputPanel = new JPanel(new BorderLayout());
             nameInputPanel.add(nameInputLabel, BorderLayout.WEST);
             nameInputPanel.add(nameInputField, BorderLayout.CENTER);
+            JPanel spacer = new JPanel();
             spacer.setPreferredSize(new Dimension(200, 0));
             
             boxContainer.add(spacer);
             boxContainer.add(nameInputPanel);
+            JButton saveButton = new JButton("Save");
             boxContainer.add(wrapInBorderContainer(saveButton));
 
             saveButton.addActionListener(evt -> {
@@ -373,7 +369,7 @@ public class DeckBuilderView extends JPanel {
             nameInputField.setText(name);
         }
 
-        public class CloseEvent extends EventObject {
+        public static class CloseEvent extends EventObject {
             public final String name;
             public CloseEvent(Object source, String name) {
                 super(source);

@@ -18,12 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardSearchView extends JPanel {
-    private final CardSearchViewModel viewModel;
-    private final CardSearchController controller;
-    private final AppViewModel appViewModel;
-    
+
     private final GridBagLayout mainGridBagLayout = new GridBagLayout();
-    private final JPanel mainContainer = new JPanel(mainGridBagLayout);
 
     private final JPanel infoPanel = new JPanel();
     private final JPanel namePanel = new JPanel();
@@ -31,50 +27,25 @@ public class CardSearchView extends JPanel {
     private final JLabel cardNameLabel = new JLabel();
     private final JLabel cardTypeLabel = new JLabel();
     private final JLabel cardSetIDLabel = new JLabel();
-    private final JPanel cardNamePanel = new JPanel();
-    private final JPanel cardInfoPanel = new JPanel();
     private final JLabel cardPriceLabel = new JLabel();
     private final JLabel cardSubtypesLabel = new JLabel();
     private final ImagePanel cardImagePanel = new ImagePanel(new BufferedImage(112, 160, BufferedImage.TYPE_4BYTE_ABGR));
-    private final MatteBorder infoPanelBorder = new MatteBorder(0, 1, 0, 0, Color.GRAY);
-    private final GridBagConstraints infoPanelGBC = new GridBagConstraintBuilder()
-        .fill(GridBagConstraints.BOTH)
-        .gridx(1)
-        .gridheight(2)
-        .weightx(0.5)
-        .weighty(1)
-        .build();
 
-    private final JPanel mainPanel = new JPanel(new BorderLayout());
-    private final GridBagConstraints mainPanelGBC = new GridBagConstraintBuilder()
-        .fill(GridBagConstraints.BOTH)
-        .gridx(0).gridy(1)
-        .weighty(11)
-        .build();
-    
-    private final CardSearchBarView searchPanel = new CardSearchBarView();
-    private final GridBagConstraints searchPanelGBC = new GridBagConstraintBuilder()
-        .fill(GridBagConstraints.BOTH)
-        .gridy(0)
-        .weightx(1)
-        .weighty(1)
-        .build();
-    
     private final CardView resultContainer = new CardView();
 
     public CardSearchView(CardSearchViewModel viewModel, CardSearchController controller, AppViewModel appViewModel) {
-        this.viewModel = viewModel;
-        this.controller = controller;
-        this.appViewModel = appViewModel;
 
         // Setup UI
 
         infoPanel.setLayout(new BorderLayout());
 
+        MatteBorder infoPanelBorder = new MatteBorder(0, 1, 0, 0, Color.GRAY);
         infoPanel.setBorder(infoPanelBorder);
         // Creating The Header for the Info Box, just the card's name
+        JPanel cardNamePanel = new JPanel();
         cardNamePanel.add(cardNameLabel);
         // Creating The Card Information
+        JPanel cardInfoPanel = new JPanel();
         cardInfoPanel.setLayout(new GridLayout(2,2));
 
         cardInfoPanel.add(cardTypeLabel);
@@ -102,6 +73,7 @@ public class CardSearchView extends JPanel {
         infoPanel.add(cardImageContainer, BorderLayout.CENTER);
         infoPanel.add(bottomContainer, BorderLayout.SOUTH);
 
+        JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(resultContainer, BorderLayout.CENTER);
 
         // Bind Behaviours
@@ -164,6 +136,7 @@ public class CardSearchView extends JPanel {
             resultContainer.setPreferredSize(new Dimension(1000, 100));
         });
 
+        CardSearchBarView searchPanel = new CardSearchBarView();
         searchPanel.addSearchListener(evt -> {
             controller.performSearch(evt.data);
         });
@@ -171,8 +144,27 @@ public class CardSearchView extends JPanel {
         
         // Finish setting UI
 
+        GridBagConstraints mainPanelGBC = new GridBagConstraintBuilder()
+                .fill(GridBagConstraints.BOTH)
+                .gridx(0).gridy(1)
+                .weighty(11)
+                .build();
+        JPanel mainContainer = new JPanel(mainGridBagLayout);
         mainContainer.add(mainPanel, mainPanelGBC);
+        GridBagConstraints searchPanelGBC = new GridBagConstraintBuilder()
+                .fill(GridBagConstraints.BOTH)
+                .gridy(0)
+                .weightx(1)
+                .weighty(1)
+                .build();
         mainContainer.add(searchPanel, searchPanelGBC);
+        GridBagConstraints infoPanelGBC = new GridBagConstraintBuilder()
+                .fill(GridBagConstraints.BOTH)
+                .gridx(1)
+                .gridheight(2)
+                .weightx(0.5)
+                .weighty(1)
+                .build();
         mainContainer.add(infoPanel, infoPanelGBC);
         //infoPanel.setVisible(false);
 

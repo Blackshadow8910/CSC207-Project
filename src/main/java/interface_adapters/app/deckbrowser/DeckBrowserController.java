@@ -4,7 +4,7 @@ import usecase.app.deckbrowser.DeckBrowserInputBoundary;
 import usecase.app.deckbrowser.DeckSearchFilter;
 
 public class DeckBrowserController {
-    public DeckBrowserInputBoundary inputBoundary;
+    public final DeckBrowserInputBoundary inputBoundary;
 
     public DeckBrowserController(DeckBrowserInputBoundary inputBoundary) {
         this.inputBoundary = inputBoundary;

@@ -6,7 +6,7 @@ import entity.User;
 import usecase.app.inventory.InventoryInputBoundary;
 
 public class InventoryController {
-    public InventoryInputBoundary inputBoundary;
+    public final InventoryInputBoundary inputBoundary;
 
     public InventoryController(InventoryInputBoundary inputBoundary) {
         this.inputBoundary = inputBoundary;

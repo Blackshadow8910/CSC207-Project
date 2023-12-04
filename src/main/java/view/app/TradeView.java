@@ -24,12 +24,9 @@ public class TradeView extends JPanel {
     private final TradeController controller;
     private final TradeViewModel viewModel;
     private final AppViewModel appViewModel;
-    private final InventoryViewModel inventoryViewModel;
 
     private final GridBagLayout mainContainerLayout = new GridBagLayout();
-    private final JPanel mainContainer = new JPanel(mainContainerLayout);
 
-    private final JPanel subtabButtonContainer = new JPanel(new GridBagLayout());
     private final GridBagConstraints subtabButtonContainerGBC = new GridBagConstraintBuilder()
         .gridx(0)
         .fill(GridBagConstraints.BOTH)
@@ -37,11 +34,6 @@ public class TradeView extends JPanel {
 
     private final CardLayout subtabContainerLayout = new CardLayout();    
     private final JPanel subtabContainer = new JPanel(subtabContainerLayout);
-    private final GridBagConstraints subtabContainerGBC = new GridBagConstraintBuilder()
-        .gridx(1)
-        .weightx(1)
-        .weighty(1)
-        .build();
 
     private final JButton[] subtabButtons = {
         new JButton("Browse"),
@@ -49,18 +41,10 @@ public class TradeView extends JPanel {
     };
 
     private final JPanel browsePanel = new JPanel();
-    private final GridBagLayout browsePanelLayout = new GridBagLayout();
-    private final JScrollPane browseScrollPane = new JScrollPane(browsePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-    private final JPanel listingPanel = new JPanel(new BorderLayout());
-    private final JButton listingBackButton = new JButton("Back");
     private final JPanel conversationPanel = new JPanel(new GridBagLayout());
-    private final JScrollPane conversationScrollPane = new JScrollPane(conversationPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-    private final JPanel conversationTypingContainer = new JPanel(new GridBagLayout()); 
     private final JTextArea conversationTypingArea = new JTextArea();
-    private final JButton conversationSendButton = new JButton("Send");
     private final JButton conversationOfferButton = new JButton("Offer");
-    private final JPanel listingDetailPanel = new JPanel(new BorderLayout());
     private final ImagePanel listingImagePanel = new ImagePanel(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
     private final JTextPane listingDetailMainText = new JTextPane();
 
@@ -71,11 +55,11 @@ public class TradeView extends JPanel {
         this.controller = controller;
         this.viewModel = viewModel;
         this.appViewModel = appViewModel;
-        this.inventoryViewModel = inventoryViewModel;
 
         setLayout(new BorderLayout());
 
         int i = 0;
+        JPanel subtabButtonContainer = new JPanel(new GridBagLayout());
         for (JButton button : subtabButtons) {
             GridBagConstraints gbc = new GridBagConstraintBuilder()
                 .gridy(i)
@@ -92,29 +76,41 @@ public class TradeView extends JPanel {
             i++;
         }
 
+        GridBagLayout browsePanelLayout = new GridBagLayout();
         browsePanel.setLayout(browsePanelLayout);
 
+        JPanel conversationTypingContainer = new JPanel(new GridBagLayout());
         conversationTypingContainer.add(conversationTypingArea, GridBagConstraintBuilder.constraint(0, 0, 1, 0));
         conversationTypingContainer.add(conversationOfferButton, GridBagConstraintBuilder.constraint(1, 0));
+        JButton conversationSendButton = new JButton("Send");
         conversationTypingContainer.add(conversationSendButton, GridBagConstraintBuilder.constraint(2, 0));
 
+        JPanel listingDetailPanel = new JPanel(new BorderLayout());
         listingDetailPanel.setPreferredSize(new Dimension(240, 0));
         listingDetailPanel.add(listingDetailMainText);
         listingDetailMainText.setEditable(false);
-//        listingDetailPanel.add(listingImagePanel);
-//        listingImagePanel.setPreferredSize(new Dimension(114, 160));
 
+        JButton listingBackButton = new JButton("Back");
+        JPanel listingPanel = new JPanel(new BorderLayout());
         listingPanel.add(listingBackButton, BorderLayout.WEST);
         listingPanel.add(listingDetailPanel, BorderLayout.EAST);
+        JScrollPane conversationScrollPane = new JScrollPane(conversationPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         listingPanel.add(conversationScrollPane, BorderLayout.CENTER);
         listingPanel.add(conversationTypingContainer, BorderLayout.SOUTH);
 
         subtabButtonContainer.setPreferredSize(new Dimension(80, 0));
+        JScrollPane browseScrollPane = new JScrollPane(browsePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         subtabContainer.add(browseScrollPane, "Browse");
         subtabContainer.add(listingPanel, "Listing");
 
         
         // mainContainer.add(subtabButtonContainer, subtabButtonContainerGBC);
+        GridBagConstraints subtabContainerGBC = new GridBagConstraintBuilder()
+                .gridx(1)
+                .weightx(1)
+                .weighty(1)
+                .build();
+        JPanel mainContainer = new JPanel(mainContainerLayout);
         mainContainer.add(subtabContainer, subtabContainerGBC);
         showSubtab("Browse");
         
@@ -409,22 +405,21 @@ public class TradeView extends JPanel {
         return panel;
     }
 
-    private class OfferDialog extends JDialog {
+    private static class OfferDialog extends JDialog {
         private Consumer<CloseEvent> callback;
 
         private final JPanel boxContainer = new JPanel();
-        private final BoxLayout boxLayout = new BoxLayout(boxContainer, BoxLayout.Y_AXIS);
-
-        private final JPanel spacer = new JPanel();
 
         private final CardView cardView = new CardView();
 
         public OfferDialog() {
             super(new JFrame(), "Offer Trade", true);
 
+            BoxLayout boxLayout = new BoxLayout(boxContainer, BoxLayout.Y_AXIS);
             boxContainer.setLayout(boxLayout);
             boxContainer.setBorder(new EmptyBorder(new Insets(12, 12, 12, 12)));
 
+            JPanel spacer = new JPanel();
             spacer.setPreferredSize(new Dimension(614, 0));
             cardView.setPreferredSize(new Dimension(614, 450));
 

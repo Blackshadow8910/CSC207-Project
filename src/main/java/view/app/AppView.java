@@ -21,10 +21,6 @@ import java.util.ArrayList;
  */
 public class AppView extends JPanel {
     private final AppViewModel appViewModel;
-    private final AppController appController;
-    private final GUIManager guiManager;
-
-    private final BorderLayout borderLayout = new BorderLayout();
 
     private final CardLayout tabs = new CardLayout();
     private final JPanel contentPanel = new JPanel(tabs);
@@ -34,30 +30,23 @@ public class AppView extends JPanel {
     private final ArrayList<JComponent> tabComponents = new ArrayList<>();
 
     private final JPanel buttonPanel = new JPanel();
-    private final LayoutManager buttonPanelLayout = new GridBagLayout();
     private final GridBagConstraintBuilder tabButtonGBCBuilder = new GridBagConstraintBuilder()
             .weightx(1)
             .weighty(1);
 
     private final GridLayout headerPanelLayout = new GridLayout(1, 2);
-    private final JPanel headerPanel = new JPanel(headerPanelLayout);
-    private final JPanel headerLeft = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    private final JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 0));
 
-    private final Font headerFont = new Font(Font.SANS_SERIF, Font.PLAIN, 18);
     private final JLabel tabLabel = new JLabel("");
     private final JLabel userLabel = new JLabel("User");
     private final JLabel userIconLabel = new JLabel(new ImageIcon());
     private final JPopupMenu userMenu = new JPopupMenu();
-    private final JMenuItem logoutMenuItem = new JMenuItem("Log out");
 
     public AppView(AppViewModel appViewModel, AppController appController, GUIManager guiManager) {
         this.appViewModel = appViewModel;
-        this.appController = appController;
-        this.guiManager = guiManager;
-        
+
         // Setup buttons
 
+        LayoutManager buttonPanelLayout = new GridBagLayout();
         buttonPanel.setLayout(buttonPanelLayout);
         for (JButton button : tabButtons) {
             buttonPanel.add(button);
@@ -65,15 +54,20 @@ public class AppView extends JPanel {
 
         // Setup base UI
 
+        JPanel headerLeft = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel headerPanel = new JPanel(headerPanelLayout);
         headerPanel.add(headerLeft);
+        JPanel headerRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 0));
         headerPanel.add(headerRight);
         headerRight.add(userLabel);
         headerRight.add(userIconLabel);
         headerLeft.add(tabLabel);
         headerPanel.setBorder(new MatteBorder(0, 0, 1, 0, Color.gray));
         userIconLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Font headerFont = new Font(Font.SANS_SERIF, Font.PLAIN, 18);
         tabLabel.setFont(headerFont);
         userLabel.setFont(headerFont);
+        JMenuItem logoutMenuItem = new JMenuItem("Log out");
         userMenu.add(logoutMenuItem);
 
         // Load Image
@@ -118,6 +112,7 @@ public class AppView extends JPanel {
 
         // Finish setting UI
 
+        BorderLayout borderLayout = new BorderLayout();
         setLayout(borderLayout);
         buttonPanel.setPreferredSize(new Dimension(0, 80));
         add(contentPanel, BorderLayout.CENTER);
@@ -156,7 +151,7 @@ public class AppView extends JPanel {
         tabComponents.add(component);
         contentPanel.add(component, name);
 
-        if (tabLabel.getText().equals("")) {
+        if (tabLabel.getText().isEmpty()) {
             showTab(name);
         }
     }

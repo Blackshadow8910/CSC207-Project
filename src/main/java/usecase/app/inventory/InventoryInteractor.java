@@ -11,12 +11,10 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class InventoryInteractor implements InventoryInputBoundary {
-    private final InventoryDataAccessInterface dataAccessObject;
     private final ImageDataAccessInterface imageDataAccessInterface;
     private final InventoryOutputBoundary presenter;
 
     public InventoryInteractor(InventoryOutputBoundary presenter, InventoryDataAccessInterface dataAccessObject, ImageDataAccessInterface imageDataAccessInterface) {
-        this.dataAccessObject = dataAccessObject;
         this.imageDataAccessInterface = imageDataAccessInterface;
         this.presenter = presenter;
     }

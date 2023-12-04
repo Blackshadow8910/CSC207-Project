@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class Deck {
-    public ArrayList<Card> deck;
+    public final ArrayList<Card> deck;
     public final String name;
     public final String id;
     public final String author;
@@ -114,6 +114,6 @@ public class Deck {
     }
 
     public boolean isValid() {
-        return getProblems().size() == 0;
+        return getProblems().isEmpty();
     }
 }

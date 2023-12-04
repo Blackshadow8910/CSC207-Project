@@ -20,57 +20,25 @@ import java.io.IOException;
 
 public class SignupView extends JPanel {
     public final String viewName = "sign up";
-    private final GUIManager guiManager;
-    private final SignupViewModel viewModel;
-    private final SignupController controller;
 
-    private LoginViewModel loginViewModel;
-
-    private final JLabel usernameLabel = new JLabel("Username: ");
     private final JTextField usernameField = new JTextField();
     private final JPanel usernameLabelPanel = new JPanel();
     private final JPanel usernameInputPanel = new JPanel();
-    private final JLabel existingAccountLabel = new JLabel("Already have an account?");
-    private final JPanel existingAccountPanel = new JPanel();
 
-    private final JLabel passwordLabel = new JLabel("Password: ");
     private final JPasswordField passwordField = new JPasswordField();
 
-    private final JLabel repeatPasswordLabel = new JLabel("Confirm Password:     ");
     private final JPasswordField repeatPasswordField = new JPasswordField();
 
-    private final JPanel backgroundPanel = new JPanel();
-
     private final JButton submitButton = new JButton("Sign up");
-    private final JButton loginButton = new JButton("Log in");
-
-    private final JPanel signupPanel = new JPanel(new GridBagLayout());
-    private final JPanel mainPanel = new JPanel(new GridBagLayout());
-    private final GridBagConstraints gbc = new GridBagConstraints();
-
-    private final JPanel overlayPanel = new JPanel();
-
-    private final JLayeredPane layeredPane = new JLayeredPane();
 
 
     public SignupView(SignupViewModel viewModel, SignupController controller, GUIManager guiManager) {
-        this.viewModel = viewModel;
-        this.controller = controller;
-        this.guiManager = guiManager;
 
-        // try {
-        //     BufferedImage myPicture = ImageIO.read(new File("src/main/java/view/PokeTraderLogo.png"));
-        //     JLabel picIcon = new JLabel(new ImageIcon(myPicture));
-        //     iconPanel.add(picIcon);
-        //     loginPanel.add(iconPanel);
-
-        // } catch (IOException e) {
-        //     throw new RuntimeException(e);
-        // }
-
+        JPanel overlayPanel = new JPanel();
         try {
             BufferedImage myPicture = ImageIO.read(new File("resources/img/PokeSignupBackground.png"));
             JLabel picIcon = new JLabel(new ImageIcon(myPicture));
+            JPanel backgroundPanel = new JPanel();
             backgroundPanel.add(picIcon);
             overlayPanel.add(backgroundPanel);
 
@@ -78,14 +46,17 @@ public class SignupView extends JPanel {
             throw new RuntimeException(e);
         }
 
+        GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridy = 0;
         gbc.weighty = 5;
+        JPanel signupPanel = new JPanel(new GridBagLayout());
         signupPanel.add(new JPanel(), gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         gbc.gridy = 1;
         gbc.gridx = 0;
         gbc.weighty = 1;
+        JLabel usernameLabel = new JLabel("Username: ");
         signupPanel.add(usernameLabel, gbc);
         gbc.gridy = 2;
         gbc.gridx = 0;
@@ -93,12 +64,14 @@ public class SignupView extends JPanel {
         signupPanel.add(new JPanel(), gbc);
         gbc.gridy = 3;
         gbc.weighty = 1;
+        JLabel passwordLabel = new JLabel("Password: ");
         signupPanel.add(passwordLabel, gbc);
         gbc.gridy = 4;
         gbc.weighty = 5;
         signupPanel.add(new JPanel(), gbc);
         gbc.gridy = 5;
         gbc.weighty = 1;
+        JLabel repeatPasswordLabel = new JLabel("Confirm Password:     ");
         signupPanel.add(repeatPasswordLabel, gbc);
 
         gbc.gridy = 0;
@@ -126,6 +99,8 @@ public class SignupView extends JPanel {
         gbc.weighty = 1;
         signupPanel.add(repeatPasswordField, gbc);
 
+        JPanel existingAccountPanel = new JPanel();
+        JLabel existingAccountLabel = new JLabel("Already have an account?");
         existingAccountPanel.add(existingAccountLabel);
 
         passwordField.addKeyListener(new KeyAdapter() {
@@ -160,6 +135,7 @@ public class SignupView extends JPanel {
             }
         });
 
+        JButton loginButton = new JButton("Log in");
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -170,6 +146,7 @@ public class SignupView extends JPanel {
         gbc.gridy = 0;
         gbc.gridx = 0;
         gbc.weighty = 0;
+        JPanel mainPanel = new JPanel(new GridBagLayout());
         mainPanel.add(signupPanel, gbc);
 
         gbc.gridy = 1;
@@ -204,6 +181,7 @@ public class SignupView extends JPanel {
         overlayPanel.setSize(960, 600);
         overlayPanel.setLocation(10, -50);
 
+        JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(980, 600));
         layeredPane.setLocation(100, 200);
         layeredPane.add(mainPanel, 1);
@@ -229,6 +207,5 @@ public class SignupView extends JPanel {
     }
 
     public void setLoginViewModel(LoginViewModel loginViewModel) {
-        this.loginViewModel = loginViewModel;
     }
 }

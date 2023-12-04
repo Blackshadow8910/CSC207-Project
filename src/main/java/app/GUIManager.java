@@ -9,9 +9,9 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 public class GUIManager {
-    public JFrame frame = new JFrame("PokeTrader");
+    public final JFrame frame = new JFrame("PokeTrader");
     private final CardLayout cardLayout = new CardLayout();
-    public JPanel views = new JPanel(cardLayout);
+    public final JPanel views = new JPanel(cardLayout);
 
     public GUIManager() {
         // Sets the look and feel (theme) of swing\

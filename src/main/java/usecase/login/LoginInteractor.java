@@ -3,8 +3,8 @@ package usecase.login;
 import entity.User;
 
 public class LoginInteractor implements LoginInputBoundary {
-    public LoginDataAccessInterface databaseAccessObject;
-    public LoginOutputBoundary presenter;
+    public final LoginDataAccessInterface databaseAccessObject;
+    public final LoginOutputBoundary presenter;
 
     public LoginInteractor(
         LoginDataAccessInterface databaseAccessObject, 

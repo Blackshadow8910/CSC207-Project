@@ -20,48 +20,30 @@ import java.io.IOException;
 public class LoginView extends JPanel {
 
     public final String viewName = "log in";
-    private final GUIManager guiManager;
-    private final LoginViewModel loginviewModel;
 
-    private final LoginController loginController;
-
-    private final JLabel usernameLabel = new JLabel("Username: ");
     private final JTextField usernameField = new JTextField();
-    private final JPanel usernameInputPanel = new JPanel();
 
-    private final JPanel iconPanel = new JPanel();
-
-    private final JPanel backgroundPanel = new JPanel();
-    private final JLabel passwordLabel = new JLabel("Password: ");
     private final JPasswordField passwordField = new JPasswordField();
-    private final JPanel passwordInputPanel = new JPanel();
 
     private final JButton submitButton = new JButton("Log in");
     private final JButton signupButton = new JButton("Sign up");
-    private final JPanel buttonPanel = new JPanel();
 
     private final JPanel loginPanel = new JPanel(new BorderLayout());
 
-    private final JPanel overlayPanel = new JPanel();
-
-    private final JLayeredPane layeredPane = new JLayeredPane();
-
-
-    private final BoxLayout boxLayout = new BoxLayout(loginPanel, BoxLayout.PAGE_AXIS);
 
     public LoginView(LoginViewModel viewModel, LoginController loginController, GUIManager guiManager) {
-        this.loginviewModel = viewModel;
-        this.loginController = loginController;
-        this.guiManager = guiManager;
 
+        JPanel overlayPanel = new JPanel();
         try {
             BufferedImage myPicture = ImageIO.read(new File("resources/img/PokeTraderLogo.png"));
             JLabel picIcon = new JLabel(new ImageIcon(myPicture));
+            JPanel iconPanel = new JPanel();
             iconPanel.add(picIcon);
             loginPanel.add(iconPanel);
 
             myPicture = ImageIO.read(new File("resources/img/PokeTraderBackground.png"));
             picIcon = new JLabel(new ImageIcon(myPicture));
+            JPanel backgroundPanel = new JPanel();
             backgroundPanel.add(picIcon);
             overlayPanel.add(backgroundPanel);
 
@@ -69,9 +51,13 @@ public class LoginView extends JPanel {
             throw new RuntimeException(e);
         }
 
+        JPanel usernameInputPanel = new JPanel();
+        JLabel usernameLabel = new JLabel("Username: ");
         usernameInputPanel.add(usernameLabel);
         usernameInputPanel.add(usernameField);
 
+        JPanel passwordInputPanel = new JPanel();
+        JLabel passwordLabel = new JLabel("Password: ");
         passwordInputPanel.add(passwordLabel);
         passwordInputPanel.add(passwordField);
 
@@ -101,8 +87,10 @@ public class LoginView extends JPanel {
             }
         });
 
+        JPanel buttonPanel = new JPanel();
         buttonPanel.add(submitButton);
         buttonPanel.add(signupButton);
+        BoxLayout boxLayout = new BoxLayout(loginPanel, BoxLayout.PAGE_AXIS);
         loginPanel.setLayout(boxLayout);
 
         loginPanel.add(usernameInputPanel);
@@ -113,6 +101,7 @@ public class LoginView extends JPanel {
         overlayPanel.setSize(960, 600);
         overlayPanel.setLocation(10, -50);
 
+        JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(980, 600));
         layeredPane.setLocation(100, 200);
         layeredPane.add(loginPanel, 1);

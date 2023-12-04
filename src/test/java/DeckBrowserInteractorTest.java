@@ -75,10 +75,8 @@ public class DeckBrowserInteractorTest {
 
     // Assuming there's an Image class in your code
     private static class Image {
-        private final String imageData;
 
         public Image(String imageData) {
-            this.imageData = imageData;
         }
 
         // Implement methods of the Image class as needed

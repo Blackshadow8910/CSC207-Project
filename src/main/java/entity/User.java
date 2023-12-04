@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class User {
-    public String username;
-    public String password;
+    public final String username;
+    public final String password;
     private final ArrayList<Deck> decks = new ArrayList<>();
     private final ArrayList<Card> ownedCards = new ArrayList<>();
 

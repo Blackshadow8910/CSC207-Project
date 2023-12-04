@@ -5,7 +5,7 @@ import usecase.app.deckbuilder.DeckBuilderInputBoundary;
 import usecase.app.deckbuilder.DeckBuilderInputData;
 
 public class DeckBuilderController {
-    public DeckBuilderInputBoundary inputBoundary;
+    public final DeckBuilderInputBoundary inputBoundary;
 
     public DeckBuilderController(DeckBuilderInputBoundary inputBoundary) {
         this.inputBoundary = inputBoundary;

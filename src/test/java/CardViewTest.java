@@ -7,7 +7,6 @@ import usecase.app.cardsearch.CardSearchOutputData;
 import view.app.CardView;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

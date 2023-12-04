@@ -8,14 +8,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InMemoryDatabaseAccessObject implements DatabaseAccessInterface {
-    private final PokemonCardDataAccessInterface pokemonDAO;
 
-    public ArrayList<User> users = new ArrayList<>();
+    public final ArrayList<User> users = new ArrayList<>();
     private final HashMap<String, Deck> decks = new HashMap<>();
     private final HashMap<String, SellListing> sellListings = new HashMap<>();
 
     public InMemoryDatabaseAccessObject(PokemonCardDataAccessInterface pokemonDAO) {
-        this.pokemonDAO = pokemonDAO;
 
         try {
             registerUser("bob", "123456");
@@ -85,9 +83,6 @@ public class InMemoryDatabaseAccessObject implements DatabaseAccessInterface {
     }
 
     @Override
-    /**
-     * Will upload a deck with the id as specified by deck; if there is already a deck with the same id, it will be overwritten
-     */
     public void uploadDeck(Deck deck) {
         decks.put(deck.id, deck);
     }
@@ -134,13 +129,7 @@ public class InMemoryDatabaseAccessObject implements DatabaseAccessInterface {
 
     @Override
     public void replyToConversation(Conversation conversation, Message message) {
-        //SellListing sellListing =  getSellListing(sellListingId);
 
-//        if (sellListing == null) {
-//            throw new RuntimeException("No such sell listing.");
-//        }
-//
-//        Conversation c = sellListing.openConversation(getUser(message.getSender()));
         conversation.sendMessage(message);
     }
 

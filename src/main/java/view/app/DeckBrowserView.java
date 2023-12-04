@@ -17,36 +17,19 @@ import java.util.ArrayList;
 
 public class DeckBrowserView extends JPanel {
     private final DeckBrowserViewModel viewModel;
-    private final DeckBrowserController controller;
     private final DeckBuilderViewModel deckBuilderViewModel;
-
-    private final JPanel gridContainer = new JPanel(new GridBagLayout());
 
     private final FlowLayout resultContainerLayout = new FlowLayout(FlowLayout.LEFT, 12, 12);
     private final JPanel resultContainer = new JPanel(resultContainerLayout);
     private final JScrollPane resultScrollPane = new JScrollPane(resultContainer);
     private final Dimension resultEntrySize = new Dimension(114, 160 + 20);
-    
-    private final GridBagConstraints  resultContainerGBC = new GridBagConstraintBuilder()
-            .gridy(1)
-            .weightx(1)
-            .weighty(1)
-            .build();
-    
+
     private final InfoPanel infoPanel = new InfoPanel();
-    private final GridBagConstraints infoPanelGBC = new GridBagConstraintBuilder()
-            .gridx(1)
-            .gridheight(2)
-            .weightx(0)
-            .build();
 
     private final CardSearchBarView searchBarPanel = new CardSearchBarView();
-    private final GridBagConstraints searchPanelGBC = new GridBagConstraintBuilder()
-            .build();
 
     public DeckBrowserView(DeckBrowserViewModel viewModel, DeckBrowserController controller, DeckBuilderViewModel deckBuilderViewModel) {
         this.viewModel = viewModel;
-        this.controller = controller;
         this.deckBuilderViewModel = deckBuilderViewModel;
 
         // Setup
@@ -61,8 +44,21 @@ public class DeckBrowserView extends JPanel {
 
         add(resultScrollPane, BorderLayout.CENTER);
 
+        GridBagConstraints resultContainerGBC = new GridBagConstraintBuilder()
+                .gridy(1)
+                .weightx(1)
+                .weighty(1)
+                .build();
+        JPanel gridContainer = new JPanel(new GridBagLayout());
         gridContainer.add(resultScrollPane, resultContainerGBC);
+        GridBagConstraints infoPanelGBC = new GridBagConstraintBuilder()
+                .gridx(1)
+                .gridheight(2)
+                .weightx(0)
+                .build();
         gridContainer.add(infoPanel, infoPanelGBC);
+        GridBagConstraints searchPanelGBC = new GridBagConstraintBuilder()
+                .build();
         gridContainer.add(searchBarPanel, searchPanelGBC);
 
         // Bind
@@ -163,7 +159,6 @@ public class DeckBrowserView extends JPanel {
         private Deck currentDeck;
 
         private final JPanel mainContainer = new JPanel();
-        private final BoxLayout mainContainerLayout = new BoxLayout(mainContainer, BoxLayout.Y_AXIS);
 
         // private final ImagePanel imagePanel = new ImagePanel(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
         private final JLabel nameLabel = new JLabel();
@@ -176,6 +171,7 @@ public class DeckBrowserView extends JPanel {
 
         public InfoPanel() {
             setLayout(new BorderLayout());
+            BoxLayout mainContainerLayout = new BoxLayout(mainContainer, BoxLayout.Y_AXIS);
             mainContainer.setLayout(mainContainerLayout);
 
             // imagePanel.setPreferredSize(new Dimension(114, 160));

@@ -103,8 +103,7 @@ public class PokemonGuruDataAccessObject implements PokemonCardDataAccessInterfa
             if (!res.isSuccessful()) { throw new RuntimeException("Error when searching"); }
             JSONObject resData = new JSONObject(res.body().string());
 
-            Card card = parseCard(resData.getJSONObject("data"));
-            return card;
+            return parseCard(resData.getJSONObject("data"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -118,12 +117,10 @@ public class PokemonGuruDataAccessObject implements PokemonCardDataAccessInterfa
         }
 
         try {
-            if (imageCache.containsKey(url)) {
-                return imageCache.get(url).get();
-            } else {
+            if (!imageCache.containsKey(url)) {
                 requestImage(url);
-                return imageCache.get(url).get();
             }
+            return imageCache.get(url).get();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

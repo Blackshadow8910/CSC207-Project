@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class TestCardDataAccessObject extends ArrayListCardDataAccessObject implements ImageCacheAccessInterface {
-    public BufferedImage placeHolderImage = readPlaceholderImage();
+    public final BufferedImage placeHolderImage = readPlaceholderImage();
 
     public TestCardDataAccessObject() {
         super();

@@ -41,15 +41,15 @@ public class SignupRestrictions {
         {
             if (Character.isUpperCase(password.charAt(i)))
             {
-                hasUpperCase = true;
+                hasUpperCase = hasUpperCase || true;
             }
             else if (Character.isLowerCase(password.charAt(i)))
             {
-                hasLowerCase = true;
+                hasLowerCase = hasLowerCase || true;
             }
             else if (Character.isDigit(password.charAt(i)))
             {
-                hasLowerCase = true;
+                hasNumeric = hasNumeric || true;
             }
 
         }

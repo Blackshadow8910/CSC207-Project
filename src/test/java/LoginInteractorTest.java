@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import usecase.login.*;
 
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.*;
 
 public class LoginInteractorTest {

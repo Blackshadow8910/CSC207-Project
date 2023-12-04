@@ -9,7 +9,4 @@ public class AppController {
         this.appInteractor = appInteractor;
     }
 
-    public void changeTab(String tab) {
-        appInteractor.changeTab(tab);
-    }
 }

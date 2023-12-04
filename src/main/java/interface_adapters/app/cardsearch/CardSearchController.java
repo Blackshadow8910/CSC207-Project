@@ -4,7 +4,7 @@ import usecase.app.cardsearch.CardSearchInputBoundary;
 import usecase.app.cardsearch.CardSearchInputData;
 
 public class CardSearchController {
-    public CardSearchInputBoundary inputBoundary;
+    public final CardSearchInputBoundary inputBoundary;
 
     public CardSearchController(CardSearchInputBoundary inputBoundary) {
         this.inputBoundary = inputBoundary;
