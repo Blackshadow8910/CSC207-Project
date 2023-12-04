@@ -17,7 +17,8 @@ import org.junit.runners.Suite;
         DeckTest.class,
         CardViewTest.class,
         DeckBuilderViewTest.class,
-        AppInteractorTest.class
+        AppInteractorTest.class,
+        CardSearchBarViewTest.class
 })
 public class OverallTest {
 

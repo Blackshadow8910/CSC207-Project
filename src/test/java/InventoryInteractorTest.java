@@ -1,6 +1,6 @@
 import data_access.image.ImageDataAccessInterface;
 import data_access.pokemon.ArrayListCardDataAccessObject;
-import data_access.pokemon.PokemonGuruCardSearchFilter;
+import entity.PokemonGuruCardSearchFilter;
 import entity.Card;
 import entity.User;
 import org.junit.Before;
@@ -71,14 +71,5 @@ public class InventoryInteractorTest {
         // Assert
         verify(mockPresenter, never()).presentInventory(any());
         assert !mockUser.getOwnedCards().contains(mockCard);
-    }
-
-    private ArrayList<Card> createMockCardList() {
-        // Create a list of mock cards for testing
-        ArrayList<Card> mockCards = new ArrayList<>();
-        mockCards.add(new Card("Card1", "1","ImageURL1"));
-        mockCards.add(new Card("Card2", "2", "ImageURL2"));
-        // Add more mock cards as needed
-        return mockCards;
     }
 }

@@ -1,7 +1,4 @@
-import entity.Card;
-import entity.Message;
-import entity.SellListing;
-import entity.User;
+import entity.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -52,12 +49,15 @@ public class TradeInteractorTest {
         Card mockCard = new Card("MockCard", "1", "ImageURL1");
         SellListing mockListing = new SellListing("id", mockCard, mockUser, 10.0);
         Message mockMessage = new Message(mockUser2,"Interested in buying", new Date());
+        Conversation conversation = new Conversation();
+        conversation.addParticipant(mockUser);
+        conversation.addParticipant(mockUser2);
 
         // Act
-        tradeInteractor.replyToSellListing(mockListing, mockMessage);
+        tradeInteractor.replyToConversation(conversation, mockMessage);
 
         // Assert
-        verify(mockDao).replyToSellListing(eq(mockListing.id), eq(mockMessage));
+        verify(mockDao).replyToConversation(conversation, mockMessage);
     }
 
     private ArrayList<SellListing> createMockSellListings() {

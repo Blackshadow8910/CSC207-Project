@@ -43,7 +43,7 @@ public class Deck {
         return dummy_card;
     }
 
-    private int deckLength()
+    public int deckLength()
     {
         return deck.size();
     }

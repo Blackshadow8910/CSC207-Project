@@ -1,6 +1,6 @@
 import data_access.image.ImageDataAccessInterface;
 import data_access.pokemon.PokemonCardDataAccessInterface;
-import data_access.pokemon.PokemonGuruCardSearchFilter;
+import entity.PokemonGuruCardSearchFilter;
 import entity.Card;
 import entity.Deck;
 import org.junit.Before;

@@ -16,15 +16,7 @@ import java.util.EventObject;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import entity.Card;
@@ -210,6 +202,22 @@ public class DeckBuilderView extends JPanel {
         return panel;
     }
 
+    public CardSearchBarView getSearchBarPanel() {
+        return  searchBarPanel;
+    }
+
+    public CardView getAddCardView() {
+        return addCardView;
+    }
+
+    public CardView getRemoveCardView() {
+        return removeCardView;
+    }
+
+    public InfoPanel getInfoPanel() {
+        return infoPanel;
+    }
+
     public class InfoPanel extends JPanel {
         private Deck currentDeck;
 
@@ -296,6 +304,10 @@ public class DeckBuilderView extends JPanel {
 
             revalidate();
             repaint();
+        }
+
+        public JButton getSaveButton() {
+            return saveButton;
         }
 
         public record RemoveEvent(Card card) {

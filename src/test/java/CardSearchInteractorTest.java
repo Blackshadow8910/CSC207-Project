@@ -61,39 +61,4 @@ public class CardSearchInteractorTest {
         // Add more mock cards as needed
         return mockCards;
     }
-
-    private static class ConcreteImage extends Image {
-        private String imageData;
-
-        public ConcreteImage(String imageData) {
-            this.imageData = imageData;
-        }
-
-        @Override
-        public int getWidth(ImageObserver observer) {
-            return 0;
-        }
-
-        @Override
-        public int getHeight(ImageObserver observer) {
-            return 0;
-        }
-
-        @Override
-        public ImageProducer getSource() {
-            return null;
-        }
-
-        @Override
-        public Graphics getGraphics() {
-            return null;
-        }
-
-        @Override
-        public Object getProperty(String name, ImageObserver observer) {
-            return null;
-        }
-
-        // Implement methods of the Image interface as needed
-    }
 }

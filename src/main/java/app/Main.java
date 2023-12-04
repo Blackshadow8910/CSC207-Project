@@ -43,7 +43,7 @@ public class Main {
     public static void main(String[] args) {
         // Data access init
 
-        PokemonCardDataAccessInterface pokemonCardDAO = new PokemonGuruDataAccessObject();//new TestCardDataAccessObject();
+        PokemonCardDataAccessInterface pokemonCardDAO = new TestCardDataAccessObject(); //new PokemonGuruDataAccessObject();
         ImageCacheAccessInterface imageDAO = (ImageCacheAccessInterface) pokemonCardDAO;
         DatabaseAccessInterface db = new TestDatabaseAccessObject(pokemonCardDAO);//new PostGreSQLAccessObject(pokemonCardDAO);
 

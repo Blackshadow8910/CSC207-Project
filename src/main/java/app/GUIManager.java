@@ -46,16 +46,6 @@ public class GUIManager {
         FlatLaf.setup(laf);
     }
 
-    private JPanel getMainJPanel() {
-        JPanel panel = new JPanel();
-        TextField tf = new TextField();
-        panel.add(tf);
-
-        Button btn = new Button("Search");
-        panel.add(btn);
-
-        return panel;
-    }
 
     public void addView(String tag, Component c) {
         views.add(c, tag);

@@ -18,9 +18,9 @@ public class CardSearchBarView extends JPanel {
     private final LayoutManager searchPanelLayout = new GridBagLayout();
     private final Border searchPanelBorder = new EmptyBorder(0, 8, 0, 0);
     private final JLabel searchLabel = new JLabel("Search keywords: ");
-    private final JTextField searchField = new JTextField();
+    public final JTextField searchField = new JTextField();
     private final JButton searchButton = new JButton("Search");
-    private final JButton advancedSearchButton = new JButton("Advanced");
+    public final JButton advancedSearchButton = new JButton("Advanced");
 
     private final HashSet<SearchListener> searchListeners = new HashSet<>();
 
@@ -72,14 +72,18 @@ public class CardSearchBarView extends JPanel {
         searchListeners.add(l);
     }
 
-    private void fireSearchEvent(SearchEvent evt) {
+    public void fireSearchEvent(SearchEvent evt) {
         for (SearchListener l : searchListeners) {
             l.onSearch(evt);
         }
     }
 
+    public JButton getSearchButton() {
+        return searchButton;
+    }
 
-    public class SearchEvent extends EventObject {
+
+    public static class SearchEvent extends EventObject {
         public final CardSearchInputData data;
 
         public SearchEvent(Object source, CardSearchInputData data) {
