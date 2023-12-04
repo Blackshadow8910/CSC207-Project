@@ -47,6 +47,7 @@ public class CardView extends JPanel {
     public void displayResults(Collection<CardDisplayData> results) {
         resultContainer.removeAll();
         int number = 0;
+        int rowLength = (int) (Math.floor(resultContainer.getWidth() / (resultEntrySize.getWidth() + resultContainerLayout.getHgap())));
 
         for (CardDisplayData result : results) {
             number++;
@@ -55,7 +56,7 @@ public class CardView extends JPanel {
 
             bindResultEntryListeners(entry, result);
         }
-        int result = number / 5;
+        int result = number / rowLength;
 
         resultContainer.revalidate();
         resultContainer.repaint();
