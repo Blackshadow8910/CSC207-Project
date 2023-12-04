@@ -1,12 +1,12 @@
 package interface_adapters.app.deckbuilder;
 
-import java.util.ArrayList;
-import java.util.UUID;
-
 import entity.Card;
 import entity.Deck;
 import interface_adapters.ViewModel;
 import usecase.app.cardsearch.CardDisplayData;
+
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class DeckBuilderViewModel extends ViewModel{
     private String currentSubCardView = "";

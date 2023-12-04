@@ -1,13 +1,10 @@
 package interface_adapters.app.cardsearch;
 
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import entity.Card;
 import interface_adapters.ViewModel;
 import usecase.app.cardsearch.CardDisplayData;
+
+import java.util.ArrayList;
 
 public class CardSearchViewModel extends ViewModel{
 

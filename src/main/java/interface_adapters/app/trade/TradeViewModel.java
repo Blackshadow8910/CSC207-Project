@@ -1,10 +1,10 @@
 package interface_adapters.app.trade;
 
-import java.util.ArrayList;
-
 import entity.Conversation;
 import entity.SellListing;
 import interface_adapters.ViewModel;
+
+import java.util.ArrayList;
 
 public class TradeViewModel extends ViewModel{
     private ArrayList<SellListing> currentListings = new ArrayList<>();

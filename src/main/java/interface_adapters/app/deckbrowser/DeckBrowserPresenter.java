@@ -1,13 +1,13 @@
 package interface_adapters.app.deckbrowser;
 
-import java.awt.Image;
-import java.util.ArrayList;
-
 import entity.Deck;
 import usecase.app.deckbrowser.DeckBrowserOutputBoundary;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public class DeckBrowserPresenter implements DeckBrowserOutputBoundary {
-    private DeckBrowserViewModel viewModel;
+    private final DeckBrowserViewModel viewModel;
     
     public DeckBrowserPresenter(DeckBrowserViewModel viewModel) {
         this.viewModel = viewModel;

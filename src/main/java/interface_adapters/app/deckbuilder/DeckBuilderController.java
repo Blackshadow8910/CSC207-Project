@@ -3,7 +3,6 @@ package interface_adapters.app.deckbuilder;
 import entity.Deck;
 import usecase.app.deckbuilder.DeckBuilderInputBoundary;
 import usecase.app.deckbuilder.DeckBuilderInputData;
-import usecase.app.deckbuilder.DeckBuilderInputBoundary;
 
 public class DeckBuilderController {
     public DeckBuilderInputBoundary inputBoundary;

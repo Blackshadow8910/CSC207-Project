@@ -1,11 +1,9 @@
 package entity;
 
-import java.util.ArrayList;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * A base class for any kind of pokemon tcg card; not neccesarily a pokemon

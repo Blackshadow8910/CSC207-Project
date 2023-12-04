@@ -1,13 +1,12 @@
 package interface_adapters.app.deckbuilder;
 
-import java.util.ArrayList;
-
 import usecase.app.cardsearch.CardDisplayData;
 import usecase.app.deckbuilder.DeckBuilderOutputBoundary;
-import usecase.app.deckbuilder.DeckBuilderOutputData;
+
+import java.util.ArrayList;
 
 public class DeckBuilderPresenter implements DeckBuilderOutputBoundary {
-    private DeckBuilderViewModel viewModel;
+    private final DeckBuilderViewModel viewModel;
     
     public DeckBuilderPresenter(DeckBuilderViewModel viewModel) {
         this.viewModel = viewModel;

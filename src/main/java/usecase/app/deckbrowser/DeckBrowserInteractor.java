@@ -1,10 +1,10 @@
 package usecase.app.deckbrowser;
 
-import java.util.ArrayList;
-
 import data_access.image.ImageDataAccessInterface;
 import data_access.pokemon.PokemonCardDataAccessInterface;
 import entity.Deck;
+
+import java.util.ArrayList;
 
 public class DeckBrowserInteractor implements DeckBrowserInputBoundary {
     private final DeckBrowserOutputBoundary presenter;

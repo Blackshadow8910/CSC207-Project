@@ -1,19 +1,5 @@
 package view.app;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.lang.reflect.Field;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.swing.*;
-import javax.swing.border.MatteBorder;
-
 import interface_adapters.app.AppViewModel;
 import interface_adapters.app.cardsearch.CardSearchController;
 import interface_adapters.app.cardsearch.CardSearchViewModel;
@@ -21,9 +7,19 @@ import usecase.app.cardsearch.CardDisplayData;
 import util.GridBagConstraintBuilder;
 import util.ImagePanel;
 
+import javax.swing.*;
+import javax.swing.border.MatteBorder;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 public class CardSearchView extends JPanel {
-    private CardSearchViewModel viewModel;
-    private CardSearchController controller;
+    private final CardSearchViewModel viewModel;
+    private final CardSearchController controller;
     private final AppViewModel appViewModel;
     
     private final GridBagLayout mainGridBagLayout = new GridBagLayout();
@@ -56,7 +52,7 @@ public class CardSearchView extends JPanel {
         .weighty(11)
         .build();
     
-    private final CardSearchBarView searchPanel = new CardSearchBarView();;
+    private final CardSearchBarView searchPanel = new CardSearchBarView();
     private final GridBagConstraints searchPanelGBC = new GridBagConstraintBuilder()
         .fill(GridBagConstraints.BOTH)
         .gridy(0)
@@ -116,7 +112,7 @@ public class CardSearchView extends JPanel {
                 if (evt.getPropertyName().equals("displayedResults")) {
                     ArrayList<CardDisplayData> results = (ArrayList<CardDisplayData>) evt.getNewValue();
 
-                    System.out.println("Displaying %s results from search.".formatted(results.size()));
+                    System.out.printf("Displaying %s results from search.%n", results.size());
                     resultContainer.displayResults(results);
                 }
             }

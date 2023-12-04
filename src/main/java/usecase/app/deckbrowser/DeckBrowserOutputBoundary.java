@@ -1,11 +1,11 @@
 package usecase.app.deckbrowser;
 
-import java.awt.Image;
-import java.util.ArrayList;
-
 import entity.Deck;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public interface DeckBrowserOutputBoundary {
-    public void presentDecks(ArrayList<Deck> decks);
-    public void setDefaultDeckImage(Image image);
+    void presentDecks(ArrayList<Deck> decks);
+    void setDefaultDeckImage(Image image);
 }

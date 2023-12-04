@@ -1,28 +1,17 @@
 package view.app;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import entity.Card;
+import usecase.app.cardsearch.CardDisplayData;
+import util.ImagePanel;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EventListener;
 import java.util.EventObject;
 import java.util.HashSet;
-
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.Border;
-import javax.swing.border.MatteBorder;
-
-import entity.Card;
-import usecase.app.cardsearch.CardDisplayData;
-import util.ImagePanel;
 
 public class CardView extends JPanel {
     private final FlowLayout resultContainerLayout = new FlowLayout(FlowLayout.LEFT, 12, 12);
@@ -119,7 +108,7 @@ public class CardView extends JPanel {
     }
 
     interface SelectListener extends EventListener {
-        public void onClick(SelectEvent evt);
+        void onClick(SelectEvent evt);
     }
 
     public class SelectEvent extends EventObject {

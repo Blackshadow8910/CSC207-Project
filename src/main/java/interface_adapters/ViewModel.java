@@ -1,10 +1,7 @@
 package interface_adapters;
 
-import java.awt.Image;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-
-import javax.swing.JComponent;
 
 public abstract class ViewModel {
     public final String viewName;

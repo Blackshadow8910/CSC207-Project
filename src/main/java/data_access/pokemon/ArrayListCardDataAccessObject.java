@@ -40,11 +40,9 @@ public class ArrayListCardDataAccessObject implements PokemonCardDataAccessInter
     }
 
     private boolean matchesFilter(Card card, PokemonGuruCardSearchFilter filter) {
-        if (!(card instanceof PokemonCard)) {
+        if (!(card instanceof PokemonCard pokemonCard)) {
             return false;
         }
-
-        PokemonCard pokemonCard = ((PokemonCard) card);
 
         if (filter.name != "*" && !pokemonCard.name.toLowerCase().contains(filter.name.toLowerCase())) {
             return false;
@@ -80,8 +78,7 @@ public class ArrayListCardDataAccessObject implements PokemonCardDataAccessInter
                     break;
                 }
             }
-            if (!match)
-                return false;
+            return match;
         }
 
         return true;

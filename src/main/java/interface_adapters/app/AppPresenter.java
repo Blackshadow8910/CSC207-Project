@@ -3,7 +3,7 @@ package interface_adapters.app;
 import usecase.app.AppOutputBoundary;
 
 public class AppPresenter implements AppOutputBoundary {
-    private AppViewModel viewModel;
+    private final AppViewModel viewModel;
 
     public AppPresenter(AppViewModel viewModel) {
         this.viewModel = viewModel;

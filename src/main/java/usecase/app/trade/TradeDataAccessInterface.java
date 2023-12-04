@@ -1,13 +1,13 @@
 package usecase.app.trade;
 
-import java.util.ArrayList;
-
 import entity.*;
 
+import java.util.ArrayList;
+
 public interface TradeDataAccessInterface {
-    public SellListing getSellListing(String id);
-    public ArrayList<SellListing> getSellListings();
-    public void uploadSellListing(SellListing sellListing);
-    public void closeSellListing(SellListing listing, User buyer, Card offer);
-    public void replyToConversation(Conversation conversation, Message message);
+    SellListing getSellListing(String id);
+    ArrayList<SellListing> getSellListings();
+    void uploadSellListing(SellListing sellListing);
+    void closeSellListing(SellListing listing, User buyer, Card offer);
+    void replyToConversation(Conversation conversation, Message message);
 }

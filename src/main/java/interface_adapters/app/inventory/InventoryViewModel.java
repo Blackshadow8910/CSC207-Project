@@ -1,11 +1,11 @@
 package interface_adapters.app.inventory;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import entity.User;
 import interface_adapters.ViewModel;
 import usecase.app.cardsearch.CardDisplayData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryViewModel extends ViewModel{
     private ArrayList<CardDisplayData> currentResults = new ArrayList<>();

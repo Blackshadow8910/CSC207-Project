@@ -1,7 +1,7 @@
 package usecase.app;
 
 public class AppInteractor implements AppInputBoundary {
-    private AppOutputBoundary presenter;
+    private final AppOutputBoundary presenter;
 
     public AppInteractor(AppOutputBoundary presenter) {
         this.presenter = presenter;

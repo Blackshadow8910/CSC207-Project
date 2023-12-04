@@ -1,10 +1,9 @@
 package interface_adapters.app;
 
 import usecase.app.AppInputBoundary;
-import usecase.app.AppInteractor;
 
 public class AppController {
-    private AppInputBoundary appInteractor;
+    private final AppInputBoundary appInteractor;
 
     public AppController(AppInputBoundary appInteractor) {
         this.appInteractor = appInteractor;

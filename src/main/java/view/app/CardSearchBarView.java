@@ -1,18 +1,20 @@
 package view.app;
 
-import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.*;
-import java.util.function.Consumer;
+import entity.PokemonGuruCardSearchFilter;
+import usecase.app.cardsearch.CardSearchInputData;
+import util.GridBagConstraintBuilder;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-
-import entity.PokemonGuruCardSearchFilter;
-import usecase.app.cardsearch.CardSearchInputData;
-import util.GridBagConstraintBuilder;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.Arrays;
+import java.util.EventListener;
+import java.util.EventObject;
+import java.util.HashSet;
+import java.util.function.Consumer;
 
 public class CardSearchBarView extends JPanel {
     private final LayoutManager searchPanelLayout = new GridBagLayout();
@@ -90,7 +92,7 @@ public class CardSearchBarView extends JPanel {
     }
 
     public interface SearchListener extends EventListener {
-        public void onSearch(SearchEvent evt);
+        void onSearch(SearchEvent evt);
     }
 
     public void setLabelVisible(boolean value) {

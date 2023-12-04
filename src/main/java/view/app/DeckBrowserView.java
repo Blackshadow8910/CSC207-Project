@@ -1,25 +1,5 @@
 package view.app;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
 import entity.Deck;
 import interface_adapters.app.deckbrowser.DeckBrowserController;
 import interface_adapters.app.deckbrowser.DeckBrowserViewModel;
@@ -27,12 +7,20 @@ import interface_adapters.app.deckbuilder.DeckBuilderViewModel;
 import util.GridBagConstraintBuilder;
 import util.ImagePanel;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 public class DeckBrowserView extends JPanel {
     private final DeckBrowserViewModel viewModel;
     private final DeckBrowserController controller;
     private final DeckBuilderViewModel deckBuilderViewModel;
 
-    private JPanel gridContainer = new JPanel(new GridBagLayout());
+    private final JPanel gridContainer = new JPanel(new GridBagLayout());
 
     private final FlowLayout resultContainerLayout = new FlowLayout(FlowLayout.LEFT, 12, 12);
     private final JPanel resultContainer = new JPanel(resultContainerLayout);
@@ -174,8 +162,8 @@ public class DeckBrowserView extends JPanel {
     private class InfoPanel extends JPanel {
         private Deck currentDeck;
 
-        private JPanel mainContainer = new JPanel();
-        private BoxLayout mainContainerLayout = new BoxLayout(mainContainer, BoxLayout.Y_AXIS);
+        private final JPanel mainContainer = new JPanel();
+        private final BoxLayout mainContainerLayout = new BoxLayout(mainContainer, BoxLayout.Y_AXIS);
 
         // private final ImagePanel imagePanel = new ImagePanel(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
         private final JLabel nameLabel = new JLabel();

@@ -1,7 +1,7 @@
 package usecase.signup;
 
 public class SignupOutputData {
-    private String username;
+    private final String username;
     public SignupOutputData(String username) {
         this.username = username;
     }

@@ -11,7 +11,7 @@ public class CardSearchController {
     }
 
     public void performSearch(String query) {
-        System.out.println("Searching for: %s".formatted(query));
+        System.out.printf("Searching for: %s%n", query);
         inputBoundary.performSearch(new CardSearchInputData(query));
     }
 

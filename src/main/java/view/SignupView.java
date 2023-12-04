@@ -1,61 +1,56 @@
 package view;
 
+import app.GUIManager;
+import interface_adapters.login.LoginViewModel;
+import interface_adapters.signup.SignupController;
+import interface_adapters.signup.SignupViewModel;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import app.GUIManager;
-import interface_adapters.login.LoginViewModel;
-import interface_adapters.signup.SignupController;
-import interface_adapters.signup.SignupPresenter;
-import interface_adapters.signup.SignupViewModel;
-import usecase.signup.SignupInputBoundary;
-import usecase.signup.SignupInteractor;
-import usecase.signup.SignupOutputBoundary;
-
 public class SignupView extends JPanel {
     public final String viewName = "sign up";
     private final GUIManager guiManager;
-    private SignupViewModel viewModel;
-    private SignupController controller;
+    private final SignupViewModel viewModel;
+    private final SignupController controller;
 
     private LoginViewModel loginViewModel;
 
-    private JLabel usernameLabel = new JLabel("Username: ");
-    private JTextField usernameField = new JTextField();
-    private JPanel usernameLabelPanel = new JPanel();
-    private JPanel usernameInputPanel = new JPanel();
-    private JLabel existingAccountLabel = new JLabel("Already have an account?");
-    private JPanel existingAccountPanel = new JPanel();
+    private final JLabel usernameLabel = new JLabel("Username: ");
+    private final JTextField usernameField = new JTextField();
+    private final JPanel usernameLabelPanel = new JPanel();
+    private final JPanel usernameInputPanel = new JPanel();
+    private final JLabel existingAccountLabel = new JLabel("Already have an account?");
+    private final JPanel existingAccountPanel = new JPanel();
 
-    private JLabel passwordLabel = new JLabel("Password: ");
-    private JPasswordField passwordField = new JPasswordField();
+    private final JLabel passwordLabel = new JLabel("Password: ");
+    private final JPasswordField passwordField = new JPasswordField();
 
-    private JLabel repeatPasswordLabel = new JLabel("Confirm Password:     ");
-    private JPasswordField repeatPasswordField = new JPasswordField();
+    private final JLabel repeatPasswordLabel = new JLabel("Confirm Password:     ");
+    private final JPasswordField repeatPasswordField = new JPasswordField();
 
-    private JPanel backgroundPanel = new JPanel();
+    private final JPanel backgroundPanel = new JPanel();
 
-    private JButton submitButton = new JButton("Sign up");
-    private JButton loginButton = new JButton("Log in");
+    private final JButton submitButton = new JButton("Sign up");
+    private final JButton loginButton = new JButton("Log in");
 
-    private JPanel signupPanel = new JPanel(new GridBagLayout());
-    private JPanel mainPanel = new JPanel(new GridBagLayout());
-    private GridBagConstraints gbc = new GridBagConstraints();
+    private final JPanel signupPanel = new JPanel(new GridBagLayout());
+    private final JPanel mainPanel = new JPanel(new GridBagLayout());
+    private final GridBagConstraints gbc = new GridBagConstraints();
 
-    private JPanel overlayPanel = new JPanel();
+    private final JPanel overlayPanel = new JPanel();
 
-    private JLayeredPane layeredPane = new JLayeredPane();
+    private final JLayeredPane layeredPane = new JLayeredPane();
 
 
     public SignupView(SignupViewModel viewModel, SignupController controller, GUIManager guiManager) {

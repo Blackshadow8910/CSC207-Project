@@ -1,8 +1,8 @@
 package usecase.app.trade;
 
-import java.util.ArrayList;
-
 import entity.*;
+
+import java.util.ArrayList;
 
 public class TradeInteractor implements TradeInputBoundary {
     private final TradeOutputBoundary presenter;

@@ -1,5 +1,5 @@
 package usecase.app.cardsearch;
 
 public interface CardSearchOutputBoundary {
-    public void present(CardSearchOutputData outputData);
+    void present(CardSearchOutputData outputData);
 }

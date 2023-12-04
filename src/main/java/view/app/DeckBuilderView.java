@@ -1,26 +1,5 @@
 package view.app;
 
-import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.EventObject;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.border.EmptyBorder;
-
 import entity.Card;
 import entity.Deck;
 import entity.PokemonCard;
@@ -30,14 +9,23 @@ import interface_adapters.app.deckbuilder.DeckBuilderViewModel;
 import usecase.app.cardsearch.CardDisplayData;
 import usecase.app.deckbuilder.DeckBuilderInputData;
 import util.GridBagConstraintBuilder;
-import util.ImagePanel;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.EventObject;
+import java.util.function.Consumer;
 
 public class DeckBuilderView extends JPanel {
     private final DeckBuilderViewModel viewModel;
     public final DeckBuilderController controller;
     private final AppViewModel appViewModel;
 
-    private JPanel gridContainer = new JPanel(new GridBagLayout());
+    private final JPanel gridContainer = new JPanel(new GridBagLayout());
 
     private final CardLayout cardPanelLayout = new CardLayout();
     private final JPanel cardPanel = new JPanel(cardPanelLayout);
@@ -207,8 +195,8 @@ public class DeckBuilderView extends JPanel {
     public class InfoPanel extends JPanel {
         private Deck currentDeck;
 
-        private JPanel mainContainer = new JPanel();
-        private BoxLayout mainContainerLayout = new BoxLayout(mainContainer, BoxLayout.Y_AXIS);
+        private final JPanel mainContainer = new JPanel();
+        private final BoxLayout mainContainerLayout = new BoxLayout(mainContainer, BoxLayout.Y_AXIS);
 
         // private final ImagePanel imagePanel = new ImagePanel(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
         private final JLabel nameLabel = new JLabel();
@@ -295,7 +283,7 @@ public class DeckBuilderView extends JPanel {
             nameLabel.setText("No deck selected.");
             // imagePanel.setImage(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
             mainTextPane.setText("""
-            """.formatted());
+            """);
 
             revalidate();
             repaint();
@@ -304,8 +292,8 @@ public class DeckBuilderView extends JPanel {
         public record RemoveEvent(Card card) {
         }
 
-        public static interface RemoveListener extends EventListener {
-            public void onRemove(RemoveEvent evt);
+        public interface RemoveListener extends EventListener {
+            void onRemove(RemoveEvent evt);
         }
 
         public void addRemoveListener(RemoveListener listener) {

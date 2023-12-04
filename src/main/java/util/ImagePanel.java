@@ -1,10 +1,7 @@
 package util;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Insets;
-
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class ImagePanel extends JPanel {
     private Image image;

@@ -1,23 +1,15 @@
 package app.usecase_factories;
 
+import app.GUIManager;
 import interface_adapters.login.LoginViewModel;
 import interface_adapters.signup.SignupController;
 import interface_adapters.signup.SignupPresenter;
 import interface_adapters.signup.SignupViewModel;
-import interface_adapters.app.AppViewModel;
-
-import usecase.signup.*;
-import usecase.login.LoginDataAccessInterface;
+import usecase.signup.SignupDataAccessInterface;
 import usecase.signup.SignupInputBoundary;
 import usecase.signup.SignupInteractor;
 import usecase.signup.SignupOutputBoundary;
 import view.SignupView;
-
-import javax.swing.*;
-
-import app.GUIManager;
-
-import java.io.IOException;
 
 public class SignupUseCaseFactory {
 

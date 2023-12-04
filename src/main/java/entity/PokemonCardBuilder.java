@@ -1,9 +1,9 @@
 package entity;
 
-import java.util.List;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class PokemonCardBuilder extends CardBuilder {
 

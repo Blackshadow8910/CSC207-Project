@@ -1,18 +1,5 @@
 package view.app;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.EventObject;
-import java.util.List;
-import java.util.function.Consumer;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
-
 import entity.*;
 import interface_adapters.app.AppViewModel;
 import interface_adapters.app.inventory.InventoryViewModel;
@@ -21,6 +8,17 @@ import interface_adapters.app.trade.TradeViewModel;
 import usecase.app.cardsearch.CardDisplayData;
 import util.GridBagConstraintBuilder;
 import util.ImagePanel;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.EventObject;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class TradeView extends JPanel {
     private final TradeController controller;

@@ -25,7 +25,8 @@ public class SignupRestrictions {
         // Return true if and only if the length of string falls between min and max
         // Return false otherwise
         return min<= string.length() & string.length() <= max ;
-    };
+    }
+
     private static boolean alphanumeric_verifier(String string)
     {
         // Return True if and only if there exists a non-alphanumeric character in string

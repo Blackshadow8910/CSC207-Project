@@ -1,21 +1,15 @@
 package data_access.pokemon;
 
+import data_access.image.ImageCacheAccessInterface;
+import entity.PokemonCard;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-
-import javax.imageio.ImageIO;
-import javax.naming.spi.DirectoryManager;
-
-import data_access.image.ImageCacheAccessInterface;
-import entity.Card;
-import entity.PokemonCard;
 
 public class TestCardDataAccessObject extends ArrayListCardDataAccessObject implements ImageCacheAccessInterface {
     public BufferedImage placeHolderImage = readPlaceholderImage();

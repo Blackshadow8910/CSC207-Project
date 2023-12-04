@@ -1,16 +1,16 @@
 package usecase.app.cardsearch;
 
-import java.awt.Image;
-import java.util.ArrayList;
-
 import data_access.image.ImageDataAccessInterface;
 import data_access.pokemon.PokemonCardDataAccessInterface;
 import entity.Card;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public class CardSearchInteractor implements CardSearchInputBoundary {
-    private CardSearchOutputBoundary presenter;
-    private PokemonCardDataAccessInterface dataAccessObject;
-    private ImageDataAccessInterface imageAccessObject;
+    private final CardSearchOutputBoundary presenter;
+    private final PokemonCardDataAccessInterface dataAccessObject;
+    private final ImageDataAccessInterface imageAccessObject;
 
     public CardSearchInteractor(CardSearchOutputBoundary presenter, PokemonCardDataAccessInterface dataAccessObject, ImageDataAccessInterface imageAccessObject) {
         this.presenter = presenter;

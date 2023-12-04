@@ -1,14 +1,11 @@
 package interface_adapters.app;
 
+import entity.User;
+import interface_adapters.ViewModel;
+
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.EventObject;
-
-import javax.swing.JComponent;
-
-import entity.User;
-import interface_adapters.ViewModel;
-import view.app.AppView;
 
 public class AppViewModel extends ViewModel {
     public String currentTab;
@@ -45,7 +42,7 @@ public class AppViewModel extends ViewModel {
     
 
     public interface LoginListener extends EventListener {
-        public void onLogin(LoginEvent evt);
+        void onLogin(LoginEvent evt);
     }
 
     public class LoginEvent extends EventObject {

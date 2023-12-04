@@ -1,7 +1,5 @@
 package data_access.database;
 
-import java.sql.ResultSet;
-
 import usecase.app.deckbrowser.DeckBrowserDataAccessInterface;
 import usecase.app.deckbuilder.DeckBuilderDataAccessInterface;
 import usecase.app.inventory.InventoryDataAccessInterface;

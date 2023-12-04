@@ -1,6 +1,8 @@
 package view.app;
 
+import entity.Card;
 import entity.PokemonCard;
+import entity.PokemonGuruCardSearchFilter;
 import entity.SellListing;
 import interface_adapters.app.AppViewModel;
 import interface_adapters.app.inventory.InventoryController;
@@ -12,10 +14,6 @@ import util.ImagePanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import entity.PokemonGuruCardSearchFilter;
-import entity.Card;
-
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -26,12 +24,12 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 public class InventoryView extends JPanel {
-    private InventoryViewModel viewModel;
-    private InventoryController controller;
+    private final InventoryViewModel viewModel;
+    private final InventoryController controller;
     private final AppViewModel appViewModel;
     private final TradeViewModel tradeViewModel;
 
-    private JPanel gridContainer = new JPanel(new GridBagLayout());
+    private final JPanel gridContainer = new JPanel(new GridBagLayout());
 
     private final CardView cardPanel = new CardView();
     private final GridBagConstraints  cardPanelGBC = new GridBagConstraintBuilder()
@@ -132,8 +130,8 @@ public class InventoryView extends JPanel {
     public class InfoPanel extends JPanel {
         private Card currentCard;
 
-        private JPanel mainContainer = new JPanel();
-        private BoxLayout mainContainerLayout = new BoxLayout(mainContainer, BoxLayout.Y_AXIS);
+        private final JPanel mainContainer = new JPanel();
+        private final BoxLayout mainContainerLayout = new BoxLayout(mainContainer, BoxLayout.Y_AXIS);
 
         private final ImagePanel imagePanel = new ImagePanel(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
         private final JLabel nameLabel = new JLabel();
@@ -217,8 +215,8 @@ public class InventoryView extends JPanel {
         public record RemoveEvent(Card card) {
         }
 
-        public static interface RemoveListener extends EventListener {
-            public void onRemove(RemoveEvent evt);
+        public interface RemoveListener extends EventListener {
+            void onRemove(RemoveEvent evt);
         }
 
         public void addRemoveListener(RemoveListener listener) {

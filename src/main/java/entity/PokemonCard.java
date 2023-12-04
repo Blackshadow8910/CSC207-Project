@@ -3,9 +3,6 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 public class PokemonCard extends Card {
     public List<String> types;
     public List<String> subtypes;

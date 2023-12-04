@@ -1,13 +1,12 @@
 package interface_adapters.app.trade;
 
-import java.util.ArrayList;
-
 import entity.SellListing;
 import usecase.app.trade.TradeOutputBoundary;
-import usecase.app.trade.TradeOutputData;
+
+import java.util.ArrayList;
 
 public class TradePresenter implements TradeOutputBoundary {
-    private TradeViewModel viewModel;
+    private final TradeViewModel viewModel;
     
     public TradePresenter(TradeViewModel viewModel) {
         this.viewModel = viewModel;

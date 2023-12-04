@@ -1,9 +1,9 @@
 package usecase.app.deckbrowser;
 
-import java.util.ArrayList;
-
 import entity.Deck;
 
+import java.util.ArrayList;
+
 public interface DeckBrowserDataAccessInterface {
-    public ArrayList<Deck> getDecks(DeckSearchFilter filter);
+    ArrayList<Deck> getDecks(DeckSearchFilter filter);
 }

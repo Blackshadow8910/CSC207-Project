@@ -1,19 +1,19 @@
 package usecase.app.inventory;
 
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
 import data_access.image.ImageDataAccessInterface;
 import data_access.pokemon.ArrayListCardDataAccessObject;
-import entity.PokemonGuruCardSearchFilter;
 import entity.Card;
+import entity.PokemonGuruCardSearchFilter;
 import entity.User;
 import usecase.app.cardsearch.CardDisplayData;
 
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 public class InventoryInteractor implements InventoryInputBoundary {
-    private InventoryDataAccessInterface dataAccessObject;
-    private ImageDataAccessInterface imageDataAccessInterface;
-    private InventoryOutputBoundary presenter;
+    private final InventoryDataAccessInterface dataAccessObject;
+    private final ImageDataAccessInterface imageDataAccessInterface;
+    private final InventoryOutputBoundary presenter;
 
     public InventoryInteractor(InventoryOutputBoundary presenter, InventoryDataAccessInterface dataAccessObject, ImageDataAccessInterface imageDataAccessInterface) {
         this.dataAccessObject = dataAccessObject;

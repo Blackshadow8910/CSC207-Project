@@ -1,10 +1,9 @@
 package entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public abstract class CardBuilder {
     public String name;
@@ -36,7 +35,7 @@ public abstract class CardBuilder {
         imageURL = data.getJSONObject("images").getString("small");
 
         return this;
-    };
+    }
 
     public abstract Card build();
 

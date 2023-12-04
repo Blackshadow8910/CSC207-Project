@@ -2,6 +2,7 @@ package entity;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -19,7 +20,7 @@ public class PokemonGuruCardSearchFilter {
     public String getQuery() {
         try {
             String result = "supertype:Pokémon " + "name:\"%s\"".formatted(
-                    URLEncoder.encode(name, "UTF-8")
+                    URLEncoder.encode(name, StandardCharsets.UTF_8)
             ).replaceAll("%2B", " ") + " ";
 
             if (!types.isEmpty()) {
@@ -83,7 +84,7 @@ public class PokemonGuruCardSearchFilter {
     }
 
     private String encodeString(String str) throws UnsupportedEncodingException {
-        return URLEncoder.encode(str, "UTF-8");
+        return URLEncoder.encode(str, StandardCharsets.UTF_8);
     }
 
     public PokemonGuruCardSearchFilter() {

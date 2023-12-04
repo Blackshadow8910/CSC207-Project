@@ -1,10 +1,7 @@
 package interface_adapters.signup;
 
-import kotlin.NotImplementedError;
 import usecase.signup.SignupInputBoundary;
 import usecase.signup.SignupInputData;
-
-import javax.swing.*;
 
 import static interface_adapters.signup.SignupRestrictions.*;
 

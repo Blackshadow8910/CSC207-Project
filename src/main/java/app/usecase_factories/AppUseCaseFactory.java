@@ -1,5 +1,6 @@
 package app.usecase_factories;
 
+import app.GUIManager;
 import interface_adapters.app.AppController;
 import interface_adapters.app.AppPresenter;
 import interface_adapters.app.AppViewModel;
@@ -7,14 +8,6 @@ import usecase.app.AppInputBoundary;
 import usecase.app.AppInteractor;
 import usecase.app.AppOutputBoundary;
 import view.app.AppView;
-import view.app.CardSearchView;
-
-import javax.swing.*;
-
-import app.GUIManager;
-import view.app.InventoryView;
-
-import java.io.IOException;
 
 public class AppUseCaseFactory {
 

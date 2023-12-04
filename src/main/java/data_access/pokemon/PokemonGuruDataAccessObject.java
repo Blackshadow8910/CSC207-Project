@@ -1,8 +1,18 @@
 package data_access.pokemon;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import data_access.image.HttpImageFetchWorker;
+import data_access.image.ImageCacheAccessInterface;
+import entity.Card;
+import entity.PokemonGuruCardSearchFilter;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,26 +22,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
-import javax.imageio.ImageIO;
-
-import entity.PokemonGuruCardSearchFilter;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import data_access.image.HttpImageFetchWorker;
-import data_access.image.ImageCacheAccessInterface;
-import entity.Card;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-
 public class PokemonGuruDataAccessObject implements PokemonCardDataAccessInterface, ImageCacheAccessInterface {
     private String apiKey;
     private OkHttpClient httpClient;
 
-    private HashMap<String, Card> cardCache = new HashMap<>();
-    private HashMap<String, HttpImageFetchWorker> imageCache = new HashMap<>();
+    private final HashMap<String, Card> cardCache = new HashMap<>();
+    private final HashMap<String, HttpImageFetchWorker> imageCache = new HashMap<>();
 
 
     public PokemonGuruDataAccessObject() {

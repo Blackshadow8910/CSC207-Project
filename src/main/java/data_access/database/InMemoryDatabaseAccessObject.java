@@ -1,28 +1,20 @@
 package data_access.database;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
 import data_access.pokemon.PokemonCardDataAccessInterface;
-import entity.Card;
-import entity.Conversation;
-import entity.Deck;
-import entity.Message;
-import entity.SellListing;
-import entity.User;
+import entity.*;
 import usecase.app.deckbrowser.DeckSearchFilter;
 
-public class TestDatabaseAccessObject implements DatabaseAccessInterface {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class InMemoryDatabaseAccessObject implements DatabaseAccessInterface {
     private final PokemonCardDataAccessInterface pokemonDAO;
 
     public ArrayList<User> users = new ArrayList<>();
     private final HashMap<String, Deck> decks = new HashMap<>();
     private final HashMap<String, SellListing> sellListings = new HashMap<>();
 
-    public TestDatabaseAccessObject(PokemonCardDataAccessInterface pokemonDAO) {
+    public InMemoryDatabaseAccessObject(PokemonCardDataAccessInterface pokemonDAO) {
         this.pokemonDAO = pokemonDAO;
 
         try {

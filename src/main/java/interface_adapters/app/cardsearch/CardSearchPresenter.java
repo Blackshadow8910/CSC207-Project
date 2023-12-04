@@ -4,7 +4,7 @@ import usecase.app.cardsearch.CardSearchOutputBoundary;
 import usecase.app.cardsearch.CardSearchOutputData;
 
 public class CardSearchPresenter implements CardSearchOutputBoundary {
-    private CardSearchViewModel viewModel;
+    private final CardSearchViewModel viewModel;
     
     public CardSearchPresenter(CardSearchViewModel viewModel) {
         this.viewModel = viewModel;

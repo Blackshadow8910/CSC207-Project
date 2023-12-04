@@ -1,13 +1,9 @@
 package usecase.app.cardsearch;
 
-import java.awt.Image;
-import java.awt.List;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import entity.Card;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class CardSearchOutputData {
     private final ArrayList<CardDisplayData> results = new ArrayList<>();

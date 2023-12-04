@@ -1,10 +1,10 @@
 package usecase.app.trade;
 
-import java.util.ArrayList;
-
 import entity.SellListing;
 
+import java.util.ArrayList;
+
 public interface TradeOutputBoundary {
-    public void presentSellListings(ArrayList<SellListing> listings);
-    public void presentInfoMessage(String message);
+    void presentSellListings(ArrayList<SellListing> listings);
+    void presentInfoMessage(String message);
 }

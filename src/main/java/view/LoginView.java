@@ -1,13 +1,11 @@
 package view;
 
 import app.GUIManager;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
 import interface_adapters.login.LoginController;
 import interface_adapters.login.LoginViewModel;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,33 +21,33 @@ public class LoginView extends JPanel {
 
     public final String viewName = "log in";
     private final GUIManager guiManager;
-    private LoginViewModel loginviewModel;
+    private final LoginViewModel loginviewModel;
 
-    private LoginController loginController;
+    private final LoginController loginController;
 
-    private JLabel usernameLabel = new JLabel("Username: ");
-    private JTextField usernameField = new JTextField();
-    private JPanel usernameInputPanel = new JPanel();
+    private final JLabel usernameLabel = new JLabel("Username: ");
+    private final JTextField usernameField = new JTextField();
+    private final JPanel usernameInputPanel = new JPanel();
 
-    private JPanel iconPanel = new JPanel();
+    private final JPanel iconPanel = new JPanel();
 
-    private JPanel backgroundPanel = new JPanel();
-    private JLabel passwordLabel = new JLabel("Password: ");
-    private JPasswordField passwordField = new JPasswordField();
-    private JPanel passwordInputPanel = new JPanel();
+    private final JPanel backgroundPanel = new JPanel();
+    private final JLabel passwordLabel = new JLabel("Password: ");
+    private final JPasswordField passwordField = new JPasswordField();
+    private final JPanel passwordInputPanel = new JPanel();
 
-    private JButton submitButton = new JButton("Log in");
-    private JButton signupButton = new JButton("Sign up");
-    private JPanel buttonPanel = new JPanel();
+    private final JButton submitButton = new JButton("Log in");
+    private final JButton signupButton = new JButton("Sign up");
+    private final JPanel buttonPanel = new JPanel();
 
-    private JPanel loginPanel = new JPanel(new BorderLayout());
+    private final JPanel loginPanel = new JPanel(new BorderLayout());
 
-    private JPanel overlayPanel = new JPanel();
+    private final JPanel overlayPanel = new JPanel();
 
-    private JLayeredPane layeredPane = new JLayeredPane();
+    private final JLayeredPane layeredPane = new JLayeredPane();
 
 
-    private BoxLayout boxLayout = new BoxLayout(loginPanel, BoxLayout.PAGE_AXIS);
+    private final BoxLayout boxLayout = new BoxLayout(loginPanel, BoxLayout.PAGE_AXIS);
 
     public LoginView(LoginViewModel viewModel, LoginController loginController, GUIManager guiManager) {
         this.loginviewModel = viewModel;

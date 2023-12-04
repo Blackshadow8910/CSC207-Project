@@ -1,10 +1,6 @@
 package app.usecase_factories;
 
 
-
-import javax.swing.*;
-
-import app.GUIManager;
 import data_access.image.ImageDataAccessInterface;
 import data_access.pokemon.PokemonCardDataAccessInterface;
 import interface_adapters.app.AppViewModel;
@@ -15,8 +11,6 @@ import usecase.app.cardsearch.CardSearchInputBoundary;
 import usecase.app.cardsearch.CardSearchInteractor;
 import usecase.app.cardsearch.CardSearchOutputBoundary;
 import view.app.CardSearchView;
-
-import java.io.IOException;
 
 public class CardSearchUseCaseFactory {
 

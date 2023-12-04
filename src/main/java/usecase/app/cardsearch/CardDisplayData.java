@@ -1,8 +1,8 @@
 package usecase.app.cardsearch;
 
-import java.awt.Image;
-
 import entity.Card;
+
+import java.awt.*;
 
 public class CardDisplayData {
     public final Card card;

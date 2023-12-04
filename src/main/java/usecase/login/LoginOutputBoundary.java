@@ -1,7 +1,7 @@
 package usecase.login;
 
 public interface LoginOutputBoundary {
-    public void presentSuccess(LoginOutputData data);
+    void presentSuccess(LoginOutputData data);
 
-    public void presentFailure(String message);
+    void presentFailure(String message);
 }

@@ -1,7 +1,6 @@
 package util;
 
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+import java.awt.*;
 
 public class GridBagConstraintBuilder {
     private int gridx = 0;
@@ -13,8 +12,8 @@ public class GridBagConstraintBuilder {
     private int anchor = GridBagConstraints.CENTER;
     private Insets insets = new Insets(0, 0, 0, 0);
     private int fill = GridBagConstraints.BOTH;
-    private int ipadx = 0;
-    private int ipady = 0;
+    private final int ipadx = 0;
+    private final int ipady = 0;
 
     public GridBagConstraintBuilder() {
 

@@ -1,34 +1,20 @@
 package view.app;
 
+import app.GUIManager;
+import interface_adapters.app.AppController;
+import interface_adapters.app.AppViewModel;
+import util.GridBagConstraintBuilder;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.EventObject;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.MatteBorder;
-
-import app.GUIManager;
-import data_access.pokemon.TestCardDataAccessObject;
-import entity.Card;
-import entity.User;
-import interface_adapters.app.AppController;
-import interface_adapters.app.AppPresenter;
-import interface_adapters.app.AppViewModel;
-import usecase.app.AppInputBoundary;
-import usecase.app.AppInteractor;
-import usecase.app.AppOutputBoundary;
-import util.GridBagConstraintBuilder;
 
 /**
  * Where the bulk of the app will be; this will contain the ui for features after you have logged in

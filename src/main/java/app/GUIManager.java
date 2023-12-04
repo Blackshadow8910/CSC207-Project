@@ -10,7 +10,7 @@ import java.awt.event.ComponentEvent;
 
 public class GUIManager {
     public JFrame frame = new JFrame("PokeTrader");
-    private CardLayout cardLayout = new CardLayout();
+    private final CardLayout cardLayout = new CardLayout();
     public JPanel views = new JPanel(cardLayout);
 
     public GUIManager() {

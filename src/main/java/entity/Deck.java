@@ -1,9 +1,9 @@
 package entity;
+
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
-import java.util.Map.Entry;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Deck {
     public ArrayList<Card> deck;

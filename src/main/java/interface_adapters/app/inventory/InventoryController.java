@@ -1,7 +1,7 @@
 package interface_adapters.app.inventory;
 
-import entity.PokemonGuruCardSearchFilter;
 import entity.Card;
+import entity.PokemonGuruCardSearchFilter;
 import entity.User;
 import usecase.app.inventory.InventoryInputBoundary;
 
