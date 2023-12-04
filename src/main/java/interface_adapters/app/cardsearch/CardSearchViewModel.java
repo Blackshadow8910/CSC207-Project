@@ -12,6 +12,7 @@ import usecase.app.cardsearch.CardDisplayData;
 public class CardSearchViewModel extends ViewModel{
 
     private ArrayList<CardDisplayData> displayedResults = new ArrayList<>();
+    private Card currentCard = null;
 
     public CardSearchViewModel() {
         super("cardsearch");
@@ -22,5 +23,16 @@ public class CardSearchViewModel extends ViewModel{
         displayedResults = results;
 
         firePropertyChanged("displayedResults", oldValue, results);
+    }
+
+    public void setCurrentCard(Card card) {
+        Object oldValue = currentCard;
+        currentCard = card;
+
+        firePropertyChanged("currentCard", oldValue, currentCard);
+    }
+
+    public Card getCurrentCard() {
+        return currentCard;
     }
 }
